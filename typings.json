@@ -1,0 +1,7 @@
+{
+  "name": "paynl-sdk",
+  "dependencies": {
+    "dateformat": "registry:npm/dateformat#1.0.0+20160723033700",
+    "request": "registry:npm/request#2.69.0+20160428223725"
+  }
+}

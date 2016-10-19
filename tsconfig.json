@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "sourceMap": true,
+        "target": "es6",
+        "outDir": "./build/"
+    },
+    "exclude": [
+        "node_modules",
+        //  "typings",
+        "**/*.spec.ts"
+    ]
+    
+}
