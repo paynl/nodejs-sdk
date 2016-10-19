@@ -1,21 +1,23 @@
 "use strict";
-const index_1 = require('../index');
-const Observable_1 = require('rxjs/Observable');
-const request = require('request');
+var index_1 = require('../index');
+var Observable_1 = require('rxjs/Observable');
+var request = require('request');
 require('rxjs/add/observable/throw');
-class Api {
-    static getUrl(controller, action, version) {
+var Api = (function () {
+    function Api() {
+    }
+    Api.getUrl = function (controller, action, version) {
         var url = index_1.Config.getBaseUrl();
         url += "/v" + version;
         url += "/" + controller;
         url += "/" + action;
         url += "/json";
         return url;
-    }
+    };
     /**
      * Checks if the result is an error (there are many ways the api can return an error)
      */
-    static isError(body) {
+    Api.isError = function (body) {
         if (body['status'] && body['status'] == 'FALSE') {
             return body['error'];
         }
@@ -23,30 +25,33 @@ class Api {
             return body['request']['errorId'] + " " + body['request']['errorMessage'];
         }
         return false;
-    }
-    static post(controller, action, version, data = {}) {
-        return Observable_1.Observable.create((observable) => {
-            let url = this.getUrl(controller, action, version);
+    };
+    Api.post = function (controller, action, version, data) {
+        var _this = this;
+        if (data === void 0) { data = {}; }
+        return Observable_1.Observable.create(function (observable) {
+            var url = _this.getUrl(controller, action, version);
             data['token'] = index_1.Config.getApiToken();
             data['serviceId'] = index_1.Config.getServiceId();
-            let jsonData = JSON.stringify(data);
+            var jsonData = JSON.stringify(data);
             request.post({
                 url: url,
                 headers: { 'Content-Type': 'application/json' },
                 body: jsonData,
-            }, (error, response, body) => {
+            }, function (error, response, body) {
                 if (error) {
                     throw (error);
                 }
                 body = JSON.parse(body);
-                if (this.isError(body) !== false) {
-                    throw (this.isError(body));
+                if (_this.isError(body) !== false) {
+                    throw (_this.isError(body));
                 }
                 observable.next(body);
                 observable.complete();
             });
         });
-    }
-}
+    };
+    return Api;
+}());
 exports.Api = Api;
 //# sourceMappingURL=api.js.map

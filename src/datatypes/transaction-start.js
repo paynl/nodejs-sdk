@@ -1,47 +1,71 @@
 "use strict";
-const dateFormat = require('dateformat');
-class Product {
-}
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var dateFormat = require('dateformat');
+var Product = (function () {
+    function Product() {
+    }
+    return Product;
+}());
 exports.Product = Product;
-class Enduser {
-}
+var Enduser = (function () {
+    function Enduser() {
+    }
+    return Enduser;
+}());
 exports.Enduser = Enduser;
-class Address {
-}
+var Address = (function () {
+    function Address() {
+    }
+    return Address;
+}());
 exports.Address = Address;
-class InvoiceAddress extends Address {
-}
+var InvoiceAddress = (function (_super) {
+    __extends(InvoiceAddress, _super);
+    function InvoiceAddress() {
+        _super.apply(this, arguments);
+    }
+    return InvoiceAddress;
+}(Address));
 exports.InvoiceAddress = InvoiceAddress;
-class TransactionStart {
-}
+var TransactionStart = (function () {
+    function TransactionStart() {
+    }
+    return TransactionStart;
+}());
 exports.TransactionStart = TransactionStart;
-class TransactionStartClass extends TransactionStart {
-    constructor(data) {
-        super();
+var TransactionStartClass = (function (_super) {
+    __extends(TransactionStartClass, _super);
+    function TransactionStartClass(data) {
+        _super.call(this);
         Object.assign(this, data);
     }
-    formatDate(date) {
+    TransactionStartClass.prototype.formatDate = function (date) {
         return dateFormat(date, 'dd-mm-yyyy');
         // return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-    }
-    formatDateTime(date) {
+    };
+    TransactionStartClass.prototype.formatDateTime = function (date) {
         return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');
-    }
-    calculateVatCode(priceIncl, vatAmount) {
+    };
+    TransactionStartClass.prototype.calculateVatCode = function (priceIncl, vatAmount) {
         var vatCodes = { 0: 'N', 6: 'L', 21: 'H' };
         var priceExcl = priceIncl - vatAmount;
         if (!vatAmount || vatAmount == 0 || !priceIncl || priceIncl == 0) {
             return vatCodes[0];
         }
         var vatRate = (vatAmount / priceExcl) * 100;
-        var closest = Object.keys(vatCodes).reduce((prev, curr) => {
+        var closest = Object.keys(vatCodes).reduce(function (prev, curr) {
             var prevFloat = parseFloat(prev);
             var currFloat = parseFloat(curr);
             return (Math.abs(currFloat - vatRate) < Math.abs(prevFloat - vatRate) ? curr : prev);
         });
         return vatCodes[closest];
-    }
-    getForApi() {
+    };
+    TransactionStartClass.prototype.getForApi = function () {
+        var _this = this;
         var data = {};
         data['amount'] = Math.round(this.amount * 100);
         data['finishUrl'] = this.returnUrl;
@@ -107,18 +131,19 @@ class TransactionStartClass extends TransactionStart {
             data['saleData']['deliveryDate'] = this.formatDate(this.deliveryDate);
         if (this.products) {
             data['saleData']['orderData'] = [];
-            this.products.forEach((product) => {
+            this.products.forEach(function (product) {
                 data['saleData']['orderData'].push({
                     productId: product.id,
                     description: product.name,
                     price: Math.round(product.price * 100),
                     quantity: product.qty,
-                    vatCode: this.calculateVatCode(product.price, product.tax)
+                    vatCode: _this.calculateVatCode(product.price, product.tax)
                 });
             });
         }
         return data;
-    }
-}
+    };
+    return TransactionStartClass;
+}(TransactionStart));
 exports.TransactionStartClass = TransactionStartClass;
 //# sourceMappingURL=transaction-start.js.map

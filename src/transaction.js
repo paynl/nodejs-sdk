@@ -1,12 +1,15 @@
 "use strict";
-const start_1 = require('./result/transaction/start');
-const transaction_start_1 = require('./datatypes/transaction-start');
-const api_1 = require('./api/api');
-const Observable_1 = require('rxjs/Observable');
+var start_1 = require('./result/transaction/start');
+var transaction_start_1 = require('./datatypes/transaction-start');
+var api_1 = require('./api/api');
+var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/map');
-class Transaction {
-    static start(options) {
-        return Observable_1.Observable.create((observable) => {
+var Transaction = (function () {
+    function Transaction() {
+    }
+    Transaction.start = function (options) {
+        var _this = this;
+        return Observable_1.Observable.create(function (observable) {
             // Prepare the data
             var startData = new transaction_start_1.TransactionStartClass(options);
             if (!startData.amount) {
@@ -24,10 +27,11 @@ class Transaction {
                 observable.complete();
                 return;
             }
-            api_1.Api.post('transaction', 'start', this.version, startData.getForApi()).map((result) => new start_1.StartResult(result.transaction)).subscribe((result) => observable.next(result), (error) => observable.error(error), () => observable.complete());
+            api_1.Api.post('transaction', 'start', _this.version, startData.getForApi()).map(function (result) { return new start_1.StartResult(result.transaction); }).subscribe(function (result) { return observable.next(result); }, function (error) { return observable.error(error); }, function () { return observable.complete(); });
         });
-    }
-}
-Transaction.version = 5;
+    };
+    Transaction.version = 5;
+    return Transaction;
+}());
 exports.Transaction = Transaction;
 //# sourceMappingURL=transaction.js.map

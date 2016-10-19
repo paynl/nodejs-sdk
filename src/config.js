@@ -1,24 +1,27 @@
 "use strict";
-class Config {
-    static setApiToken(apiToken) {
+var Config = (function () {
+    function Config() {
+    }
+    Config.setApiToken = function (apiToken) {
         this.apiToken = apiToken;
-    }
-    static getApiToken() {
+    };
+    Config.getApiToken = function () {
         return this.apiToken;
-    }
-    static setServiceId(serviceId) {
+    };
+    Config.setServiceId = function (serviceId) {
         this.serviceId = serviceId;
-    }
-    static getServiceId() {
+    };
+    Config.getServiceId = function () {
         return this.serviceId;
-    }
-    static setBaseUrl(baseUrl) {
+    };
+    Config.setBaseUrl = function (baseUrl) {
         this.baseUrl = baseUrl;
-    }
-    static getBaseUrl() {
+    };
+    Config.getBaseUrl = function () {
         return this.baseUrl;
-    }
-}
-Config.baseUrl = "https://rest-api.pay.nl";
+    };
+    Config.baseUrl = "https://rest-api.pay.nl";
+    return Config;
+}());
 exports.Config = Config;
 //# sourceMappingURL=config.js.map
