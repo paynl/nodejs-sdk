@@ -6,6 +6,9 @@ require('rxjs/add/observable/throw');
 var Api = (function () {
     function Api() {
     }
+    /**
+     * Generate the url of the API to call
+     */
     Api.getUrl = function (controller, action, version) {
         var url = index_1.Config.getBaseUrl();
         url += "/v" + version;
@@ -26,6 +29,9 @@ var Api = (function () {
         }
         return false;
     };
+    /**
+     * Do a post request on the API.
+     */
     Api.post = function (controller, action, version, data) {
         var _this = this;
         if (data === void 0) { data = {}; }
@@ -40,11 +46,11 @@ var Api = (function () {
                 body: jsonData,
             }, function (error, response, body) {
                 if (error) {
-                    throw (error);
+                    observable.error(error);
                 }
                 body = JSON.parse(body);
                 if (_this.isError(body) !== false) {
-                    throw (_this.isError(body));
+                    observable.error(_this.isError(body));
                 }
                 observable.next(body);
                 observable.complete();

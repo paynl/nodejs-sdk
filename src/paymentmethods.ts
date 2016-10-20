@@ -15,10 +15,10 @@ export class Paymentmethods {
                     // we only want iDEAL banks, for myBank and Giropay the list is quite large
                     delete paymentmethod['paymentOptionSubList'];
                 }
-                if(paymentmethod['paymentOptionSubList']){
-                    for(let bankId in paymentmethod['paymentOptionSubList']){
+                if (paymentmethod['paymentOptionSubList']) {
+                    for (let bankId in paymentmethod['paymentOptionSubList']) {
                         let bank = paymentmethod['paymentOptionSubList'][bankId];
-                        paymentmethod['paymentOptionSubList'][bankId]['img'] = baseUrl+bank['path']+bank['img'];
+                        paymentmethod['paymentOptionSubList'][bankId]['img'] = baseUrl + bank['path'] + bank['img'];
                     }
                 }
                 paymentmethod['countries'] = [];
@@ -39,17 +39,27 @@ export class Paymentmethods {
         return paymentmethods;
 
     }
-    static getList(): Observable<Paymentmethod[]> {
-        return Api.post('Transaction', 'getService', 5).map(
-            (result) => {
-                var paymentmethods = [];
-                var reordered = this.reorderGetServiceData(result);
-                for(let paymentmethodId in reordered){
-                    let paymentmethod = reordered[paymentmethodId];
-                    paymentmethods.push(new Paymentmethod(paymentmethod));
+    static getList(): Observable<Paymentmethod> {
+        return Observable.create(observer => {
+            Api.post('Transaction', 'getService', 5).map(
+                (result) => {
+                    var paymentmethods = [];
+                    var reordered = this.reorderGetServiceData(result);
+                    for (let paymentmethodId in reordered) {
+                        let paymentmethod = reordered[paymentmethodId];
+                        paymentmethods.push(new Paymentmethod(paymentmethod));
+                    }
+                    return paymentmethods;
                 }
-                return paymentmethods;
-            }
-        );
+            ).subscribe(
+                paymentmethods => {
+                    paymentmethods.forEach(paymentmethod => {
+                        observer.next(paymentmethod);
+                    });
+                },
+                error => observer.error(error),
+                () => observer.complete()
+                );
+        });
     }
 }

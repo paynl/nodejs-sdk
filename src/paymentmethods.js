@@ -1,4 +1,5 @@
 "use strict";
+var Observable_1 = require('rxjs/Observable');
 var api_1 = require('./api/api');
 var paymentmethod_1 = require('./result/paymentmethod');
 var Paymentmethods = (function () {
@@ -41,14 +42,20 @@ var Paymentmethods = (function () {
     };
     Paymentmethods.getList = function () {
         var _this = this;
-        return api_1.Api.post('Transaction', 'getService', 5).map(function (result) {
-            var paymentmethods = [];
-            var reordered = _this.reorderGetServiceData(result);
-            for (var paymentmethodId in reordered) {
-                var paymentmethod = reordered[paymentmethodId];
-                paymentmethods.push(new paymentmethod_1.Paymentmethod(paymentmethod));
-            }
-            return paymentmethods;
+        return Observable_1.Observable.create(function (observer) {
+            api_1.Api.post('Transaction', 'getService', 5).map(function (result) {
+                var paymentmethods = [];
+                var reordered = _this.reorderGetServiceData(result);
+                for (var paymentmethodId in reordered) {
+                    var paymentmethod = reordered[paymentmethodId];
+                    paymentmethods.push(new paymentmethod_1.Paymentmethod(paymentmethod));
+                }
+                return paymentmethods;
+            }).subscribe(function (paymentmethods) {
+                paymentmethods.forEach(function (paymentmethod) {
+                    observer.next(paymentmethod);
+                });
+            }, function (error) { return observer.error(error); }, function () { return observer.complete(); });
         });
     };
     return Paymentmethods;

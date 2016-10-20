@@ -1,5 +1,5 @@
 "use strict";
-var Paynl = require('../index');
+var Paynl = require('../../index');
 Paynl.Config.setApiToken('your-api-token');
 Paynl.Config.setServiceId('SL-0123-4567');
 Paynl.Transaction.start({
@@ -63,4 +63,4 @@ Paynl.Transaction.start({
 }).subscribe(function (result) {
     console.log(result.paymentURL);
 }, function (error) { return console.error('error ', error); }, function () { return console.log('complete'); });
-//# sourceMappingURL=start_transaction.js.map
+//# sourceMappingURL=start.js.map

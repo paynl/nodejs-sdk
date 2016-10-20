@@ -17,20 +17,6 @@ var Enduser = (function () {
     return Enduser;
 }());
 exports.Enduser = Enduser;
-var Address = (function () {
-    function Address() {
-    }
-    return Address;
-}());
-exports.Address = Address;
-var InvoiceAddress = (function (_super) {
-    __extends(InvoiceAddress, _super);
-    function InvoiceAddress() {
-        _super.apply(this, arguments);
-    }
-    return InvoiceAddress;
-}(Address));
-exports.InvoiceAddress = InvoiceAddress;
 var TransactionStart = (function () {
     function TransactionStart() {
     }

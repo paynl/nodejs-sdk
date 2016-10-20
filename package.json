@@ -1,6 +1,10 @@
 {
   "name": "paynl-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paynl/nodejs-sdk.git"
+  },
   "description": "Manage transactions in your Pay.nl account with nodejs",
   "main": "src/index.js",
   "scripts": {

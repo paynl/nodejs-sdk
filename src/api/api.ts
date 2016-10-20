@@ -5,6 +5,9 @@ import * as request from 'request';
 import 'rxjs/add/observable/throw';
 
 export class Api {
+    /**
+     * Generate the url of the API to call
+     */
     static getUrl(controller, action, version) {
         var url = Config.getBaseUrl();
         url += "/v" + version;
@@ -25,6 +28,9 @@ export class Api {
         }
         return false;
     }  
+    /**
+     * Do a post request on the API.
+     */
     static post(controller, action, version, data = {}): Observable<any> {
         return Observable.create((observable) => {
             let url = this.getUrl(controller, action, version);
@@ -39,13 +45,12 @@ export class Api {
                 body: jsonData,
             }, (error, response, body) => {               
                 if(error){
-                    throw(error);
-        
+                    observable.error(error);        
                 }
                 body = JSON.parse(body);
 
                 if(this.isError(body) !== false){
-                    throw(this.isError(body));                  
+                    observable.error(this.isError(body));                  
                 }
 
                 observable.next(body);
