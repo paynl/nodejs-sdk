@@ -8,7 +8,6 @@ var TransactionResult = (function () {
         this.enduser = new Enduser(data['enduser']);
         this.saleData = new SaleData(data['saleData']);
         this.paymentDetails = new PaymentDetails(data['paymentDetails']);
-        this.stornoDetails = new StornoDetails(data['stornoDetails']);
         this.statsDetails = new StatsDetails(data['statsDetails']);
     }
     TransactionResult.prototype.approve = function () {
@@ -47,11 +46,17 @@ var Enduser = (function () {
     return Enduser;
 }());
 exports.Enduser = Enduser;
+function parseDate(date) {
+    var arrDate = date.split('-');
+    return new Date(parseInt(arrDate[2]), parseInt(arrDate[1]) - 1, parseInt(arrDate[0]));
+}
 var SaleData = (function () {
     function SaleData(data) {
         var _this = this;
-        this.invoiceDate = data['invoiceDate'];
-        this.deliveryDate = data['deliveryDate'];
+        if (data['invoiceDate'])
+            this.invoiceDate = parseDate(data['invoiceDate']);
+        if (data['deliveryDate'])
+            this.deliveryDate = parseDate(data['deliveryDate']);
         if (data['orderData']) {
             this.orderData = [];
             Object.keys(data['orderData']).forEach(function (key) {
@@ -86,14 +91,6 @@ var PaymentDetails = (function () {
     return PaymentDetails;
 }());
 exports.PaymentDetails = PaymentDetails;
-var StornoDetails = (function () {
-    function StornoDetails(data) {
-        data['stornoAmount'] = data['stornoAmount'] / 100;
-        Object.assign(this, data);
-    }
-    return StornoDetails;
-}());
-exports.StornoDetails = StornoDetails;
 var StatsDetails = (function () {
     function StatsDetails(data) {
         Object.assign(this, data);

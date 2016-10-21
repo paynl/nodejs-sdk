@@ -8,7 +8,6 @@ export class TransactionResult {
     enduser: Enduser;
     saleData: SaleData;
     paymentDetails: PaymentDetails;
-    stornoDetails: StornoDetails;
     statsDetails: StatsDetails;
     constructor(data) {
         this.transactionId = data['transactionId'];
@@ -16,7 +15,6 @@ export class TransactionResult {
         this.enduser = new Enduser(data['enduser']);
         this.saleData = new SaleData(data['saleData']);
         this.paymentDetails = new PaymentDetails(data['paymentDetails']);
-        this.stornoDetails = new StornoDetails(data['stornoDetails']);
         this.statsDetails = new StatsDetails(data['statsDetails']);
     }
 
@@ -80,14 +78,17 @@ export class Enduser {
         (<any>Object).assign(this, data);
     }
 }
-
+function parseDate(date: string){
+    var arrDate = date.split('-');
+    return new Date(parseInt(arrDate[2]), parseInt(arrDate[1])-1, parseInt(arrDate[0]));    
+}
 export class SaleData {
-    invoiceDate?: string;
-    deliveryDate?: string;
+    invoiceDate?: Date;
+    deliveryDate?: Date;
     orderData?: OrderDataRow[];
-    constructor(data) {
-        this.invoiceDate = data['invoiceDate'];
-        this.deliveryDate = data['deliveryDate'];
+    constructor(data) {       
+        if(data['invoiceDate']) this.invoiceDate = parseDate(data['invoiceDate']);
+        if(data['deliveryDate']) this.deliveryDate = parseDate(data['deliveryDate']);
 
         if (data['orderData']) {
             this.orderData = [];
@@ -155,21 +156,7 @@ export class PaymentDetails {
         (<any>Object).assign(this, data);
     }
 }
-export class StornoDetails {
-    stornoId?: number;
-    stornoAmount?: number;
-    bankAccount?: string;
-    iban?: string;
-    bic?: string;
-    city?: string;
-    datetime?: string;
-    reason?: string;
-    emailAddress?: string;
-    constructor(data) {
-        data['stornoAmount'] = data['stornoAmount'] / 100;
-        (<any>Object).assign(this, data);
-    }
-}
+
 export class StatsDetails {
     paymentSessionId?: number;
     tool?: string;
