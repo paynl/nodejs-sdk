@@ -1,6 +1,6 @@
 "use strict";
 var Paynl = require('../index');
-Paynl.Config.setApiToken('your-api-token');
+Paynl.Config.setApiToken('Your-api-token');
 Paynl.Config.setServiceId('SL-6712-4510');
 Paynl.Paymentmethods.getList().forEach(function (paymentmethod) {
     console.log(paymentmethod.id + ' ' + paymentmethod.visibleName);

@@ -45,14 +45,22 @@ export class Api {
                 body: jsonData,
             }, (error, response, body) => {               
                 if(error){
-                    observable.error(error);        
+                    observable.error(error);
+                    return;
                 }
-                body = JSON.parse(body);
-
-                if(this.isError(body) !== false){
-                    observable.error(this.isError(body));                  
+                try{
+                    body = JSON.parse(body);
+                } catch(e){
+                    observable.error(body);
+                    return
                 }
+                
 
+                if(this.isError(body) !== false){                    
+                    observable.error(this.isError(body));
+                    return;              
+                }
+              
                 observable.next(body);
                 observable.complete();
             });

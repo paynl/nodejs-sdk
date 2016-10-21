@@ -1,12 +1,14 @@
 import * as Paynl from '../../index'
 
-Paynl.Config.setApiToken('your-api-token');
-Paynl.Config.setServiceId('SL-0123-4567');
+Paynl.Config.setApiToken('Your-api-token');
+Paynl.Config.setServiceId('SL-6712-4510');
 
 Paynl.Transaction.get('715844054X85729e').subscribe(
     result => {
-        console.log(result.saleData.orderData);
+        result.refund().subscribe(
+            result => console.log(result),
+            error => console.error(error)
+        );
     },
-    error => {
-        console.log(error);
-    });
+    error => console.log(error)
+);

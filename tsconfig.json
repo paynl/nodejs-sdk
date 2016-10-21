@@ -3,13 +3,12 @@
         "module": "commonjs",
         "sourceMap": true,
         "target": "es5",
-        // "outDir": "./build/",
+        "outDir": "./build/",
         "moduleResolution": "node"
     },
     "exclude": [
         "node_modules",
-          "typings",
+        "typings",
         "**/*.spec.ts"
     ]
-    
 }

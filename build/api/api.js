@@ -47,10 +47,18 @@ var Api = (function () {
             }, function (error, response, body) {
                 if (error) {
                     observable.error(error);
+                    return;
                 }
-                body = JSON.parse(body);
+                try {
+                    body = JSON.parse(body);
+                }
+                catch (e) {
+                    observable.error(body);
+                    return;
+                }
                 if (_this.isError(body) !== false) {
                     observable.error(_this.isError(body));
+                    return;
                 }
                 observable.next(body);
                 observable.complete();

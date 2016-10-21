@@ -1,6 +1,9 @@
+import { Transaction } from '../index';
+import { Refund } from '../datatypes/refund';
 import { Address, InvoiceAddress } from '../datatypes/address';
 
 export class TransactionResult {
+    transactionId: string;
     connection: Connection;
     enduser: Enduser;
     saleData: SaleData;
@@ -8,6 +11,7 @@ export class TransactionResult {
     stornoDetails: StornoDetails;
     statsDetails: StatsDetails;
     constructor(data) {
+        this.transactionId = data['transactionId'];
         this.connection = new Connection(data['connection']);
         this.enduser = new Enduser(data['enduser']);
         this.saleData = new SaleData(data['saleData']);
@@ -15,8 +19,25 @@ export class TransactionResult {
         this.stornoDetails = new StornoDetails(data['stornoDetails']);
         this.statsDetails = new StatsDetails(data['statsDetails']);
     }
-}
 
+    approve() {
+        return Transaction.approve(this.transactionId);
+    }
+    decline() {
+        return Transaction.decline(this.transactionId);
+    }
+    refund(options: ResultRefund = null) {
+        var refund = new Refund;
+        (<any>Object).assign(refund, options);
+        refund.transactionId = this.transactionId;
+        return Transaction.refund(refund);
+    }
+}
+export class ResultRefund {
+    amount?: number;
+    description?: string;
+    processDate?: Date;
+}
 export class Connection {
     trust: number;
     country?: string;
@@ -33,7 +54,7 @@ export class Connection {
     merchantName?: string;
 
     constructor(data) {
-        Object.assign(this, data);
+        (<any>Object).assign(this, data);
     }
 }
 
@@ -56,7 +77,7 @@ export class Enduser {
     invoiceAddress?: InvoiceAddress;
 
     constructor(data) {
-        Object.assign(this, data);
+        (<any>Object).assign(this, data);
     }
 }
 
@@ -85,7 +106,7 @@ export class OrderDataRow {
     vatCode: string;
     constructor(data) {
         data.price = data.price / 100;
-        Object.assign(this, data);
+        (<any>Object).assign(this, data);
     }
 }
 export class PaymentDetails {
@@ -121,15 +142,17 @@ export class PaymentDetails {
     paymentMethodDescription: string;
     paymentProfileName: string;
     constructor(data) {
-        data['amount']=data['amount']/100;
-        data['currencyAmount']=data['currencyAmount']/100;
-        data['paidAmount']=data['paidAmount']/100;
-        data['paidCurrenyAmount']=data['paidCurrenyAmount']/100;
-        data['paidBase']=data['paidBase']/100;
-        data['paidCosts']=data['paidCosts']/100;
-        data['paidCostsVat']=data['paidCostsVat']/100;
+        data['amount'] = data['amount'] / 100;
+        data['currencyAmount'] = data['currenyAmount'] / 100;
+        delete data['currenyAmount'];
+        data['paidAmount'] = data['paidAmount'] / 100;
+        data['paidCurrencyAmount'] = data['paidCurrenyAmount'] / 100;
+        delete data['paidCurrenyAmount'];
+        data['paidBase'] = data['paidBase'] / 100;
+        data['paidCosts'] = data['paidCosts'] / 100;
+        data['paidCostsVat'] = data['paidCostsVat'] / 100;
 
-        Object.assign(this, data);
+        (<any>Object).assign(this, data);
     }
 }
 export class StornoDetails {
@@ -143,8 +166,8 @@ export class StornoDetails {
     reason?: string;
     emailAddress?: string;
     constructor(data) {
-        data['stornoAmount'] = data['stornoAmount']/100;
-        Object.assign(this, data);
+        data['stornoAmount'] = data['stornoAmount'] / 100;
+        (<any>Object).assign(this, data);
     }
 }
 export class StatsDetails {
@@ -158,6 +181,6 @@ export class StatsDetails {
     transferData?: string;
     object?: string;
     constructor(data) {
-        Object.assign(this, data);
+        (<any>Object).assign(this, data);
     }
 }

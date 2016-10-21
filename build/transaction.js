@@ -2,6 +2,7 @@
 var start_1 = require('./result/transaction/start');
 var transaction_1 = require('./result/transaction');
 var transaction_start_1 = require('./datatypes/transaction-start');
+var refund_1 = require('./datatypes/refund');
 var api_1 = require('./api/api');
 var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/map');
@@ -37,8 +38,24 @@ var Transaction = (function () {
         }
         return api_1.Api.post('Transaction', 'info', this.version, { transactionId: transactionId })
             .map(function (data) {
+            data['transactionId'] = transactionId;
             return new transaction_1.TransactionResult(data);
         });
+    };
+    Transaction.approve = function (transactionId) {
+        return api_1.Api.post('Transaction', 'approve', this.version, { orderId: transactionId })
+            .map(function (result) { return result.request.result == '1'; });
+    };
+    Transaction.decline = function (transactionId) {
+        return api_1.Api.post('Transaction', 'decline', this.version, { orderId: transactionId })
+            .map(function (result) { return result.request.result == '1'; });
+    };
+    Transaction.refund = function (options) {
+        var data = new refund_1.RefundClass(options).getForApi();
+        if (!options.transactionId)
+            return Observable_1.Observable.throw('transactionId is required');
+        return api_1.Api.post('Transaction', 'refund', this.version, data)
+            .map(function (result) { return result['refundId']; });
     };
     Transaction.version = 5;
     return Transaction;

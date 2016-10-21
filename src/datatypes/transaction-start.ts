@@ -123,11 +123,10 @@ export class TransactionStart {
 export class TransactionStartClass extends TransactionStart {
     constructor(data: TransactionStart) {
         super();
-        Object.assign(this, data);
+        (<any>Object).assign(this, data);
     }
     private formatDate(date: Date) {
         return dateFormat(date, 'dd-mm-yyyy');
-        // return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
     }
     private formatDateTime(date: Date) {
         return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');       

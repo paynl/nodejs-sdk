@@ -1,6 +1,6 @@
 "use strict";
 var Paynl = require('../../index');
-Paynl.Config.setApiToken('your-api-token');
+Paynl.Config.setApiToken('Your-api-token');
 Paynl.Config.setServiceId('SL-0123-4567');
 Paynl.Transaction.start({
     amount: 20,

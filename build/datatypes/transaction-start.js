@@ -31,7 +31,6 @@ var TransactionStartClass = (function (_super) {
     }
     TransactionStartClass.prototype.formatDate = function (date) {
         return dateFormat(date, 'dd-mm-yyyy');
-        // return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
     };
     TransactionStartClass.prototype.formatDateTime = function (date) {
         return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');
