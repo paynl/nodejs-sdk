@@ -34,7 +34,7 @@ Paynl.Config.setServiceId('SL-0123-4567');
 
 ### Getting the available payment methods
 This example shows how to fetch a list of the available payment methods.
-The method ```javascript Paynl.Paymentmethods.getList() ``` returns an observable array.
+The method ``` Paynl.Paymentmethods.getList() ``` returns an observable array.
 For more information about observables see [reactivex.io](http://reactivex.io/rxjs/)
 
 ```javascript
@@ -71,7 +71,7 @@ Paynl.Transaction.start({
     console.log(result.transactionId);
   }, 
   function (error) {
-    return console.error(error); 
+    console.error(error); 
   }
 );
 ```
