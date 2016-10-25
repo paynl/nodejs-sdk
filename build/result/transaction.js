@@ -10,6 +10,28 @@ var TransactionResult = (function () {
         this.paymentDetails = new PaymentDetails(data['paymentDetails']);
         this.statsDetails = new StatsDetails(data['statsDetails']);
     }
+    TransactionResult.prototype.isPaid = function () {
+        return this.paymentDetails.stateName == 'PAID';
+    };
+    TransactionResult.prototype.isPending = function () {
+        return this.paymentDetails.stateName == 'PENDING' || this.paymentDetails.stateName == 'VERIFY';
+    };
+    TransactionResult.prototype.isCanceled = function () {
+        return this.paymentDetails.state < 0;
+    };
+    TransactionResult.prototype.isRefunded = function (alsoPartial) {
+        if (this.paymentDetails.stateName == 'REFUND')
+            return true;
+        if (alsoPartial && this.paymentDetails.stateName == 'PARTIAL_REFUND')
+            return true;
+        return false;
+    };
+    TransactionResult.prototype.isPartiallyRefunded = function () {
+        return this.paymentDetails.stateName == 'PARTIAL_REFUND';
+    };
+    TransactionResult.prototype.isBeingVerified = function () {
+        return this.paymentDetails.stateName == 'VERIFY';
+    };
     TransactionResult.prototype.approve = function () {
         return index_1.Transaction.approve(this.transactionId);
     };

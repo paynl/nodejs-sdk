@@ -18,6 +18,28 @@ export class TransactionResult {
         this.statsDetails = new StatsDetails(data['statsDetails']);
     }
 
+    isPaid(){
+        return this.paymentDetails.stateName == 'PAID';
+    }
+
+    isPending(){
+        return this.paymentDetails.stateName == 'PENDING' || this.paymentDetails.stateName == 'VERIFY';
+    }
+    isCanceled(){
+        return this.paymentDetails.state < 0;
+    }
+    isRefunded(alsoPartial: boolean){
+        if(this.paymentDetails.stateName == 'REFUND') return true;
+        if(alsoPartial && this.paymentDetails.stateName == 'PARTIAL_REFUND') return true;
+        return false;
+    }
+    isPartiallyRefunded(){
+        return this.paymentDetails.stateName == 'PARTIAL_REFUND';
+    }
+    isBeingVerified(){
+        return this.paymentDetails.stateName == 'VERIFY';
+    }
+
     approve() {
         return Transaction.approve(this.transactionId);
     }
@@ -124,6 +146,7 @@ export class PaymentDetails {
     description: any;
     processTime: any;
     state: number;
+    stateName: string;
     exchange: number;
     storno?: number;
     paymentOptionId: number;
