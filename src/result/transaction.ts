@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable'
 import { Transaction } from '../index';
 import { Refund } from '../datatypes/refund';
 import { Address, InvoiceAddress } from '../datatypes/address';
@@ -40,13 +41,13 @@ export class TransactionResult {
         return this.paymentDetails.stateName == 'VERIFY';
     }
 
-    approve() {
+    approve():Observable<boolean> {
         return Transaction.approve(this.transactionId);
     }
-    decline() {
+    decline():Observable<boolean> {
         return Transaction.decline(this.transactionId);
     }
-    refund(options: ResultRefund = null) {
+    refund(options: ResultRefund = null):Observable<string> {
         var refund = new Refund;
         (<any>Object).assign(refund, options);
         refund.transactionId = this.transactionId;
