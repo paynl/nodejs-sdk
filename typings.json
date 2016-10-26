@@ -2,7 +2,6 @@
   "name": "paynl-sdk",
   "dependencies": {
     "dateformat": "registry:npm/dateformat#1.0.0+20160723033700",
-    "es6-promise": "registry:common/es6-promise#4.0.0+20161003185919",
     "request": "registry:npm/request#2.69.0+20160428223725"
   }
 }
