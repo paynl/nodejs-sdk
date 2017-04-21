@@ -1,12 +1,12 @@
 # Pay.nl NodeJS SDK
 SDK for pay.nl allowing you to manage your pay.nl transactions in nodeJS
 
-##Installation
+## Installation
 ```bash
 npm install paynl-sdk --save
 ```
 
-##Usage
+## Usage
 
 - Require 'paynl-sdk' in your file.
 ```javascript
@@ -31,6 +31,7 @@ var Paynl = require('paynl-sdk');
 Paynl.Config.setApiToken('Your-api-token');
 Paynl.Config.setServiceId('SL-0123-4567');
 ```
+## Basic transactions
 
 ### Getting the available payment methods
 This example shows how to fetch a list of the available payment methods.
@@ -103,4 +104,53 @@ Paynl.Transaction.get('715844054X85729e').subscribe(
     console.error(error);
   }
 );
+```
+
+## Instore payments (pin)
+
+### Fetching available terminals
+
+Before you can send a transaction, you need to know which terminal to send the transaction to.
+
+```javascript
+Paynl.Instore.getTerminals()
+    .forEach(function (terminal) {
+    console.log(terminal.id + ' ' + terminal.name);
+})
+    .catch(function (error) { return console.error(error); });
+```
+
+### Sending a transaction to a terminal
+
+First you need to start a transaction.
+After the transaction is started and you have a transactionId, you can send the transaction to the terminal.
+You can get the terminalId from the example above.
+
+```javascript
+var lastStatus = null;
+Paynl.Instore.payment(transactionId, terminalId).subscribe(
+    //this gets called every 3 seconds
+    status => { 
+        //save the last status so we can access it in the complete function
+        lastStatus = status; 
+        console.log(status.state + ' Percentage: ' + status.percentage);
+    },
+    error => console.trace(error),
+    () => {
+        // if the transaction has reached a final state this function gets called
+        if (lastStatus.state == 'approved') {
+            // fetch the receipt of the transaction
+            Paynl.Instore.getReceipt(hash).subscribe(receipt => {
+            console.log(receipt.receipt);
+        }, error => {
+            console.trace(error);
+        });
+
+        } else {
+            console.log('Payment was not completed');
+        }
+    }
+);
+
+    
 ```

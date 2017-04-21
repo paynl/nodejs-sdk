@@ -11,6 +11,10 @@
         "node_modules",
         "**/*.spec.ts"
     ],
+    "include":[
+        "./src/samples/*",
+        "./src/samples/**/*"
+    ],
     "files": [
         "./src/index.ts"
     ]
