@@ -21,7 +21,7 @@ Paynl.Config.setServiceId('SL-0123-4567');
 
 ```
 ## Examples
-Some of the basic examples are listed here, for the full list of examples, please take a look at the samples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/build/samples)
+Some of the basic examples are listed here, for the full list of examples, please take a look at the samples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/samples)
 
 All examples start with requiring paynl-sdk and setting the apitoken and serviceId.
 
