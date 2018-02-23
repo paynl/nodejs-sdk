@@ -3,7 +3,7 @@ import { Address, InvoiceAddress } from './address';
 
 export class Product {
     /**
-     * Your is of the product
+     * Your id of the product
      */
     id: string;
     /**
