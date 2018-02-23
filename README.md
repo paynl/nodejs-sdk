@@ -154,3 +154,48 @@ Paynl.Instore.payment(transactionId, terminalId).subscribe(
 
     
 ```
+
+## Direct Debit (Incasso)
+
+### Creating a new Direct Debit
+
+This SDK can also add direct debit transactions.
+Only amount, bankaccountHolder and bankaccountNumber are mandatory, the rest of the arguments are optional.
+
+```javascript
+Paynl.DirectDebit.add({
+    amount: 0.01,
+    bankaccountHolder: "N Name",
+    bankaccountNumber: "NL00RABO0000012345678",
+    // optional
+    bankaccountBic: "RABONL2U",
+    processDate: new Date("2018-03-01"),
+    description: "Uw omschrijving",
+    ipAddress: "192.168.10.1",
+    email: "a@a.nl",
+    promotorId: 1234,
+    tool: "tool",
+    info: "info",
+    object: "object",
+    extra1: "extra1",
+    extra2: "extra2",
+    extra3: "extra3",
+    currency: "EUR",
+    exchangeUrl: "https://your-exchange.url",
+}).subscribe(function (mandateId) {
+    console.log("The mandateId is: " + mandateId);
+}, function (error) {
+    console.error("Error " + error);
+});
+
+```
+
+### Fetching a Direct Debit transaction
+
+Fetch a DirectDebit transaction to fetch the status.
+
+```javascript
+Paynl.DirectDebit.get('IO-5289-5134-1580').subscribe(function (transaction) {
+    console.log(transaction);
+});
+```
