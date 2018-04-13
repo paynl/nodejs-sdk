@@ -140,12 +140,11 @@ Paynl.Instore.payment(transactionId, terminalId).subscribe(
         // if the transaction has reached a final state this function gets called
         if (lastStatus.state == 'approved') {
             // fetch the receipt of the transaction
-            Paynl.Instore.getReceipt(hash).subscribe(receipt => {
-            console.log(receipt.receipt);
-        }, error => {
-            console.trace(error);
-        });
-
+            Paynl.Instore.getReceipt(lastStatus.hash).subscribe(receipt => {
+                console.log(receipt.receipt);
+            }, error => {
+                console.trace(error);
+            });
         } else {
             console.log('Payment was not completed');
         }
