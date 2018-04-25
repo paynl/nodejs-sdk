@@ -130,8 +130,8 @@ Paynl.Transaction.start({
     amount: 0.01,
     paymentMethodId: 1927,
     //returnUrl and ipAddres make no sense for instore payments, but are mandatory
-    returnUrl: 'not_applicable',
-    ipAddress: '10.20.30.40',
+    returnUrl: "not_applicable",
+    ipAddress: "10.20.30.40",
     terminalId: "TH-0123-4567"
 }).subscribe(
     //when the transaction is started, get the status
