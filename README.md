@@ -120,38 +120,49 @@ Paynl.Instore.getTerminals()
     .catch(function (error) { return console.error(error); });
 ```
 
-### Sending a transaction to a terminal
-
-First you need to start a transaction.
-After the transaction is started and you have a transactionId, you can send the transaction to the terminal.
-You can get the terminalId from the example above.
+### Starting an instore transaction
+An instore transaction is started in the same way as a normal transaction with the addition of a terminalId.
+After the transaction has been started, you can use the terminalStatusUrl to get the status of the transaction.
 
 ```javascript
-var lastStatus = null;
-Paynl.Instore.payment(transactionId, terminalId).subscribe(
-    //this gets called every 3 seconds
-    status => { 
-        //save the last status so we can access it in the complete function
-        lastStatus = status; 
-        console.log(status.state + ' Percentage: ' + status.percentage);
-    },
-    error => console.trace(error),
-    () => {
-        // if the transaction has reached a final state this function gets called
-        if (lastStatus.state == 'approved') {
-            // fetch the receipt of the transaction
-            Paynl.Instore.getReceipt(lastStatus.hash).subscribe(receipt => {
-                console.log(receipt.receipt);
-            }, error => {
-                console.trace(error);
-            });
-        } else {
-            console.log('Payment was not completed');
-        }
+// Start transaction and send to the terminal
+Paynl.Transaction.start({
+    amount: 0.01,
+    paymentMethodId: 1927,
+    //returnUrl and ipAddres make no sense for instore payments, but are mandatory
+    returnUrl: 'not_applicable',
+    ipAddress: '10.20.30.40',
+    terminalId: "TH-0123-4567"
+}).subscribe(
+    //when the transaction is started, get the status
+    function (transaction) { 
+        getStatus(transaction.terminalStatusUrl); 
     }
 );
-
-    
+function getStatus(statusUrl) {
+    Paynl.Instore.getTransactionStatus(statusUrl).subscribe(function (status) {
+        console.log("isFinal: ", status.isFinal);
+        console.log("status: ", status.status);
+        console.log("txId: ", status.txId);
+        console.log("terminal: ", status.terminal);
+        console.log("ssai: ", status.ssai);
+        console.log("isCanceled: ", status.isCanceled);
+        console.log("isApproved: ", status.isApproved);
+        console.log("isError: ", status.isError);
+        console.log("needsSignature: ", status.needsSignature);
+        console.log("amount: ", status.amount);
+        console.log("approvalId: ", status.approvalId);
+        console.log("carBrandIdentifier: ", status.cardBrandIdentifier);
+        console.log("cardBrandLabelName: ", status.cardBrandLabelName);
+        console.log("incidentCode: ", status.incidentCode);
+        console.log("incidentCodeText: ", status.incidentCodeText);
+        console.log("receipt: ", status.receipt);
+    }, function (error) { 
+        console.error(error); 
+    }, function () {
+        console.log("Completed");
+    });
+}
 ```
 
 ## Direct Debit (Incasso)
