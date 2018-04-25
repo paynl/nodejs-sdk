@@ -62,12 +62,16 @@ export class TransactionStart {
     /**
      * The id of the paymentmethod.
      * Use PaymentMethods.getList() to retrieve the available paymentmethods 
-     */    
+     */
     paymentMethodId?: number;
     /**
      * The id of the bank, only for iDEAL
      */
     bankId?: number;
+    /**
+     * The TH-code of the terminal
+     */
+    terminalId?: string;
     /**
      * The description of the transaction.
      */
@@ -129,7 +133,7 @@ export class TransactionStartClass extends TransactionStart {
         return dateFormat(date, 'dd-mm-yyyy');
     }
     private formatDateTime(date: Date) {
-        return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');       
+        return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');
     }
     private calculateVatCode(priceIncl, vatAmount) {
         var vatCodes = { 0: 'N', 6: 'L', 21: 'H' };
@@ -158,6 +162,7 @@ export class TransactionStartClass extends TransactionStart {
 
         if (this.paymentMethodId) data['paymentOptionId'] = this.paymentMethodId;
         if (this.bankId) data['paymentOptionSubId'] = this.bankId;
+        if (this.terminalId) data['paymentOptionSubId'] = this.terminalId;
         if (this.testMode) data['testMode'] = 1;
 
         data['transaction'] = {};
@@ -165,7 +170,7 @@ export class TransactionStartClass extends TransactionStart {
         if (this.expireDate) data['transaction']['expireDate'] = this.formatDateTime(this.expireDate);
         if (this.exchangeUrl) data['transaction']['orderExchangeUrl'] = this.exchangeUrl;
         if (this.description) data['transaction']['description'] = this.description;
-    
+
         data['statsData'] = {};
         if (this.extra1) data['statsData']['extra1'] = this.extra1;
         if (this.extra2) data['statsData']['extra2'] = this.extra2;
@@ -189,7 +194,7 @@ export class TransactionStartClass extends TransactionStart {
             data['enduser']['address'] = this.address;
             data['enduser']['address']['streetNumber'] = data['enduser']['address']['houseNumber'];;
             delete data['enduser']['address']['houseNumber'];
-            
+
         }
         if (this.invoiceAddress) {
             data['enduser']['invoiceAddress'] = this.invoiceAddress;
@@ -213,7 +218,7 @@ export class TransactionStartClass extends TransactionStart {
                 });
             });
         }
-     
+
         return data;
     }
 }

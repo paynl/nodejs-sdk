@@ -11,10 +11,19 @@ export class StartResult{
     popupAllowed: boolean;
     paymentReference: string;
 
+    /**
+     * Hash to fetch the status or receipt from the terminal
+     */
+    terminalHash?: string;
+    terminalStatusUrl?: string;
+
     constructor(data){
-        this.transactionId = data.transactionId;
-        this.paymentURL = data.paymentURL;
-        this.popupAllowed = data.popupAllowed;
-        this.paymentReference = data.paymentReference;
+        this.transactionId = data.transaction.transactionId;
+        this.paymentURL = data.transaction.paymentURL;
+        this.popupAllowed = data.transaction.popupAllowed;
+        this.paymentReference = data.transaction.paymentReference;
+
+        if(data.terminal.hash) this.terminalHash = data.terminal.hash;
+        if(data.terminal.statusUrl) this.terminalStatusUrl = data.terminal.statusUrl;
     }
 }

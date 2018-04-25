@@ -3,47 +3,43 @@ import * as Paynl from '../../index';
 Paynl.Config.setApiToken('0123456789asdfghjkllqwertewwqrt');
 Paynl.Config.setServiceId('SL-0123-4567');
 
-// Get the terminals by calling getTerminals
-let terminalId = "TH-0123-4567";
-
-// First we need to start a transaction
+// Start transaction and send to the terminal
 Paynl.Transaction.start({
     amount: 0.01,
-    paymentMethodId: 1729, 
+    paymentMethodId: 1927, //The payment method id for PIN
     //returnUrl and ipAddres make no sense for instore payments, but are mandatory
     returnUrl: 'not_applicable',
-    ipAddress: '10.20.30.40'
+    ipAddress: '10.20.30.40',
+    terminalId: "TH-0123-4567"
 }).subscribe(
-    // the resulting transaction will be sent to a terminal
-    transaction => sendToTerminal(transaction.transactionId, terminalId)
+    //when the transaction is started, get the status
+    transaction => getStatus(transaction.terminalStatusUrl)
 );
 
-function sendToTerminal(transactionId, terminalId) {
-    var lastStatus = null;
-    Paynl.Instore.payment(transactionId, terminalId).subscribe(
-        //this gets called every 3 seconds
+
+function getStatus(statusUrl: string) {
+    Paynl.Instore.getTransactionStatus(statusUrl).subscribe(
         status => { 
-            //save the last status so we can access it in the complete function
-            lastStatus = status; 
-            console.log(status.state + ' Percentage: ' + status.percentage);
+            console.log("isFinal: ", status.isFinal);
+            console.log("status: ", status.status);
+            console.log("txId: ", status.txId);
+            console.log("terminal: ", status.terminal);
+            console.log("ssai: ", status.ssai);
+            console.log("isCanceled: ", status.isCanceled);
+            console.log("isApproved: ", status.isApproved);
+            console.log("isError: ", status.isError);
+            console.log("needsSignature: ", status.needsSignature);
+            console.log("amount: ", status.amount);
+            console.log("approvalId: ", status.approvalId);
+            console.log("carBrandIdentifier: ", status.cardBrandIdentifier);
+            console.log("cardBrandLabelName: ", status.cardBrandLabelName);
+            console.log("incidentCode: ", status.incidentCode);
+            console.log("incidentCodeText: ", status.incidentCodeText);
+            console.log("receipt: ", status.receipt);
         },
-        error => console.trace(error),
+        error => console.error(error),
         () => {
-            // if the transaction has reached a final state this function gets called
-            if (lastStatus.state == 'approved') {
-                // fetch the receipt of the transaction
-                fetchReceipt(lastStatus.hash);
-            } else {
-                console.log('Payment was not completed');
-            }
+            console.log("Completed");
         }
     );
-}
-
-function fetchReceipt(hash: string) {
-    Paynl.Instore.getReceipt(hash).subscribe(receipt => {
-        console.log(receipt.receipt);
-    }, error => {
-        console.trace(error);
-    });
 }

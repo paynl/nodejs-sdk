@@ -5,9 +5,9 @@ import { Refund, RefundClass } from './datatypes/refund';
 import { Api } from './api/api';
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
-export class Transaction {
-    static version = 5;
 
+export class Transaction {
+    static version = 8;
     static start(options: TransactionStart): Observable<StartResult> {
         return Observable.create(observable => {
             // Prepare the data
@@ -32,7 +32,7 @@ export class Transaction {
             }
 
             Api.post('transaction', 'start', this.version, startData.getForApi()).map(
-                (result) => new StartResult(result.transaction)
+                (result) => new StartResult(result)
             ).subscribe(
                 (result) => observable.next(result),
                 (error) => observable.error(error),
