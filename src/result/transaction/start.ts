@@ -1,4 +1,4 @@
-export class StartResult{
+export class StartResult {
     /**
      * The id of the transaction
      */
@@ -17,13 +17,15 @@ export class StartResult{
     terminalHash?: string;
     terminalStatusUrl?: string;
 
-    constructor(data){
+    constructor(data) {
         this.transactionId = data.transaction.transactionId;
         this.paymentURL = data.transaction.paymentURL;
         this.popupAllowed = data.transaction.popupAllowed;
         this.paymentReference = data.transaction.paymentReference;
 
-        if(data.terminal.hash) this.terminalHash = data.terminal.hash;
-        if(data.terminal.statusUrl) this.terminalStatusUrl = data.terminal.statusUrl;
+        if (data.terminal) {
+            this.terminalHash = data.terminal.hash;
+            this.terminalStatusUrl = data.terminal.statusUrl;
+        }
     }
 }
