@@ -50,7 +50,7 @@ Paynl.Paymentmethods.getList().forEach(
 ```
 ### Starting a transaction
 This example shows the minimum required attributes to start a transaction.
-The full version with all supported options is located [here](https://github.com/paynl/nodejs-sdk/blob/master/build/samples/transaction/start.js)
+The full version with all supported options is located [here](https://github.com/paynl/nodejs-sdk/tree/master/src/samples/transaction/start.ts)
 
 ```javascript
 Paynl.Transaction.start({
