@@ -152,7 +152,7 @@ function getStatus(statusUrl) {
         console.log("needsSignature: ", status.needsSignature);
         console.log("amount: ", status.amount);
         console.log("approvalId: ", status.approvalId);
-        console.log("carBrandIdentifier: ", status.cardBrandIdentifier);
+        console.log("cardBrandIdentifier: ", status.cardBrandIdentifier);
         console.log("cardBrandLabelName: ", status.cardBrandLabelName);
         console.log("incidentCode: ", status.incidentCode);
         console.log("incidentCodeText: ", status.incidentCodeText);
