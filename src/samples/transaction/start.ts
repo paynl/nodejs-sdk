@@ -33,6 +33,7 @@ Paynl.Transaction.start({
     address:{
         streetName: 'straat',
         houseNumber: '10',
+        houseNumberExtension: 'A',
         zipCode: '1234 AB',
         city: 'Enschede',
         countryCode: 'NL'
@@ -41,6 +42,7 @@ Paynl.Transaction.start({
     invoiceAddress:{
         streetName: 'straat',
         houseNumber: '10',
+        houseNumberExtension: 'B',
         zipCode: '1234 AB',
         city: 'Enschede',
         countryCode: 'NL',

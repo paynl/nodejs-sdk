@@ -19,48 +19,48 @@ export class Api {
     /**
      * Checks if the result is an error (there are many ways the api can return an error)
      */
-    private static isError(body){         
-        if(body['status'] && body['status'] == 'FALSE'){
-            return body['error']; 
+    private static isError(body) {
+        if (body['status'] && body['status'] == 'FALSE') {
+            return body['error'];
         }
-        if(body['request'] && body['request']['result'] && body['request']['result'] == '0'){
-            return body['request']['errorId']+" "+body['request']['errorMessage']; 
+        if (body['request'] && body['request']['result'] && body['request']['result'] == '0') {
+            return body['request']['errorId'] + " " + body['request']['errorMessage'];
         }
         return false;
-    }  
+    }
     /**
      * Do a post request on the API.
      */
-    static post(controller, action, version, data = {}): Observable<any> {
+    static post(controller: string, action: string, version: number, data = {}): Observable<any> {
         return Observable.create((observable) => {
             let url = this.getUrl(controller, action, version);
-          
+
             data['token'] = Config.getApiToken();
             data['serviceId'] = Config.getServiceId();
-            
-            let jsonData = JSON.stringify(data);           
+
+            let jsonData = JSON.stringify(data);
             request.post({
                 url: url,
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: jsonData,
-            }, (error, response, body) => {               
-                if(error){
+            }, (error, response, body) => {
+                if (error) {
                     observable.error(error);
                     return;
                 }
-                try{
+                try {
                     body = JSON.parse(body);
-                } catch(e){
+                } catch (e) {
                     observable.error(body);
                     return
                 }
-                
 
-                if(this.isError(body) !== false){                    
+
+                if (this.isError(body) !== false) {
                     observable.error(this.isError(body));
-                    return;              
+                    return;
                 }
-              
+
                 observable.next(body);
                 observable.complete();
             });

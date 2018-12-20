@@ -192,15 +192,19 @@ export class TransactionStartClass extends TransactionStart {
         }
         if (this.address) {
             data['enduser']['address'] = this.address;
-            data['enduser']['address']['streetNumber'] = data['enduser']['address']['houseNumber'];;
+            data['enduser']['address']['streetNumber'] = data['enduser']['address']['houseNumber'];
             delete data['enduser']['address']['houseNumber'];
-
+            data['enduser']['address']['streetNumberExtension'] = data['enduser']['address']['houseNumberExtension'];
+            delete data['enduser']['address']['houseNumberExtension'];
         }
         if (this.invoiceAddress) {
             data['enduser']['invoiceAddress'] = this.invoiceAddress;
 
             data['enduser']['invoiceAddress']['streetNumber'] = data['enduser']['invoiceAddress']['houseNumber'];;
             delete data['enduser']['invoiceAddress']['houseNumber'];
+
+            data['enduser']['invoiceAddress']['streetNumberExtension'] = data['enduser']['invoiceAddress']['houseNumberExtension'];
+            delete data['enduser']['address']['houseNumberExtension'];
         }
 
         data['saleData'] = {};
