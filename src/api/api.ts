@@ -39,6 +39,7 @@ export class Api {
             data['serviceId'] = Config.getServiceId();
 
             let jsonData = JSON.stringify(data);
+
             request.post({
                 url: url,
                 headers: { 'Content-Type': 'application/json' },
