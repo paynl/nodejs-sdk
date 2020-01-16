@@ -20,7 +20,7 @@ export class ChargeGiftCard {
     /**
      *  The 6-digit PIN code belonging to the gift card
      */
-    pincode: string;
+    pin: string;
     /**
      * Your sales location starts with 'SL-' followed by 8 digits.
      */
@@ -110,7 +110,7 @@ export class ChargeGiftCardClass extends ChargeGiftCard {
     getForApi () {
         var data = {}
         data['cardNumber'] = this.cardNumber;
-        data['pincode'] = this.pincode;
+        data['pin'] = this.pin;
         data['serviceId'] = this.serviceId;
         data['amount'] = Math.round(this.amount * 100);
         data['finishUrl'] = this.finishUrl;

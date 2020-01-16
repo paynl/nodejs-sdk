@@ -42,7 +42,7 @@ export class GiftCard {
                 observable.complete();
                 return;
             }
-            if (!startData.pincode) {
+            if (!startData.pin) {
                 observable.error('Pin is not set');
                 observable.complete();
                 return;
@@ -63,7 +63,9 @@ export class GiftCard {
                 return;
             }
 
-            Api.post('Voucher', 'balance', this.version, startData.getForApi()).map(
+            console.log('startData', startData)
+
+            Api.post('Voucher', 'transaction', this.version, startData.getForApi()).map(
                 (result) => new ChargeResult(result)
             ).subscribe(
                 (result) => observable.next(result),
