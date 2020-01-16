@@ -112,7 +112,7 @@ export class ChargeGiftCardClass extends ChargeGiftCard {
         data['cardNumber'] = this.cardNumber;
         data['pincode'] = this.pincode;
         data['serviceId'] = this.serviceId;
-        data['amount'] = this.amount;
+        data['amount'] = Math.round(this.amount * 100);
         data['finishUrl'] = this.finishUrl;
         data['description'] = this.description;
         data['currency'] = this.currency;
@@ -141,7 +141,7 @@ export class ActivateGiftCardClass extends ActivateGiftCard{
     getForApi () {
         var data = {};
         data['cardNumber'] = this.cardNumber;
-        data['amount'] = this.amount;
+        data['amount'] = Math.round(this.amount * 100);
         data['posId'] = this.posId;
         data['pincode'] = this.pincode;
 
