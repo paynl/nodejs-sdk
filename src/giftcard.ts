@@ -62,7 +62,7 @@ export class GiftCard {
                 observable.complete();
                 return;
             }
-            
+
             Api.post('Voucher', 'transaction', this.version, startData.getForApi()).map(
                 (result) => new ChargeResult(result)
             ).subscribe(

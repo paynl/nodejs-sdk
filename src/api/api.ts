@@ -49,6 +49,15 @@ export class Api {
                     observable.error(error);
                     return;
                 }
+                if (response.statusCode !== 200) {
+                   if (this.isError(body) !== false) {
+                       observable.error(this.isError(body));
+                       return;
+                   } else {
+                       observable.error(response.statusCode + ' ' + response.statusMessage);
+                       return;
+                   }
+                }
                 try {
                     body = JSON.parse(body);
                 } catch (e) {
