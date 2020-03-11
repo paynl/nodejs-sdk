@@ -1,4 +1,5 @@
 import * as Paynl from '../../index'
+import { ProductType } from '../../datatypes/transaction-start';
 
 Paynl.Config.setApiToken('Your-api-token');
 Paynl.Config.setServiceId('SL-0123-4567');
@@ -59,14 +60,16 @@ Paynl.Transaction.start({
             name: "test",
             price: 10,
             qty: 1,
-            tax: 2.1
+            tax: 2.1,
+            type: ProductType.ARTICLE
         },
         {
             id: '2',
             name: "test2",
             price: 10,
             qty: 1,
-            tax: 0.6
+            tax: 0.6,
+            type: ProductType.SHIPPING
         },
     ]
 

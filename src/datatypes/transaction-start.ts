@@ -231,7 +231,7 @@ export class TransactionStartClass extends TransactionStart {
                     price: Math.round(product.price * 100),
                     quantity: product.qty,
                     vatCode: this.calculateVatCode(product.price, product.tax),
-                    productType: product.type 
+                    productType: product.type
                 });
             });
         }
