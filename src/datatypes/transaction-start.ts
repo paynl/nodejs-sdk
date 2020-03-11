@@ -1,6 +1,9 @@
 import * as dateFormat from 'dateformat';
 import { Address, InvoiceAddress } from './address';
 
+export enum ProductType {
+    ARTICLE='ARTICLE',SHIPPING='SHIPPING',HANDLING='HANDLING',DISCOUNT='DISCOUNT'
+}
 export class Product {
     /**
      * Your id of the product
@@ -22,6 +25,10 @@ export class Product {
      * The quantity of this product in the order
      */
     qty: number;
+    /**
+     * The type of this product in the order
+     */
+    type: ProductType;
 }
 export class Enduser {
     initials?: string;
@@ -223,7 +230,8 @@ export class TransactionStartClass extends TransactionStart {
                     description: product.name,
                     price: Math.round(product.price * 100),
                     quantity: product.qty,
-                    vatCode: this.calculateVatCode(product.price, product.tax)
+                    vatCode: this.calculateVatCode(product.price, product.tax),
+                    productType: product.type 
                 });
             });
         }
