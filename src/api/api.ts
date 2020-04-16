@@ -39,6 +39,7 @@ export class Api {
             data['serviceId'] = Config.getServiceId();
 
             let jsonData = JSON.stringify(data);
+
             request.post({
                 url: url,
                 headers: { 'Content-Type': 'application/json' },
@@ -47,6 +48,15 @@ export class Api {
                 if (error) {
                     observable.error(error);
                     return;
+                }
+                if (response.statusCode !== 200) {
+                   if (this.isError(body) !== false) {
+                       observable.error(this.isError(body));
+                       return;
+                   } else {
+                       observable.error(response.statusCode + ' ' + response.statusMessage);
+                       return;
+                   }
                 }
                 try {
                     body = JSON.parse(body);
