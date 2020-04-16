@@ -175,6 +175,7 @@ export class TransactionStartClass extends TransactionStart {
         if (this.extra1) data['statsData']['extra1'] = this.extra1;
         if (this.extra2) data['statsData']['extra2'] = this.extra2;
         if (this.extra3) data['statsData']['extra3'] = this.extra3;
+        data['statsData']['object'] = 'nodejssdk';
 
         if (Object.keys(data['statsData']).length == 0) {
             delete data['statsData'];
