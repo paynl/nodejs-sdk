@@ -40,7 +40,7 @@ export class TransactionResult {
     isBeingVerified(){
         return this.paymentDetails.stateName == 'VERIFY';
     }
-    isAuthorised(){
+    isAuthorized(){
         return this.paymentDetails.state == 95;
     }
     approve():Observable<boolean> {
