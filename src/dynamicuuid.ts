@@ -17,14 +17,14 @@ export class DynamicUUID {
     static encode(serviceId: string, secret: string, reference: string, padChar = '0', referenceType = REFERENCE_TYPE_STRING): Observable<string> {
         return Observable.create(observable => {
             if (referenceType == REFERENCE_TYPE_STRING) {
-                if (!this.validateReferenceString(reference)) {
+                if (!this.isValidReferenceString(reference)) {
                     observable.error('Secret invalid: ' + secret);
                     observable.complete();
                     return;
                 }
                 reference = this.asciiToHex(reference);
             } else {
-                if (!this.validateHexString(reference)) {
+                if (!this.isValidHexString(reference)) {
                     observable.error('Reference is not a valid hex: ' + reference);
                     observable.complete();
                     return;
@@ -154,11 +154,11 @@ export class DynamicUUID {
         return arr1.join('');
     }
 
-    private static validateReferenceString(reference) {
+    private static isValidReferenceString(reference) {
         return /^[0-9a-zA-Z]{0,8}$/i.test(reference)
     }
 
-    private static validateHexString(hexString) {
+    private static isValidHexString(hexString) {
         return /^[0-9a-f]{0,16}$/i.test(hexString)
     }
 
