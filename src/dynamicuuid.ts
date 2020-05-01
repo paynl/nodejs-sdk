@@ -15,20 +15,17 @@ export class DynamicUUID {
      * @param referenceType Define if you are using a string (8 chars) of hex (16 chars)
      */
     static encode(serviceId: string, secret: string, reference: string, padChar = '0', referenceType = REFERENCE_TYPE_STRING): Observable<string> {
-
         return Observable.create(observable => {
-
-
             if (referenceType == REFERENCE_TYPE_STRING) {
                 if (!this.validateReferenceString(reference)) {
-                    observable.error('not good not set');
+                    observable.error('Secret invalid: ' + secret);
                     observable.complete();
                     return;
                 }
                 reference = this.asciiToHex(reference);
             } else {
                 if (!this.validateHexString(reference)) {
-                    observable.error('No good hex string given: ' + reference);
+                    observable.error('Reference is not a valid hex: ' + reference);
                     observable.complete();
                     return;
                 }
@@ -36,7 +33,7 @@ export class DynamicUUID {
             reference = reference.toLowerCase();
 
             if (!this.isValidSecret(secret)) {
-                observable.error('not good secret');
+                observable.error('Secret invalid: ' + secret);
                 observable.complete();
                 return;
             }
@@ -51,9 +48,7 @@ export class DynamicUUID {
                 return;
             }
 
-
             var uuid = serviceId.replace(/[^0-9]/g, '') + reference.padStart(16, padChar);
-
             var crypto = require('crypto');
             var hash = crypto.createHmac(HASH_METHOD, secret).update(uuid).digest('hex');
 
@@ -71,7 +66,6 @@ export class DynamicUUID {
         });
     }
 
-
     /**
      * Decode a UUID
      *
@@ -85,9 +79,8 @@ export class DynamicUUID {
         return Observable.create(observable => {
 
             if (secret != '') {
-                console.log('there iS A seceret!');
                 if (!this.isValidSecret(secret)) {
-                    observable.error('not good secret');
+                    observable.error('Secret is invalid: ' + secret);
                     observable.complete();
                     return
                 }
@@ -114,12 +107,18 @@ export class DynamicUUID {
         });
     }
 
-    static validate(uuid: string, secret: string): Observable<string> {
+    /**
+     * Validate UUID
+     *
+     * @param uuid Your UUID code
+     * @param secret Your secret
+     */
+    static validate(uuid: string, secret = ''): Observable<string> {
         return Observable.create(observable => {
 
             if (secret != '') {
                 if (!this.isValidSecret(secret)) {
-                    observable.error('not good secret');
+                    observable.error('Secret is invalid: ' + secret);
                     observable.complete();
                     return
                 }
@@ -137,7 +136,6 @@ export class DynamicUUID {
             observable.complete();
         });
     }
-
 
     private static ltrim(str, charlist) {
         charlist = !charlist ? ' \\s\u00A0' : (charlist + '')
@@ -177,4 +175,3 @@ export class DynamicUUID {
     }
 
 }
-
