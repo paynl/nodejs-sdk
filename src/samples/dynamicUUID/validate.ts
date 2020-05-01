@@ -1,6 +1,6 @@
 import * as Paynl from '../../index'
 
-Paynl.DynamicUUID.validate('#your UUID#', '#your seceret#')
+Paynl.DynamicUUID.validate('#your UUID#', '#your secret#')
     .subscribe(
         function (result) {
             console.log('Validation result: ' + result);
