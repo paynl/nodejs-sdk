@@ -8,8 +8,8 @@ export class DynamicUUID {
     /**
      * Generate a UUID
      *
-     * @param serviceId
-     * @param secret
+     * @param serviceId The PAY. service-id from one of your sales locations
+     * @param secret Your custom secret
      * @param reference Your reference to the transaction
      * @param padChar The reference will be padded with this character, default pad '0'
      * @param referenceType Define if you are using a string (8 chars) of hex (16 chars)
