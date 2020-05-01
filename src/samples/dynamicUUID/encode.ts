@@ -10,6 +10,6 @@ Paynl.DynamicUUID.encode(slcode, secret, reference)
             console.log('UUID: ' + result);
         },
         function (error) {
-            console.error('Error: ' + error);
+            console.log('Encoding failed: ' + error);
         }
     );

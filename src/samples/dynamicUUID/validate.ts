@@ -6,6 +6,6 @@ Paynl.DynamicUUID.validate('#your UUID#', '#your secret#')
             console.log('Validation result: ' + result);
         },
         function (error) {
-            console.error(error);
+            console.log('Validation failed: ' + error);
         }
     );

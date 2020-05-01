@@ -7,6 +7,6 @@ Paynl.DynamicUUID.decode('#your UUID#')
             console.log('decoded reference: ' + result.reference);
         },
         function (error) {
-            console.error(error);
+            console.log('Decode failed: ' + error);
         }
     );
