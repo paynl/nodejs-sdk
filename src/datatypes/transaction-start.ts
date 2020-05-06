@@ -147,7 +147,7 @@ export class TransactionStartClass extends TransactionStart {
         return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');
     }
     private calculateVatCode(priceIncl, vatAmount) {
-        var vatCodes = { 0: 'N', 6: 'L', 21: 'H' };
+        var vatCodes = { 0: 'N', 9: 'L', 21: 'H' };
         var priceExcl = priceIncl - vatAmount;
         if (!vatAmount || vatAmount == 0 || !priceIncl || priceIncl == 0) {
             return vatCodes[0];
