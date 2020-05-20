@@ -18,7 +18,7 @@ export class DynamicUUID {
         return Observable.create(observable => {
             if (referenceType == REFERENCE_TYPE_STRING) {
                 if (!this.isValidReferenceString(reference)) {
-                    observable.error('Secret invalid: ' + secret);
+                    observable.error('Reference invalid: ' + reference);
                     observable.complete();
                     return;
                 }
