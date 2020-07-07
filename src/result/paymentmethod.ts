@@ -14,7 +14,6 @@ export class Paymentmethod {
     visibleName: string;
     /**
      * The default minimum amount required for starting a transaction
-     * Generally this more descriptive than the name
      */
     min_amount: number;
     /**
