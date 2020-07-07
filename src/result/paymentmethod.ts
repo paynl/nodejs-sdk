@@ -47,9 +47,8 @@ export class Paymentmethod {
                 this.banks.push(new Bank(bank));
             }
         }
-        if (data['brand'])
-        {
-                this.brand = new Brand( data['brand']);
+        if (data['brand']) {
+            this.brand = new Brand(data['brand']);
         }
         if (data['countries']) {
             this.countries = [];
