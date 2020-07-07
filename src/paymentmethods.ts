@@ -41,7 +41,7 @@ export class Paymentmethods {
     }
     static getList(): Observable<Paymentmethod> {
         return Observable.create(observer => {
-            Api.post('Transaction', 'getService', 5).map(
+            Api.post('Transaction', 'getService', 16).map(
                 (result) => {
                     var paymentmethods = [];
                     var reordered = this.reorderGetServiceData(result);
