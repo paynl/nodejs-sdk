@@ -16,8 +16,8 @@ var Paynl = require('paynl-sdk');
 - In the pay.nl admin, navigate to Manage -> Services and click the SL-code on the left.
 - From the popup use the apitoken and serviceId, and configure them in the SDK.
 ```javascript
-Paynl.Config.setApiToken('Your-api-token');
-Paynl.Config.setServiceId('SL-0123-4567');
+Paynl.Config.setApiToken('****************************************');
+Paynl.Config.setServiceId('SL-####-####');
 
 ```
 ## Examples
@@ -28,8 +28,8 @@ All examples start with requiring paynl-sdk and setting the apitoken and service
 ```javascript
 var Paynl = require('paynl-sdk');
 
-Paynl.Config.setApiToken('Your-api-token');
-Paynl.Config.setServiceId('SL-0123-4567');
+Paynl.Config.setApiToken('****************************************');
+Paynl.Config.setServiceId('SL-####-####');
 ```
 ## Basic transactions
 
@@ -80,7 +80,7 @@ Paynl.Transaction.start({
 ### Fetching a transaction
 The following example shows how to fetch a transaction.
 ```javascript
-Paynl.Transaction.get('715844054X85729e').subscribe(
+Paynl.Transaction.get('123456789X12345e').subscribe(
   function(result){
     // some examples of what you can do with the result
     if (result.isPaid()) {
@@ -132,7 +132,7 @@ Paynl.Transaction.start({
     //returnUrl and ipAddres make no sense for instore payments, but are mandatory
     returnUrl: "not_applicable",
     ipAddress: "10.20.30.40",
-    terminalId: "TH-0123-4567"
+    terminalId: "TH-####-####"
 }).subscribe(
     //when the transaction is started, get the status
     function (transaction) { 
@@ -205,7 +205,7 @@ Paynl.DirectDebit.add({
 Fetch a DirectDebit transaction to fetch the status.
 
 ```javascript
-Paynl.DirectDebit.get('IO-5289-5134-1580').subscribe(function (transaction) {
+Paynl.DirectDebit.get('IO-####-####-####').subscribe(function (transaction) {
     console.log(transaction);
 });
 ```
