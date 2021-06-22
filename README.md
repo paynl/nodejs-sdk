@@ -1,5 +1,5 @@
-# Pay.nl NodeJS SDK
-SDK for pay.nl allowing you to manage your pay.nl transactions in nodeJS
+# PAY.nl NodeJS SDK
+SDK for PAY.nl allowing you to manage your PAY.nl transactions in nodeJS
 
 ## Installation
 ```bash
@@ -12,10 +12,11 @@ npm install paynl-sdk --save
 ```javascript
 var Paynl = require('paynl-sdk');
 ```
-- Register for a pay.nl account at: [pay.nl/registreren](https://pay.nl/registreren)
-- In the pay.nl admin, navigate to Manage -> Services and click the SL-code on the left.
+- Register for a PAY.nl account at: [pay.nl?register](https://pay.nl?register)
+- In the PAY.nl admin panel, navigate to Manage -> Services and click the SL-code on the left.
 - From the popup use the apitoken and serviceId, and configure them in the SDK.
 ```javascript
+Paynl.Config.setTokenCode('AT-####-####');
 Paynl.Config.setApiToken('****************************************');
 Paynl.Config.setServiceId('SL-####-####');
 
@@ -28,6 +29,7 @@ All examples start with requiring paynl-sdk and setting the apitoken and service
 ```javascript
 var Paynl = require('paynl-sdk');
 
+Paynl.Config.setTokenCode('AT-####-####');
 Paynl.Config.setApiToken('****************************************');
 Paynl.Config.setServiceId('SL-####-####');
 ```
@@ -129,7 +131,7 @@ After the transaction has been started, you can use the terminalStatusUrl to get
 Paynl.Transaction.start({
     amount: 0.01,
     paymentMethodId: 1927,
-    //returnUrl and ipAddres make no sense for instore payments, but are mandatory
+    //returnUrl and ipAddres are not used for instore payments, but are mandatory
     returnUrl: "not_applicable",
     ipAddress: "10.20.30.40",
     terminalId: "TH-####-####"
