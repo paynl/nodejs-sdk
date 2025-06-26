@@ -144,7 +144,7 @@ export class TransactionStartClass extends TransactionStart {
         return dateFormat(date, 'dd-mm-yyyy');
     }
     private formatDateTime(date: Date) {
-        return dateFormat(date, 'dd-mm-yyyy hh:MM:ss');
+        return dateFormat(date, 'dd-mm-yyyy HH:MM:ss');
     }
     private calculateVatCode(priceIncl, vatAmount) {
         var vatCodes = { 0: 'N', 9: 'L', 21: 'H' };
@@ -213,7 +213,7 @@ export class TransactionStartClass extends TransactionStart {
         if (this.invoiceAddress) {
             data['enduser']['invoiceAddress'] = this.invoiceAddress;
 
-            data['enduser']['invoiceAddress']['streetNumber'] = data['enduser']['invoiceAddress']['houseNumber'];;
+            data['enduser']['invoiceAddress']['streetNumber'] = data['enduser']['invoiceAddress']['houseNumber'];
             delete data['enduser']['invoiceAddress']['houseNumber'];
 
             data['enduser']['invoiceAddress']['streetNumberExtension'] = data['enduser']['invoiceAddress']['houseNumberExtension'];
