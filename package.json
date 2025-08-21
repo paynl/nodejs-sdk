@@ -21,7 +21,7 @@
     "prepack": "npm run clean && npm run build",
     "lint": "eslint . && tsc --noEmit",
     "fix": "eslint . --fix && tsc --noEmit",
-    "test": "jest && echo 'Coverage report: ./coverage/lcov-report/index.html'"
+    "test": "jest; echo 'Coverage report: ./coverage/lcov-report/index.html'"
   },
   "author": "Andy Pieters <andy@pay.nl>",
   "license": "MIT",
