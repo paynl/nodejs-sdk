@@ -11,5 +11,8 @@
         "rootDirs": [
             "./src"
         ]
-    }
+    },
+    "exclude": [
+        "./examples/**"
+    ]
 }
