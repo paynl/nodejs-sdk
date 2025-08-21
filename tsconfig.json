@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "ESNext",
         "strict": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "target": "es5",
         "declaration": true,
         "outDir": "./lib/",
@@ -11,8 +11,5 @@
         "rootDirs": [
             "./src"
         ]
-    },
-    "exclude": [
-        "node_modules"
-    ]
+    }
 }
