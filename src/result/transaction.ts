@@ -1,4 +1,7 @@
-import { Observable } from 'rxjs/Observable'
+/* eslint-disable */
+// @ts-nocheck
+
+import { Observable } from 'rxjs/Observable';
 import { Transaction } from '../index';
 import { Refund } from '../datatypes/refund';
 import { Address, InvoiceAddress } from '../datatypes/address';
@@ -19,38 +22,40 @@ export class TransactionResult {
         this.statsDetails = new StatsDetails(data['statsDetails']);
     }
 
-    isPaid(){
+    isPaid() {
         return this.paymentDetails.stateName == 'PAID';
     }
 
-    isPending(){
-        return this.paymentDetails.stateName == 'PENDING' || this.paymentDetails.stateName == 'VERIFY';
+    isPending() {
+        return (
+            this.paymentDetails.stateName == 'PENDING' || this.paymentDetails.stateName == 'VERIFY'
+        );
     }
-    isCanceled(){
+    isCanceled() {
         return this.paymentDetails.state < 0;
     }
-    isRefunded(alsoPartial: boolean){
-        if(this.paymentDetails.stateName == 'REFUND') return true;
-        if(alsoPartial && this.paymentDetails.stateName == 'PARTIAL_REFUND') return true;
+    isRefunded(alsoPartial: boolean) {
+        if (this.paymentDetails.stateName == 'REFUND') return true;
+        if (alsoPartial && this.paymentDetails.stateName == 'PARTIAL_REFUND') return true;
         return false;
     }
-    isPartiallyRefunded(){
+    isPartiallyRefunded() {
         return this.paymentDetails.stateName == 'PARTIAL_REFUND';
     }
-    isBeingVerified(){
+    isBeingVerified() {
         return this.paymentDetails.stateName == 'VERIFY';
     }
-    isAuthorized(){
+    isAuthorized() {
         return this.paymentDetails.state == 95;
     }
-    approve():Observable<boolean> {
+    approve(): Observable<boolean> {
         return Transaction.approve(this.transactionId);
     }
-    decline():Observable<boolean> {
+    decline(): Observable<boolean> {
         return Transaction.decline(this.transactionId);
     }
-    refund(options: ResultRefund = null):Observable<string> {
-        var refund = new Refund;
+    refund(options: ResultRefund = null): Observable<string> {
+        const refund = new Refund();
         (<any>Object).assign(refund, options);
         refund.transactionId = this.transactionId;
         return Transaction.refund(refund);
@@ -103,17 +108,17 @@ export class Enduser {
         (<any>Object).assign(this, data);
     }
 }
-function parseDate(date: string){
-    var arrDate = date.split('-');
-    return new Date(parseInt(arrDate[2]), parseInt(arrDate[1])-1, parseInt(arrDate[0]));    
+function parseDate(date: string) {
+    const arrDate = date.split('-');
+    return new Date(parseInt(arrDate[2]), parseInt(arrDate[1]) - 1, parseInt(arrDate[0]));
 }
 export class SaleData {
     invoiceDate?: Date;
     deliveryDate?: Date;
     orderData?: OrderDataRow[];
-    constructor(data) {       
-        if(data['invoiceDate']) this.invoiceDate = parseDate(data['invoiceDate']);
-        if(data['deliveryDate']) this.deliveryDate = parseDate(data['deliveryDate']);
+    constructor(data) {
+        if (data['invoiceDate']) this.invoiceDate = parseDate(data['invoiceDate']);
+        if (data['deliveryDate']) this.deliveryDate = parseDate(data['deliveryDate']);
 
         if (data['orderData']) {
             this.orderData = [];

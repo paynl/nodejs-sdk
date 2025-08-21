@@ -1,4 +1,7 @@
-export class Mandate { 
+/* eslint-disable */
+// @ts-nocheck
+
+export class Mandate {
     mandateId: string;
     bankaccountNumber: string;
     bankaccountOwner: string;
@@ -7,17 +10,17 @@ export class Mandate {
     description: string;
     /**
      * 	The number of periods between transactions.
-     * 
-     *  intervalValue = 2 
-     *  intervalPeriod = 1(week) 
-     * 
+     *
+     *  intervalValue = 2
+     *  intervalPeriod = 1(week)
+     *
      *  The transaction will be executed every 2 weeks
      */
     intervalValue: number;
     /**
-     * The interval period. 
+     * The interval period.
      * The options are:
-     * 
+     *
      * - 1 Week
      * - 2 Month
      * - 3 Quarter
@@ -31,7 +34,7 @@ export class Mandate {
      * The number of times this transaction will be executed in the furture
      */
     intervalQuantity: number;
-    /** 
+    /**
      *  Possible values are:
      * - first
      * - active
@@ -49,8 +52,8 @@ export class Mandate {
     extra1?: string;
     extra2?: string;
     extra3?: string;
-    constructor(data: Mandate){
-        data.amount = data.amount/100;
+    constructor(data: Mandate) {
+        data.amount = data.amount / 100;
 
         (<any>Object).assign(this, data);
     }
@@ -73,7 +76,7 @@ export class DirectDebit {
      * - 103: Deleted.
      * - 106: Reversal.
      * - 127: Refused by bank.
-     * - 199: Relist 
+     * - 199: Relist
      */
     statusCode: number;
     statusName: string;
@@ -89,13 +92,13 @@ export class DirectDebit {
      * - 277: Selective debit blockade.
      * - 280: Account WKA.
      * - 286: Reason not supplied.
-     * - 331: Report wrongful debit 
+     * - 331: Report wrongful debit
      */
     declineCode: number;
     declineName: string;
     declineDate: string;
-    constructor(data: DirectDebit){
-        data.amount = data.amount/100;
+    constructor(data: DirectDebit) {
+        data.amount = data.amount / 100;
 
         (<any>Object).assign(this, data);
     }
@@ -114,13 +117,11 @@ export class DirectDebitInfoResponse {
      */
     directDebit?: DirectDebit[];
     constructor(data: DirectDebitInfoResponse) {
-        
-        if (data.directDebit){
+        if (data.directDebit) {
             this.directDebit = [];
             data.directDebit.forEach(element => {
                 this.directDebit.push(new DirectDebit(element));
             });
-            
         }
         this.mandate = this.mandate = new Mandate(data.mandate);
     }

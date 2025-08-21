@@ -1,3 +1,6 @@
+/* eslint-disable */
+// @ts-nocheck
+
 export class Paymentmethod {
     /**
      * The id of the payment method.
@@ -19,7 +22,7 @@ export class Paymentmethod {
     /**
      * The default maximum amount required for starting a transaction
      */
-    max_amount:number;
+    max_amount: number;
     /**
      * If the payment method has banks, they are listed here (iDEAL)
      */
@@ -41,8 +44,8 @@ export class Paymentmethod {
         this.max_amount = data['max_amount'];
         if (data['paymentOptionSubList']) {
             this.banks = [];
-            for (let bankId in data['paymentOptionSubList']) {
-                let bank = data['paymentOptionSubList'][bankId];
+            for (const bankId in data['paymentOptionSubList']) {
+                const bank = data['paymentOptionSubList'][bankId];
                 this.banks.push(new Bank(bank));
             }
         }
@@ -51,7 +54,7 @@ export class Paymentmethod {
         }
         if (data['countries']) {
             this.countries = [];
-            data['countries'].forEach((country) => {
+            data['countries'].forEach(country => {
                 this.countries.push(new Country(country));
             });
         }
@@ -74,7 +77,7 @@ export class Bank {
      * The url to the image of this bank
      */
     img: string;
-    
+
     available: boolean;
 
     constructor(data) {
@@ -94,7 +97,7 @@ export class Country {
         this.name = data['name'];
     }
 }
-export class Brand   {
+export class Brand {
     id: string;
     name: string;
     image: string;

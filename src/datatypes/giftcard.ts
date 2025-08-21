@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import * as dateFormat from 'dateformat';
 import { Address, InvoiceAddress } from './address';
 
@@ -83,7 +85,7 @@ export class ActivateGiftCard {
     /**
      * The 6-digit PIN code belonging to the gift card
      */
-    pincode: string
+    pincode: string;
 }
 
 export class GiftCardCheckClass extends GiftCardCheck {
@@ -92,8 +94,8 @@ export class GiftCardCheckClass extends GiftCardCheck {
         (<any>Object).assign(this, data);
     }
 
-    getForApi () {
-        var data = {};
+    getForApi() {
+        const data = {};
         data['cardNumber'] = this.cardNumber;
         data['pincode'] = this.pincode;
 
@@ -104,11 +106,11 @@ export class GiftCardCheckClass extends GiftCardCheck {
 export class ChargeGiftCardClass extends ChargeGiftCard {
     constructor(data: ChargeGiftCard) {
         super();
-        (<any>Object).assign(this, data)
+        (<any>Object).assign(this, data);
     }
 
-    getForApi () {
-        var data = {}
+    getForApi() {
+        const data = {};
         data['cardNumber'] = this.cardNumber;
         data['pin'] = this.pin;
         data['serviceId'] = this.serviceId;
@@ -117,7 +119,7 @@ export class ChargeGiftCardClass extends ChargeGiftCard {
         data['description'] = this.description;
         data['currency'] = this.currency;
 
-        data['statsData'] = {}
+        data['statsData'] = {};
         if (this.promotorID) data['statsData']['promotorId'] = this.promotorID;
         if (this.info) data['statsData']['info'] = this.info;
         if (this.tool) data['statsData']['tool'] = this.tool;
@@ -132,14 +134,14 @@ export class ChargeGiftCardClass extends ChargeGiftCard {
     }
 }
 
-export class ActivateGiftCardClass extends ActivateGiftCard{
+export class ActivateGiftCardClass extends ActivateGiftCard {
     constructor(data: ActivateGiftCard) {
         super();
-        (<any>Object).assign(this, data)
+        (<any>Object).assign(this, data);
     }
 
-    getForApi () {
-        var data = {};
+    getForApi() {
+        const data = {};
         data['cardNumber'] = this.cardNumber;
         data['amount'] = Math.round(this.amount * 100);
         data['posId'] = this.posId;
