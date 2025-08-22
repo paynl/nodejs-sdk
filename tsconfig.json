@@ -3,7 +3,7 @@
         "module": "ESNext",
         "strict": true,
         "sourceMap": true,
-        "target": "es5",
+        "target": "ES2022",
         "declaration": true,
         "outDir": "./lib/",
         "moduleResolution": "node",
