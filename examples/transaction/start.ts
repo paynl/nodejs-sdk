@@ -1,20 +1,20 @@
-import * as Paynl from '../../index'
-import { ProductType } from '../../datatypes/transaction-start';
+import { ProductType } from '../../src/datatypes/transaction-start';
+import * as Paynl from '../../src/index';
 
 Paynl.Config.setApiToken('Your-api-token');
 Paynl.Config.setServiceId('SL-0123-4567');
 
 Paynl.Transaction.start({
     amount: 20,
-    returnUrl: "https://my-return-url.com",
+    returnUrl: 'https://my-return-url.com',
     ipAddress: '10.20.30.40',
     enduser: {
         initials: 'AM',
-        lastName: "Pieters",
+        lastName: 'Pieters',
         dob: new Date('1987-02-12'),
         emailAddress: 'my@email.com',
         gender: 'M',
-        phoneNumber: '0612345678'
+        phoneNumber: '0612345678',
     },
 
     currency: 'EUR',
@@ -31,16 +31,16 @@ Paynl.Transaction.start({
 
     invoiceDate: new Date(),
     deliveryDate: new Date('2016-10-19'),
-    address:{
+    address: {
         streetName: 'straat',
         houseNumber: '10',
         houseNumberExtension: 'A',
         zipCode: '1234 AB',
         city: 'Enschede',
-        countryCode: 'NL'
+        countryCode: 'NL',
     },
 
-    invoiceAddress:{
+    invoiceAddress: {
         streetName: 'straat',
         houseNumber: '10',
         houseNumberExtension: 'B',
@@ -49,34 +49,32 @@ Paynl.Transaction.start({
         countryCode: 'NL',
         gender: 'F',
         initials: 'MC',
-        lastName: 'lastName'
+        lastName: 'lastName',
     },
 
-    language: "NL",
-    products:
-    [
+    language: 'NL',
+    products: [
         {
             id: '1',
-            name: "test",
+            name: 'test',
             price: 10,
             qty: 1,
             tax: 2.1,
-            type: ProductType.ARTICLE
+            type: ProductType.ARTICLE,
         },
         {
             id: '2',
-            name: "test2",
+            name: 'test2',
             price: 10,
             qty: 1,
             tax: 0.6,
-            type: ProductType.SHIPPING
+            type: ProductType.SHIPPING,
         },
-    ]
-
+    ],
 }).subscribe(
-    (result) => {
+    result => {
         console.log(result.paymentURL);
     },
-    (error) => console.error('error ',error),
-    () => console.log('complete')
-    );
+    error => console.error('error ', error),
+    () => console.log('complete'),
+);
