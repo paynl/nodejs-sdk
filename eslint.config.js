@@ -33,35 +33,6 @@ export default tseslint.config(
     },
     {
         rules: {
-            'import/no-named-as-default-member': 'error',
-            'import/no-duplicates': 'error',
-            'import/first': 'error',
-            // Enforce a newline after import statements. https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/newline-after-import.md
-            'import/newline-after-import': 'error',
-            // Enforce a convention in the order of imports. https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
-            'import/order': [
-                'error',
-                {
-                    groups: [
-                        'builtin',
-                        'external',
-                        'internal',
-                        'parent',
-                        'sibling',
-                        'index',
-                        'object',
-                    ],
-                    alphabetize: {
-                        order: 'asc',
-                        caseInsensitive: true,
-                    },
-                    'newlines-between': 'always',
-                },
-            ],
-        },
-    },
-    {
-        rules: {
             'no-restricted-syntax': [
                 'error',
                 {
@@ -79,6 +50,6 @@ export default tseslint.config(
         ...jest.configs['flat/recommended'],
     },
     {
-        ignores: ['dist/*', 'eslint.config.js'],
+        ignores: ['lib/*', 'eslint.config.js'],
     },
 );

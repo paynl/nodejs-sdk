@@ -13,3 +13,11 @@ npm run lint
 // or
 npm run fix
 ```
+
+## Running tests
+
+We use Jest for testing. To run the tests, run the following command:
+
+```bash
+npm run test
+```
