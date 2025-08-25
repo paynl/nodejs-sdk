@@ -5,6 +5,7 @@ type GenericResponseBody = {
     code: string;
     title: string;
     detail: string;
+    violations?: { propertyPath: string; message: string }[];
 };
 
 const sdkError: GenericResponseBody = {

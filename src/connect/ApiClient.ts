@@ -11,6 +11,9 @@ export type ClientOptions = {
 export interface ApiClientInterface {
     request: (request: ApiRequest) => Promise<ApiResponse>;
     getOptions: () => ClientOptions;
+    get: (endpoint: string) => Promise<ApiResponse>;
+    post: (endpoint: string, body: unknown) => Promise<ApiResponse>;
+    patch: (endpoint: string, body: unknown) => Promise<ApiResponse>;
 }
 
 export class ApiClient implements ApiClientInterface {
@@ -32,5 +35,26 @@ export class ApiClient implements ApiClientInterface {
         }
 
         return new ApiResponse(response);
+    }
+
+    get(endpoint: string): Promise<ApiResponse> {
+        return this.createRequest('GET', endpoint);
+    }
+
+    post(endpoint: string, body: unknown): Promise<ApiResponse> {
+        return this.createRequest('POST', endpoint, body);
+    }
+
+    patch(endpoint: string, body: unknown): Promise<ApiResponse> {
+        return this.createRequest('PATCH', endpoint, body);
+    }
+
+    private createRequest(method: string, endpoint: string, body?: unknown): Promise<ApiResponse> {
+        return this.request(
+            new ApiRequest(endpoint, this.getOptions(), {
+                method: method,
+                body: body ? JSON.stringify(body) : undefined,
+            }),
+        );
     }
 }

@@ -8,7 +8,7 @@ type MockResponseOptions = {
 
 export class FetchMock {
     static mockResponse(options: MockResponseOptions): Response {
-        const body = options.body ? JSON.stringify(options.body) : null;
+        const body = options.body ? options.body : null;
 
         const response = {
             ...options,

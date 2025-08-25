@@ -28,18 +28,9 @@ type CreatedOrder = {
         domainId: string | null;
     };
     transferData: Record<string, unknown>;
-    amount: {
-        value: number;
-        currency: string;
-    };
-    authorizedAmount: {
-        value: number;
-        currency: string;
-    };
-    capturedAmount: {
-        value: number;
-        currency: string;
-    };
+    amount: Amount;
+    authorizedAmount: Amount;
+    capturedAmount: Amount;
     checkoutData: null | {
         customer: {
             email: string | null;
@@ -79,7 +70,7 @@ type CreatedOrder = {
             };
         };
     };
-    payments: unknown[]; // Todo: payment type
+    payments: Payment[];
     createdAt: string;
     createdBy: string | null;
     modifiedAt: string;
@@ -99,6 +90,59 @@ type CreatedOrder = {
         checkout: string;
         redirect: string;
     };
+};
+
+type Payment = {
+    id: string;
+    paymentMethod: {
+        id: number;
+        input: Record<string, unknown> | null;
+    };
+    customerType: string | null;
+    customerKey: string | null;
+    customerId: string | null;
+    customerName: string | null;
+    customerMethod: string | null;
+    ipAddress: string | null;
+    secureStatus: boolean;
+    paymentVerificationMethod: number;
+    status: {
+        code: number;
+        action: string;
+    };
+    currencyAmount: Amount;
+    amount: Amount;
+    authorizedAmount: Amount;
+    capturedAmount: Amount;
+    supplierData: SupplierData | null;
+};
+
+type SupplierData = {
+    contactDetails: {
+        email: string | null;
+        firstName: string | null;
+        lastName: string | null;
+        phoneNumber: string | null;
+    };
+    invoiceAddress: Address;
+    shippingAddress: Address;
+};
+
+type Address = {
+    firstName: string | null;
+    lastName: string | null;
+    street: string | null;
+    houseNumber: string | null;
+    addition: string | null;
+    postalCode: string | null;
+    city: string | null;
+    companyName: string | null;
+    countryName: string | null;
+};
+
+type Amount = {
+    value: number;
+    currency: string;
 };
 
 export type Order = CreatedOrder;
