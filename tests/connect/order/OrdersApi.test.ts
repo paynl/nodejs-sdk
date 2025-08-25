@@ -1,7 +1,7 @@
-import { OrderApi } from '../../src/connect/order/OrderApi';
-import { ApiClient } from '../../src';
-import { FetchMock } from './support/FetchMock';
-import { mockClientOptions } from './support/mockClientOptions';
+import { OrderApi } from '../../../src/connect/order/OrderApi';
+import { ApiClient } from '../../../src';
+import { FetchMock } from '../support/FetchMock';
+import { mockClientOptions } from '../support/mockClientOptions';
 
 describe('OrdersApi', () => {
     it('be implemented', async () => {

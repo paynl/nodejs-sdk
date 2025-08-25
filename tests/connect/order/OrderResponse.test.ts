@@ -1,5 +1,5 @@
-import { ApiResponse } from '../../src/connect/ApiResponse';
-import { OrderResponse } from '../../src/connect/order/orderResponse';
+import { ApiResponse } from '../../../src/connect/ApiResponse';
+import { OrderResponse } from '../../../src/connect/order/orderResponse';
 
 describe('OrderResponse', () => {
     it.todo('should return the order');
