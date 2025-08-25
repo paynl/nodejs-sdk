@@ -13,7 +13,7 @@ const config: Config = {
     collectCoverage: true,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
-    collectCoverageFrom: ['src/**'],
+    collectCoverageFrom: ['src/connect/**'],
 
     // The directory where Jest should output its coverage files
     coverageDirectory: 'coverage',
@@ -28,7 +28,7 @@ const config: Config = {
     preset: 'ts-jest',
 
     // Automatically restore mock state and implementation before every test
-    restoreMocks: false,
+    restoreMocks: true,
 
     // The glob patterns Jest uses to detect test files
     testMatch: ['**/tests/**/?(*.)+(test).ts'],

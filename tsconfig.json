@@ -12,7 +12,7 @@
             "./src"
         ]
     },
-    "exclude": [
-        "./examples/**"
+    "include": [
+        "./src"
     ]
 }
