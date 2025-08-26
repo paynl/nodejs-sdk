@@ -81,4 +81,19 @@ export class OrderApi {
         });
         return await response.body<OrderWithStatus>();
     }
+
+    async approve(orderId: string): Promise<OrderWithStatus> {
+        const response = await this.apiClient.patch(`orders/${orderId}/approve`, null);
+        return await response.body<OrderWithStatus>();
+    }
+
+    async decline(orderId: string): Promise<OrderWithStatus> {
+        const response = await this.apiClient.patch(`orders/${orderId}/decline`, null);
+        return await response.body<OrderWithStatus>();
+    }
+
+    async capture(orderId: string): Promise<OrderWithStatus> {
+        const response = await this.apiClient.patch(`orders/${orderId}/capture`, null);
+        return await response.body<OrderWithStatus>();
+    }
 }

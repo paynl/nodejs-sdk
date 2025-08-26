@@ -169,4 +169,34 @@ describe('OrderApi', () => {
         expect(response.reference).toBe('TEST01');
         expect(response.description).toBe(':description:');
     });
+
+    const approvalTestCases: { name: string; method: 'approve' | 'decline' | 'capture' }[] = [
+        {
+            name: 'can approve an order in the verify stage',
+            method: 'approve',
+        },
+        {
+            name: 'can decline an order in the verify stage',
+            method: 'decline',
+        },
+        {
+            name: 'can capture an order in the verify stage',
+            method: 'capture',
+        },
+    ];
+
+    test.each(approvalTestCases)('$name', async function ({ method }) {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: 95, action: 'AUTHORIZE' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject[method](testOrderId);
+
+        expect(response.status).toEqual({ code: 95, action: 'AUTHORIZE' });
+    });
 });
