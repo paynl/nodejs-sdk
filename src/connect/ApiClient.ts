@@ -31,7 +31,7 @@ export class ApiClient implements ApiClientInterface {
         const response = await fetch(request.getUrl(), request.getRequestInit());
 
         if (!response.ok) {
-            throw new ApiError(new ApiResponse(response));
+            throw await ApiError.create(new ApiResponse(response));
         }
 
         return new ApiResponse(response);

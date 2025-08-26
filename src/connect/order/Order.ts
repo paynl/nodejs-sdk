@@ -1,4 +1,6 @@
-type CreatedOrder = {
+import { ResponseAmount } from './Amount';
+
+type Order = {
     id: string;
     type: string;
     serviceId: string;
@@ -28,9 +30,9 @@ type CreatedOrder = {
         domainId: string | null;
     };
     transferData: Record<string, unknown>;
-    amount: Amount;
-    authorizedAmount: Amount;
-    capturedAmount: Amount;
+    amount: ResponseAmount;
+    authorizedAmount: ResponseAmount;
+    capturedAmount: ResponseAmount;
     checkoutData: null | {
         customer: {
             email: string | null;
@@ -110,10 +112,10 @@ type Payment = {
         code: number;
         action: string;
     };
-    currencyAmount: Amount;
-    amount: Amount;
-    authorizedAmount: Amount;
-    capturedAmount: Amount;
+    currencyAmount: ResponseAmount;
+    amount: ResponseAmount;
+    authorizedAmount: ResponseAmount;
+    capturedAmount: ResponseAmount;
     supplierData: SupplierData | null;
 };
 
@@ -140,9 +142,4 @@ type Address = {
     countryName: string | null;
 };
 
-type Amount = {
-    value: number;
-    currency: string;
-};
-
-export type Order = CreatedOrder;
+export type OrderCreateResponse = Order;

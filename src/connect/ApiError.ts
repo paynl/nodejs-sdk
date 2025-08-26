@@ -19,10 +19,17 @@ export class ApiError extends Error {
     private readonly apiResponse: ApiResponse;
     private responseBody: GenericResponseBody | undefined;
 
-    constructor(apiResponse: ApiResponse) {
+    private constructor(apiResponse: ApiResponse) {
         super(`${apiResponse.http().status} ${apiResponse.http().statusText}`);
         Object.setPrototypeOf(this, ApiError.prototype);
         this.apiResponse = apiResponse;
+    }
+
+    static async create(apiResponse: ApiResponse): Promise<ApiError> {
+        const error = new ApiError(apiResponse);
+        await error.body();
+
+        return error;
     }
 
     async body(): Promise<GenericResponseBody> {

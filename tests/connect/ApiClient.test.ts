@@ -48,7 +48,7 @@ describe('Client', () => {
             url: 'https://test.local/v1/orders',
         });
 
-        const expectedError = new ApiError(new ApiResponse(mockResponse));
+        const expectedError = await ApiError.create(new ApiResponse(mockResponse));
 
         await expect(async () => await client.request(testRequest)).rejects.toThrow(expectedError);
     });

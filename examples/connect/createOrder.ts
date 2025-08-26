@@ -1,4 +1,4 @@
-import { createPayNLClient, ApiError, ValidationError } from '../../src';
+import { createPayNLClient, ApiError } from '../../src';
 
 const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-1234-5678' });
 
@@ -32,9 +32,7 @@ try {
     console.log('Order ID:', order.id);
     console.log('Redirect:', order.links.redirect);
 } catch (error) {
-    if (error instanceof ValidationError) {
+    if (error instanceof ApiError) {
         console.error(error);
-    } else if (error instanceof ApiError) {
-        console.error('API Error:', error.statusCode(), error.statusText(), await error.body());
     }
 }
