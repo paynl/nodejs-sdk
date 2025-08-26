@@ -1,6 +1,6 @@
 import { ApiResponse } from './ApiResponse';
 
-type GenericResponseBody = {
+export type GenericResponseBody = {
     type: string;
     code: string;
     title: string;
@@ -20,7 +20,7 @@ export class ApiError extends Error {
     private responseBody: GenericResponseBody | undefined;
 
     private constructor(apiResponse: ApiResponse) {
-        super(`${apiResponse.http().status} ${apiResponse.http().statusText}`);
+        super(`HTTP ${apiResponse.http().status} ${apiResponse.http().statusText}`);
         Object.setPrototypeOf(this, ApiError.prototype);
         this.apiResponse = apiResponse;
     }

@@ -1,6 +1,6 @@
 import { ResponseAmount } from './Amount';
 
-type Order = {
+export type OrderResponse = {
     id: string;
     type: string;
     serviceId: string;
@@ -82,14 +82,14 @@ type Order = {
     links: {
         status: string;
         abort: string;
-        approve: string;
-        decline: string;
-        void: string;
-        capture: string;
-        captureAmount: string;
-        captureProducts: string;
-        debug: string;
-        checkout: string;
+        approve?: string;
+        decline?: string;
+        void?: string;
+        capture?: string;
+        captureAmount?: string;
+        captureProducts?: string;
+        debug?: string;
+        checkout?: string;
         redirect: string;
     };
 };
@@ -141,5 +141,3 @@ type Address = {
     companyName: string | null;
     countryName: string | null;
 };
-
-export type OrderCreateResponse = Order;

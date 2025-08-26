@@ -1,9 +1,8 @@
 import { ApiClientInterface } from '../ApiClient';
-import { OrderCreateResponse } from './Order';
+import { OrderResponse } from './OrderResponse';
 import { PaymentMethod } from './Payment';
-import { Order } from './CreateOrder';
+import { OrderInformation } from './OrderInformation';
 import { Optimize } from './Optimize';
-import { Integration } from './Integration';
 import { Stats } from './Stats';
 import { Notification } from './Notification';
 import { Customer } from './Customer';
@@ -17,10 +16,13 @@ export type OrderCreateOptions = {
     exchangeUrl?: string;
     amount: CreateAmount;
     paymentMethod?: PaymentMethod;
-    integration?: Integration;
+    integration?: {
+        test?: boolean;
+        pointOfInteraction?: string;
+    };
     optimize?: Optimize;
     customer?: Customer;
-    order?: Order;
+    order?: OrderInformation;
     notification?: Notification;
     stats?: Stats;
     transferData?: Record<string, unknown>;
@@ -37,7 +39,7 @@ export class OrderApi {
         this.apiClient = apiClient;
     }
 
-    async create(options: OrderCreateOptions): Promise<OrderCreateResponse> {
+    async create(options: OrderCreateOptions): Promise<OrderResponse> {
         const body: OrderCreateRequest = {
             ...options,
             serviceId: this.apiClient.getOptions().serviceId,
@@ -45,6 +47,6 @@ export class OrderApi {
 
         const response = await this.apiClient.post('orders', body);
 
-        return response.body<OrderCreateResponse>();
+        return response.body<OrderResponse>();
     }
 }

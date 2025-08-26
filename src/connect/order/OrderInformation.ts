@@ -1,6 +1,6 @@
 import { CreateAmount } from './Amount';
 
-export type Order = {
+export type OrderInformation = {
     countryCode?: string;
     deliveryDate?: Date | string;
     invoiceDate?: Date | string;

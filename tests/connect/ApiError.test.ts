@@ -1,7 +1,7 @@
-import { ApiError } from '../../src';
+import { ApiError, GenericResponseBody } from '../../src';
 import { ApiResponse } from '../../src/connect/ApiResponse';
 
-const BadRequestBody = {
+const BadRequestBody: GenericResponseBody = {
     type: 'https://developer.pay.nl/docs/error-codes',
     code: 'PAY-1400',
     title: 'Foute aanvraag',
@@ -22,7 +22,13 @@ describe('ApiError', () => {
 
         expect(subject.statusCode()).toEqual(418);
         expect(subject.statusText()).toEqual("I'm a teapot");
-        expect(subject.toString()).toEqual("Error: 418 I'm a teapot");
+        expect(subject.toString()).toEqual("Error: HTTP 418 I'm a teapot");
+        expect(await subject.body()).toEqual({
+            code: 'unknown',
+            detail: 'The API error response could not be parsed.',
+            title: 'Unknown SDK error',
+            type: 'unknown',
+        });
     });
 
     it('should have the Pay.nl API error response', async () => {

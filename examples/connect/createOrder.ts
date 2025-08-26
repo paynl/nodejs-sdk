@@ -21,7 +21,37 @@ try {
             phone: '0612345678',
             email: 'testbetaling@pay.nl',
             language: 'NL',
-            locale: 'nl_NL',
+            locale: 'en_GB',
+            trust: 1,
+            reference: 'MyRef',
+            company: {
+                name: 'CompanyName',
+                cocNumber: '12345678',
+                vatNumber: 'NL807960147B01',
+                country: 'NL',
+            },
+        },
+        order: {
+            countryCode: 'NL',
+            deliveryDate: '2024-10-28 14:11:01',
+            invoiceDate: '2024-10-28 14:11:01',
+            deliveryAddress: {
+                street: 'Istreet',
+                streetNumber: '70',
+                zipCode: '1234AB',
+                city: 'City',
+                region: 'ZH',
+                country: 'NL',
+            },
+            invoiceAddress: {
+                street: 'Other street',
+                streetNumber: '1',
+                streetNumberExtension: 'B1',
+                zipCode: '1234AB',
+                city: 'City',
+                region: 'ZH',
+                country: 'NL',
+            },
         },
         integration: {
             // Enable sandbox mode
