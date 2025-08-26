@@ -69,4 +69,16 @@ export class OrderApi {
         const order = await this.get(orderId);
         return order.status;
     }
+
+    async update(
+        orderId: string,
+        reference?: string,
+        description?: string,
+    ): Promise<OrderWithStatus> {
+        const response = await this.apiClient.patch(`orders/${orderId}`, {
+            reference: reference,
+            description: description,
+        });
+        return await response.body<OrderWithStatus>();
+    }
 }

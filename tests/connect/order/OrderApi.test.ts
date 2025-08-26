@@ -149,4 +149,24 @@ describe('OrderApi', () => {
         expect(response.code).toBe(100);
         expect(response.action).toBe('PAID');
     });
+
+    it('can update the order reference and description', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: {
+                id: testOrderId,
+                reference: 'TEST01',
+                description: ':description:',
+            },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.update(testOrderId, 'TEST01', ':description:');
+
+        expect(response.reference).toBe('TEST01');
+        expect(response.description).toBe(':description:');
+    });
 });
