@@ -4,14 +4,16 @@ const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-123
 
 const orderId = '00000000-1111-2222-3333-000000000000';
 
-const order = await payNL.Orders.approve(orderId);
+let order;
+
+order = await payNL.Orders.approve(orderId);
 // or
-const order = await payNL.Orders.decline(orderId);
+order = await payNL.Orders.decline(orderId);
 // or
-const order = await payNL.Orders.capture(orderId);
+order = await payNL.Orders.capture(orderId);
 // or
-const order = await payNL.Orders.captureWithAmount(orderId, 9000);
+order = await payNL.Orders.captureWithAmount(orderId, 9000);
 // or
-const order = await payNL.Orders.captureWithProducts(orderId, [{ id: 'P1', quantity: 9 }]);
+order = await payNL.Orders.captureWithProducts(orderId, [{ id: 'P1', quantity: 9 }]);
 
 console.log(order.status.action);
