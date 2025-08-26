@@ -7,6 +7,7 @@ import { Stats } from './Stats';
 import { Notification } from './Notification';
 import { Customer } from './Customer';
 import { CreateAmount } from './Amount';
+import { OrderWithStatus } from './tempTypes';
 import { ConnectApiRequest } from '../ConnectApiRequest';
 
 export type OrderCreateOptions = {
@@ -57,5 +58,15 @@ export class OrderApi {
         );
 
         return response.body<OrderResponse>();
+    }
+
+    async get(orderId: string): Promise<OrderWithStatus> {
+        const response = await this.apiClient.get(`orders/${orderId}/status`);
+        return await response.body<OrderWithStatus>();
+    }
+
+    async status(orderId: string): Promise<OrderWithStatus['status']> {
+        const order = await this.get(orderId);
+        return order.status;
     }
 }
