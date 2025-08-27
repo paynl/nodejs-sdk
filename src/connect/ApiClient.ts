@@ -1,15 +1,14 @@
-import { ApiRequest } from './ApiRequest';
+import { ConnectApiRequest } from './ConnectApiRequest';
 import { ApiResponse } from './ApiResponse';
 import { ApiError } from './ApiError';
 
 export type ClientOptions = {
     apiToken: string;
     serviceId: string;
-    host?: string;
 };
 
 export interface ApiClientInterface {
-    request: (request: ApiRequest) => Promise<ApiResponse>;
+    request: (request: ConnectApiRequest) => Promise<ApiResponse>;
     getOptions: () => ClientOptions;
 }
 
@@ -24,11 +23,11 @@ export class ApiClient implements ApiClientInterface {
         return this.options;
     }
 
-    async request(request: ApiRequest): Promise<ApiResponse> {
-        const response = await fetch(request.getUrl(), request.getRequestInit());
+    async request(request: ConnectApiRequest): Promise<ApiResponse> {
+        const response = await fetch(request.getUrl(), request.getRequestInit(this.options));
 
         if (!response.ok) {
-            throw new ApiError(new ApiResponse(response));
+            throw await ApiError.create(new ApiResponse(response));
         }
 
         return new ApiResponse(response);

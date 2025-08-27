@@ -1,4 +1,6 @@
-type CreatedOrder = {
+import { ResponseAmount } from './Amount';
+
+export type OrderResponse = {
     id: string;
     type: string;
     serviceId: string;
@@ -28,18 +30,9 @@ type CreatedOrder = {
         domainId: string | null;
     };
     transferData: Record<string, unknown>;
-    amount: {
-        value: number;
-        currency: string;
-    };
-    authorizedAmount: {
-        value: number;
-        currency: string;
-    };
-    capturedAmount: {
-        value: number;
-        currency: string;
-    };
+    amount: ResponseAmount;
+    authorizedAmount: ResponseAmount;
+    capturedAmount: ResponseAmount;
     checkoutData: null | {
         customer: {
             email: string | null;
@@ -79,7 +72,7 @@ type CreatedOrder = {
             };
         };
     };
-    payments: unknown[]; // Todo: payment type
+    payments: Payment[];
     createdAt: string;
     createdBy: string | null;
     modifiedAt: string;
@@ -89,16 +82,62 @@ type CreatedOrder = {
     links: {
         status: string;
         abort: string;
-        approve: string;
-        decline: string;
-        void: string;
-        capture: string;
-        captureAmount: string;
-        captureProducts: string;
-        debug: string;
-        checkout: string;
+        approve?: string;
+        decline?: string;
+        void?: string;
+        capture?: string;
+        captureAmount?: string;
+        captureProducts?: string;
+        debug?: string;
+        checkout?: string;
         redirect: string;
     };
 };
 
-export type Order = CreatedOrder;
+type Payment = {
+    id: string;
+    paymentMethod: {
+        id: number;
+        input: Record<string, unknown> | null;
+    };
+    customerType: string | null;
+    customerKey: string | null;
+    customerId: string | null;
+    customerName: string | null;
+    customerMethod: string | null;
+    ipAddress: string | null;
+    secureStatus: boolean;
+    paymentVerificationMethod: number;
+    status: {
+        code: number;
+        action: string;
+    };
+    currencyAmount: ResponseAmount;
+    amount: ResponseAmount;
+    authorizedAmount: ResponseAmount;
+    capturedAmount: ResponseAmount;
+    supplierData: SupplierData | null;
+};
+
+type SupplierData = {
+    contactDetails: {
+        email: string | null;
+        firstName: string | null;
+        lastName: string | null;
+        phoneNumber: string | null;
+    };
+    invoiceAddress: Address;
+    shippingAddress: Address;
+};
+
+type Address = {
+    firstName: string | null;
+    lastName: string | null;
+    street: string | null;
+    houseNumber: string | null;
+    addition: string | null;
+    postalCode: string | null;
+    city: string | null;
+    companyName: string | null;
+    countryName: string | null;
+};

@@ -1,7 +1,7 @@
-import { ApiError } from '../../src';
+import { ApiError, GenericResponseBody } from '../../src';
 import { ApiResponse } from '../../src/connect/ApiResponse';
 
-const BadRequestBody = {
+const BadRequestBody: GenericResponseBody = {
     type: 'https://developer.pay.nl/docs/error-codes',
     code: 'PAY-1400',
     title: 'Foute aanvraag',
@@ -15,22 +15,28 @@ const BadRequestResponse = {
 } as Response;
 
 describe('ApiError', () => {
-    it('should include HTTP status code and message', () => {
-        const subject = new ApiError(
+    it('should include HTTP status code and message', async () => {
+        const subject = await ApiError.create(
             new ApiResponse(new Response(null, { status: 418, statusText: "I'm a teapot" })),
         );
 
-        expect(subject.statusCode()).toEqual(418);
-        expect(subject.statusText()).toEqual("I'm a teapot");
-        expect(subject.toString()).toEqual("Error: 418 I'm a teapot");
+        expect(subject.statusCode).toEqual(418);
+        expect(subject.statusText).toEqual("I'm a teapot");
+        expect(subject.toString()).toEqual("Error: HTTP 418 I'm a teapot");
+        expect(subject.body).toEqual({
+            code: 'unknown',
+            detail: 'The API error response could not be parsed.',
+            title: 'Unknown SDK error',
+            type: 'unknown',
+        });
     });
 
     it('should have the Pay.nl API error response', async () => {
         const expectedError = BadRequestBody;
 
-        const subject = new ApiError(new ApiResponse(BadRequestResponse));
+        const subject = await ApiError.create(new ApiResponse(BadRequestResponse));
 
-        expect(await subject.body()).toEqual(expectedError);
+        expect(subject.body).toEqual(expectedError);
     });
 
     it('should have a generic error if the response can not be parsed', async () => {
@@ -50,19 +56,8 @@ describe('ApiError', () => {
             },
         } as Response;
 
-        const subject = new ApiError(new ApiResponse(mockResponse));
+        const subject = await ApiError.create(new ApiResponse(mockResponse));
 
-        expect(await subject.body()).toEqual(expectedError);
-    });
-
-    it('should allow to fetch error body twice', async () => {
-        const subject = new ApiError(new ApiResponse(BadRequestResponse));
-
-        const firstTime = await subject.body();
-        const secondTime = await subject.body();
-
-        expect(firstTime).toEqual(BadRequestBody);
-        expect(secondTime).toEqual(BadRequestBody);
-        expect(firstTime).toEqual(secondTime);
+        expect(subject.body).toEqual(expectedError);
     });
 });

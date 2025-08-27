@@ -1,10 +1,10 @@
 import * as Paynl from '../index';
-import { ApiClient, ClientOptions } from './ApiClient';
+import { ClientOptions, ApiClient } from './ApiClient';
 import { PayNLProvider } from './PayNLProvider';
 import { OrderApi } from './order/OrderApi';
 
 export function createPayNLClient(options: ClientOptions): PayNLProvider {
-    const apiClient = new ApiClient({ host: 'https://connect.pay.nl/v1', ...options });
+    const apiClient = new ApiClient(options);
     configureBackwardsCompatibleApi(options);
 
     return {

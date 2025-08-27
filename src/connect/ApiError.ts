@@ -1,10 +1,11 @@
 import { ApiResponse } from './ApiResponse';
 
-type GenericResponseBody = {
+export type GenericResponseBody = {
     type: string;
     code: string;
     title: string;
     detail: string;
+    violations?: { propertyPath: string; message: string }[];
 };
 
 const sdkError: GenericResponseBody = {
@@ -15,34 +16,22 @@ const sdkError: GenericResponseBody = {
 };
 
 export class ApiError extends Error {
-    private readonly apiResponse: ApiResponse;
-    private responseBody: GenericResponseBody | undefined;
-
-    constructor(apiResponse: ApiResponse) {
-        super(`${apiResponse.http().status} ${apiResponse.http().statusText}`);
+    private constructor(
+        public readonly statusCode: number,
+        public readonly statusText: string,
+        public readonly body: GenericResponseBody,
+    ) {
+        super(`HTTP ${statusCode} ${statusText}`);
         Object.setPrototypeOf(this, ApiError.prototype);
-        this.apiResponse = apiResponse;
     }
 
-    async body(): Promise<GenericResponseBody> {
-        if (this.responseBody) {
-            return this.responseBody;
-        }
-
+    static async create(apiResponse: ApiResponse): Promise<ApiError> {
         try {
-            this.responseBody = await this.apiResponse.body<GenericResponseBody>();
-            return this.responseBody;
+            const body = await apiResponse.body<GenericResponseBody>();
+
+            return new ApiError(apiResponse.http().status, apiResponse.http().statusText, body);
         } catch {
-            this.responseBody = sdkError;
-            return sdkError;
+            return new ApiError(apiResponse.http().status, apiResponse.http().statusText, sdkError);
         }
-    }
-
-    statusCode(): number {
-        return this.apiResponse.http().status;
-    }
-
-    statusText(): string {
-        return this.apiResponse.http().statusText;
     }
 }
