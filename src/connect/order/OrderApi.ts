@@ -2,6 +2,7 @@ import { ApiClientInterface } from '../ApiClient';
 import { Order } from './Order';
 import { ConnectApiRequest } from '../ConnectApiRequest';
 import { OrderCreateOptions } from './CreateOrderOptions';
+import { PaymentMethod } from './Payment';
 
 export class OrderApi {
     constructor(private readonly apiClient: ApiClientInterface) {}
@@ -76,6 +77,16 @@ export class OrderApi {
         const response = await this.apiClient.request(
             new ConnectApiRequest(`v1/orders/${orderId}/capture`, {
                 method: 'PATCH',
+            }),
+        );
+        return await response.body<Order>();
+    }
+
+    async payment(orderId: string, paymentMethod: PaymentMethod): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/payments`, {
+                method: 'POST',
+                json: { paymentMethod: paymentMethod },
             }),
         );
         return await response.body<Order>();
