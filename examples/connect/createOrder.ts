@@ -1,5 +1,4 @@
 import { createPayNLClient, ApiError } from '../../src';
-import { addHours } from 'date-fns';
 
 const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-1234-5678' });
 
@@ -9,7 +8,7 @@ try {
         reference: 'abc1234',
         returnUrl: 'https://127.0.0.1/return',
         exchangeUrl: 'https://127.0.0.1/exchange',
-        expire: addHours(new Date(), 1),
+        expire: new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
         amount: {
             value: 1000,
             currency: 'EUR',
