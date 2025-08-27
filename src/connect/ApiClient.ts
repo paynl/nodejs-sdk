@@ -1,19 +1,15 @@
-import { ApiRequest } from './ApiRequest';
+import { ConnectApiRequest } from './ConnectApiRequest';
 import { ApiResponse } from './ApiResponse';
 import { ApiError } from './ApiError';
 
 export type ClientOptions = {
     apiToken: string;
     serviceId: string;
-    host?: string;
 };
 
 export interface ApiClientInterface {
-    request: (request: ApiRequest) => Promise<ApiResponse>;
+    request: (request: ConnectApiRequest) => Promise<ApiResponse>;
     getOptions: () => ClientOptions;
-    get: (endpoint: string) => Promise<ApiResponse>;
-    post: (endpoint: string, body: unknown) => Promise<ApiResponse>;
-    patch: (endpoint: string, body: unknown) => Promise<ApiResponse>;
 }
 
 export class ApiClient implements ApiClientInterface {
@@ -27,38 +23,13 @@ export class ApiClient implements ApiClientInterface {
         return this.options;
     }
 
-    async request(request: ApiRequest): Promise<ApiResponse> {
-        const response = await fetch(request.getUrl(), request.getRequestInit());
+    async request(request: ConnectApiRequest): Promise<ApiResponse> {
+        const response = await fetch(request.getUrl(), request.getRequestInit(this.options));
 
         if (!response.ok) {
             throw await ApiError.create(new ApiResponse(response));
         }
 
         return new ApiResponse(response);
-    }
-
-    async get(endpoint: string): Promise<ApiResponse> {
-        return await this.createApiRequest('GET', endpoint);
-    }
-
-    async post(endpoint: string, body: unknown): Promise<ApiResponse> {
-        return await this.createApiRequest('POST', endpoint, body);
-    }
-
-    async patch(endpoint: string, body: unknown): Promise<ApiResponse> {
-        return await this.createApiRequest('PATCH', endpoint, body);
-    }
-
-    private async createApiRequest(
-        method: string,
-        endpoint: string,
-        body?: unknown,
-    ): Promise<ApiResponse> {
-        return await this.request(
-            new ApiRequest(endpoint, this.getOptions(), {
-                method: method,
-                body: body ? JSON.stringify(body) : undefined,
-            }),
-        );
     }
 }

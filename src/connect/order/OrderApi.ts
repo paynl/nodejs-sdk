@@ -7,6 +7,7 @@ import { Stats } from './Stats';
 import { Notification } from './Notification';
 import { Customer } from './Customer';
 import { CreateAmount } from './Amount';
+import { ConnectApiRequest } from '../ConnectApiRequest';
 
 export type OrderCreateOptions = {
     description?: string;
@@ -33,11 +34,7 @@ type OrderCreateRequest = OrderCreateOptions & {
 };
 
 export class OrderApi {
-    private readonly apiClient: ApiClientInterface;
-
-    constructor(apiClient: ApiClientInterface) {
-        this.apiClient = apiClient;
-    }
+    constructor(private readonly apiClient: ApiClientInterface) {}
 
     /**
      * Creating an order is the first step in making a payment.
@@ -55,7 +52,9 @@ export class OrderApi {
             serviceId: this.apiClient.getOptions().serviceId,
         };
 
-        const response = await this.apiClient.post('orders', body);
+        const response = await this.apiClient.request(
+            new ConnectApiRequest('v1/orders', { method: 'POST', json: body }),
+        );
 
         return response.body<OrderResponse>();
     }
