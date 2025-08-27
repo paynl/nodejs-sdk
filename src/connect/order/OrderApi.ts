@@ -39,6 +39,16 @@ export class OrderApi {
         this.apiClient = apiClient;
     }
 
+    /**
+     * Creating an order is the first step in making a payment.
+     *
+     * Once you have created an order, you should redirect the user to the URL in the `links.redirect` object.
+     *
+     * @example
+     * const order = await client.Orders.create({ ... });
+     * console.log('Redirect:', order.links.redirect);
+     * @see https://developer.pay.nl/reference/api_create_order-1
+     */
     async create(options: OrderCreateOptions): Promise<OrderResponse> {
         const body: OrderCreateRequest = {
             ...options,

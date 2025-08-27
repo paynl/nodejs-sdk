@@ -37,20 +37,24 @@ export class ApiClient implements ApiClientInterface {
         return new ApiResponse(response);
     }
 
-    get(endpoint: string): Promise<ApiResponse> {
-        return this.createRequest('GET', endpoint);
+    async get(endpoint: string): Promise<ApiResponse> {
+        return await this.createApiRequest('GET', endpoint);
     }
 
-    post(endpoint: string, body: unknown): Promise<ApiResponse> {
-        return this.createRequest('POST', endpoint, body);
+    async post(endpoint: string, body: unknown): Promise<ApiResponse> {
+        return await this.createApiRequest('POST', endpoint, body);
     }
 
-    patch(endpoint: string, body: unknown): Promise<ApiResponse> {
-        return this.createRequest('PATCH', endpoint, body);
+    async patch(endpoint: string, body: unknown): Promise<ApiResponse> {
+        return await this.createApiRequest('PATCH', endpoint, body);
     }
 
-    private createRequest(method: string, endpoint: string, body?: unknown): Promise<ApiResponse> {
-        return this.request(
+    private async createApiRequest(
+        method: string,
+        endpoint: string,
+        body?: unknown,
+    ): Promise<ApiResponse> {
+        return await this.request(
             new ApiRequest(endpoint, this.getOptions(), {
                 method: method,
                 body: body ? JSON.stringify(body) : undefined,

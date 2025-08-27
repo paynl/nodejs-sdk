@@ -1,4 +1,5 @@
 import { createPayNLClient, ApiError } from '../../src';
+import { addHours } from 'date-fns';
 
 const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-1234-5678' });
 
@@ -8,6 +9,7 @@ try {
         reference: 'abc1234',
         returnUrl: 'https://127.0.0.1/return',
         exchangeUrl: 'https://127.0.0.1/exchange',
+        expire: addHours(new Date(), 1),
         amount: {
             value: 1000,
             currency: 'EUR',
@@ -33,8 +35,8 @@ try {
         },
         order: {
             countryCode: 'NL',
-            deliveryDate: '2024-10-28 14:11:01',
-            invoiceDate: '2024-10-28 14:11:01',
+            deliveryDate: new Date('2024-12-17T03:24:00"'),
+            invoiceDate: new Date('2024-12-17T03:24:00"'),
             deliveryAddress: {
                 street: 'Istreet',
                 streetNumber: '70',

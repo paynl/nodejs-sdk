@@ -2,8 +2,8 @@ import { CreateAmount } from './Amount';
 
 export type OrderInformation = {
     countryCode?: string;
-    deliveryDate?: Date | string;
-    invoiceDate?: Date | string;
+    deliveryDate?: Date;
+    invoiceDate?: Date;
     deliveryAddress?: Address;
     invoiceAddress?: Address;
     products?: Product[];

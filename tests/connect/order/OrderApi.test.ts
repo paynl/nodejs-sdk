@@ -65,8 +65,8 @@ describe('OrderApi', () => {
             },
             order: {
                 countryCode: 'NL',
-                deliveryDate: '2024-10-28 14:11:01',
-                invoiceDate: '2024-10-28 14:11:01',
+                deliveryDate: new Date('2024-12-17T03:24:00"'),
+                invoiceDate: new Date('2024-12-17T03:24:00"'),
                 deliveryAddress: {
                     street: 'Istreet',
                     streetNumber: '70',

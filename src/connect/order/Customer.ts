@@ -2,7 +2,12 @@ export type Customer = {
     email?: string;
     firstName?: string;
     lastName?: string;
-    birthDate?: Date | string;
+    /**
+     * Should be formatted according to YYYY-MM-DD
+     *
+     * @example 1999-12-30
+     */
+    birthDate?: string;
     gender?: string;
     phone?: string;
     language?: string;

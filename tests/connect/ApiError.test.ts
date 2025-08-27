@@ -20,10 +20,10 @@ describe('ApiError', () => {
             new ApiResponse(new Response(null, { status: 418, statusText: "I'm a teapot" })),
         );
 
-        expect(subject.statusCode()).toEqual(418);
-        expect(subject.statusText()).toEqual("I'm a teapot");
+        expect(subject.statusCode).toEqual(418);
+        expect(subject.statusText).toEqual("I'm a teapot");
         expect(subject.toString()).toEqual("Error: HTTP 418 I'm a teapot");
-        expect(await subject.body()).toEqual({
+        expect(subject.body).toEqual({
             code: 'unknown',
             detail: 'The API error response could not be parsed.',
             title: 'Unknown SDK error',
@@ -36,7 +36,7 @@ describe('ApiError', () => {
 
         const subject = await ApiError.create(new ApiResponse(BadRequestResponse));
 
-        expect(await subject.body()).toEqual(expectedError);
+        expect(subject.body).toEqual(expectedError);
     });
 
     it('should have a generic error if the response can not be parsed', async () => {
@@ -58,17 +58,6 @@ describe('ApiError', () => {
 
         const subject = await ApiError.create(new ApiResponse(mockResponse));
 
-        expect(await subject.body()).toEqual(expectedError);
-    });
-
-    it('should allow to fetch error body twice', async () => {
-        const subject = await ApiError.create(new ApiResponse(BadRequestResponse));
-
-        const firstTime = await subject.body();
-        const secondTime = await subject.body();
-
-        expect(firstTime).toEqual(BadRequestBody);
-        expect(secondTime).toEqual(BadRequestBody);
-        expect(firstTime).toEqual(secondTime);
+        expect(subject.body).toEqual(expectedError);
     });
 });
