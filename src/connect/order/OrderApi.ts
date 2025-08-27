@@ -61,7 +61,9 @@ export class OrderApi {
     }
 
     async get(orderId: string): Promise<OrderWithStatus> {
-        const response = await this.apiClient.get(`orders/${orderId}/status`);
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/status`),
+        );
         return await response.body<OrderWithStatus>();
     }
 
@@ -75,25 +77,42 @@ export class OrderApi {
         reference?: string,
         description?: string,
     ): Promise<OrderWithStatus> {
-        const response = await this.apiClient.patch(`orders/${orderId}`, {
-            reference: reference,
-            description: description,
-        });
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}`, {
+                method: 'PATCH',
+                json: {
+                    reference: reference,
+                    description: description,
+                },
+            }),
+        );
         return await response.body<OrderWithStatus>();
     }
 
     async approve(orderId: string): Promise<OrderWithStatus> {
-        const response = await this.apiClient.patch(`orders/${orderId}/approve`, null);
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/approve`, {
+                method: 'PATCH',
+            }),
+        );
         return await response.body<OrderWithStatus>();
     }
 
     async decline(orderId: string): Promise<OrderWithStatus> {
-        const response = await this.apiClient.patch(`orders/${orderId}/decline`, null);
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/decline`, {
+                method: 'PATCH',
+            }),
+        );
         return await response.body<OrderWithStatus>();
     }
 
     async capture(orderId: string): Promise<OrderWithStatus> {
-        const response = await this.apiClient.patch(`orders/${orderId}/capture`, null);
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/capture`, {
+                method: 'PATCH',
+            }),
+        );
         return await response.body<OrderWithStatus>();
     }
 }
