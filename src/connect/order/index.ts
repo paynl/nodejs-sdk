@@ -1,1 +1,1 @@
-export * from './OrderResponse';
+export * from './Order';

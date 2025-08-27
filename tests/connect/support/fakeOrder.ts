@@ -1,6 +1,6 @@
-import { OrderResponse } from '../../../src';
+import { Order } from '../../../src';
 
-export const orderCreateResponse: OrderResponse = {
+export const orderCreateResponse: Order = {
     id: '019642b8-9d82-78cf-83bd-ed07c40e3bad',
     type: 'sale',
     serviceId: 'SL-####-####',

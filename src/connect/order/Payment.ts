@@ -1,6 +1,40 @@
+import { ResponseAmount } from './Amount';
+import { PaymentAddress } from './Address';
+
+export type Payment = {
+    id: string;
+    paymentMethod: PaymentMethod;
+    customerType: string | null;
+    customerKey: string | null;
+    customerId: string | null;
+    customerName: string | null;
+    customerMethod: string | null;
+    ipAddress: string | null;
+    secureStatus: boolean;
+    paymentVerificationMethod: number;
+    status: {
+        code: number;
+        action: string;
+    };
+    currencyAmount: ResponseAmount;
+    amount: ResponseAmount;
+    authorizedAmount: ResponseAmount;
+    capturedAmount: ResponseAmount;
+    supplierData?: {
+        contactDetails: {
+            email: string | null;
+            firstName: string | null;
+            lastName: string | null;
+            phoneNumber: string | null;
+        };
+        invoiceAddress: PaymentAddress;
+        shippingAddress: PaymentAddress;
+    };
+};
+
 export type PaymentMethod = {
-    id?: number;
-    input?:
+    id: number;
+    input:
         | InputGiftcard
         | InputPin
         | InputDirectDebit
