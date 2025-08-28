@@ -149,6 +149,21 @@ describe('OrderApi', () => {
         expect(response.status).toEqual({ code: 95, action: 'AUTHORIZE' });
     });
 
+    it('can capture an order with an amount', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: 95, action: 'AUTHORIZE' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.captureWithAmount(testOrderId, 4242);
+
+        expect(response.status).toEqual({ code: 95, action: 'AUTHORIZE' });
+    });
+
     const paymentTestCases: { name: string; method: PaymentMethod }[] = [
         {
             name: 'gift card',

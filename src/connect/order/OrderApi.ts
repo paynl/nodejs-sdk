@@ -82,6 +82,16 @@ export class OrderApi {
         return await response.body<Order>();
     }
 
+    async captureWithAmount(orderId: string, amountInCents: number): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/capture/amount`, {
+                method: 'PATCH',
+                json: { amount: amountInCents },
+            }),
+        );
+        return await response.body<Order>();
+    }
+
     async payment(orderId: string, paymentMethod: PaymentMethod): Promise<Order> {
         const response = await this.apiClient.request(
             new ConnectApiRequest(`v1/orders/${orderId}/payments`, {
