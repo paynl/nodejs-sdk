@@ -11,5 +11,7 @@ const order = await payNL.Orders.decline(orderId);
 const order = await payNL.Orders.capture(orderId);
 // or
 const order = await payNL.Orders.captureWithAmount(orderId, 9000);
+// or
+const order = await payNL.Orders.captureWithProducts(orderId, [{ id: 'P1', quantity: 9 }]);
 
 console.log(order.status.action);
