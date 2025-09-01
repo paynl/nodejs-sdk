@@ -3,6 +3,7 @@ import { PaymentMethod } from './Payment';
 import { Customer } from './Customer';
 import { Stats } from './Stats';
 import { PostalAddress } from './Address';
+import { ResponseProduct } from './Product';
 
 export type OrderCreateOptions = {
     description?: string;
@@ -24,7 +25,7 @@ export type OrderCreateOptions = {
         invoiceDate?: Date;
         deliveryAddress?: PostalAddress;
         invoiceAddress?: PostalAddress;
-        products?: Product[];
+        products?: ResponseProduct[];
     };
     notification?: {
         type?: 'push' | 'email';
@@ -53,14 +54,4 @@ type Optimize = {
         name: string;
         countryCode: string;
     };
-};
-
-type Product = {
-    id?: string;
-    description?: string;
-    /** https://developer.pay.nl/reference/get_product_types */
-    type?: string;
-    price?: CreateAmount;
-    quantity?: number;
-    vatPercentage?: number;
 };
