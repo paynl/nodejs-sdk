@@ -267,4 +267,34 @@ describe('OrderApi', () => {
             expect(response).toEqual(orderCreateResponse);
         },
     );
+
+    it('can cancel an order', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: -61, action: 'CANCEL' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.cancel(testOrderId);
+
+        expect(response.status).toEqual({ code: -61, action: 'CANCEL' });
+    });
+
+    it('can abort an order', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: -90, action: 'CANCEL' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.abort(testOrderId);
+
+        expect(response.status).toEqual({ code: -90, action: 'CANCEL' });
+    });
 });

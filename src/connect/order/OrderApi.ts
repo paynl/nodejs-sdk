@@ -112,4 +112,22 @@ export class OrderApi {
         );
         return await response.body<Order>();
     }
+
+    async cancel(orderId: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/void`, {
+                method: 'PATCH',
+            }),
+        );
+        return await response.body<Order>();
+    }
+
+    async abort(orderId: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/abort`, {
+                method: 'PATCH',
+            }),
+        );
+        return await response.body<Order>();
+    }
 }
