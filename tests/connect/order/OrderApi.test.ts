@@ -149,6 +149,38 @@ describe('OrderApi', () => {
         expect(response.status).toEqual({ code: 95, action: 'AUTHORIZE' });
     });
 
+    it('can capture an order with an amount', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: 95, action: 'AUTHORIZE' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.captureWithAmount(testOrderId, 4242);
+
+        expect(response.status).toEqual({ code: 95, action: 'AUTHORIZE' });
+    });
+
+    it('can capture an order with products', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+        const productOne = { id: 'P1', quantity: 2 };
+        const productTwo = { id: 'P2', quantity: 1 };
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: 95, action: 'AUTHORIZE' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.captureWithProducts(testOrderId, [productOne, productTwo]);
+
+        expect(response.status).toEqual({ code: 95, action: 'AUTHORIZE' });
+    });
+
     const paymentTestCases: { name: string; method: PaymentMethod }[] = [
         {
             name: 'gift card',
@@ -235,4 +267,34 @@ describe('OrderApi', () => {
             expect(response).toEqual(orderCreateResponse);
         },
     );
+
+    it('can cancel an order', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: -61, action: 'CANCEL' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.cancel(testOrderId);
+
+        expect(response.status).toEqual({ code: -61, action: 'CANCEL' });
+    });
+
+    it('can abort an order', async () => {
+        const clientMock = new ApiClient(mockClientOptions);
+
+        FetchMock.mockResponse({
+            status: 200,
+            body: { id: testOrderId, status: { code: -90, action: 'CANCEL' } },
+        });
+
+        const subject = new OrderApi(clientMock);
+
+        const response = await subject.abort(testOrderId);
+
+        expect(response.status).toEqual({ code: -90, action: 'CANCEL' });
+    });
 });

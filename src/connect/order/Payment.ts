@@ -34,7 +34,7 @@ export type Payment = {
 
 export type PaymentMethod = {
     id: number;
-    input:
+    input?:
         | InputGiftcard
         | InputPin
         | InputDirectDebit
@@ -42,7 +42,8 @@ export type PaymentMethod = {
         | InputPrzelewy24
         | InputPayByBank
         | InputSprayPay
-        | InputPayPal;
+        | InputPayPal
+        | null;
 };
 
 type InputGiftcard = {
