@@ -1,10 +1,10 @@
 export type Stats = {
-    tool?: string;
-    info?: string;
-    object?: string;
-    extra1?: string;
-    extra2?: string;
-    extra3?: string;
-    domainId?: string;
-    promotorId?: number;
+    tool?: string | null;
+    info?: string | null;
+    object?: string | null;
+    extra1?: string | null;
+    extra2?: string | null;
+    extra3?: string | null;
+    domainId?: string | null;
+    promotorId?: number | null;
 };

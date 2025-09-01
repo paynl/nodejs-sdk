@@ -1,37 +1,7 @@
 import { ApiClientInterface } from '../ApiClient';
-import { OrderResponse } from './OrderResponse';
-import { PaymentMethod } from './Payment';
-import { OrderInformation } from './OrderInformation';
-import { Optimize } from './Optimize';
-import { Stats } from './Stats';
-import { Notification } from './Notification';
-import { Customer } from './Customer';
-import { CreateAmount } from './Amount';
+import { Order } from './Order';
 import { ConnectApiRequest } from '../ConnectApiRequest';
-
-export type OrderCreateOptions = {
-    description?: string;
-    reference?: string;
-    expire?: Date;
-    returnUrl?: string;
-    exchangeUrl?: string;
-    amount: CreateAmount;
-    paymentMethod?: PaymentMethod;
-    integration?: {
-        test?: boolean;
-        pointOfInteraction?: string;
-    };
-    optimize?: Optimize;
-    customer?: Customer;
-    order?: OrderInformation;
-    notification?: Notification;
-    stats?: Stats;
-    transferData?: Record<string, unknown>;
-};
-
-type OrderCreateRequest = OrderCreateOptions & {
-    serviceId: string;
-};
+import { OrderCreateOptions } from './CreateOrderOptions';
 
 export class OrderApi {
     constructor(private readonly apiClient: ApiClientInterface) {}
@@ -46,8 +16,8 @@ export class OrderApi {
      * console.log('Redirect:', order.links.redirect);
      * @see https://developer.pay.nl/reference/api_create_order-1
      */
-    async create(options: OrderCreateOptions): Promise<OrderResponse> {
-        const body: OrderCreateRequest = {
+    async create(options: OrderCreateOptions): Promise<Order> {
+        const body = {
             ...options,
             serviceId: this.apiClient.getOptions().serviceId,
         };
@@ -56,6 +26,58 @@ export class OrderApi {
             new ConnectApiRequest('v1/orders', { method: 'POST', json: body }),
         );
 
-        return response.body<OrderResponse>();
+        return response.body<Order>();
+    }
+
+    async get(orderId: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/status`),
+        );
+        return await response.body<Order>();
+    }
+
+    async status(orderId: string): Promise<Order['status']> {
+        const order = await this.get(orderId);
+        return order.status;
+    }
+
+    async update(orderId: string, reference?: string, description?: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}`, {
+                method: 'PATCH',
+                json: {
+                    reference: reference,
+                    description: description,
+                },
+            }),
+        );
+        return await response.body<Order>();
+    }
+
+    async approve(orderId: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/approve`, {
+                method: 'PATCH',
+            }),
+        );
+        return await response.body<Order>();
+    }
+
+    async decline(orderId: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/decline`, {
+                method: 'PATCH',
+            }),
+        );
+        return await response.body<Order>();
+    }
+
+    async capture(orderId: string): Promise<Order> {
+        const response = await this.apiClient.request(
+            new ConnectApiRequest(`v1/orders/${orderId}/capture`, {
+                method: 'PATCH',
+            }),
+        );
+        return await response.body<Order>();
     }
 }
