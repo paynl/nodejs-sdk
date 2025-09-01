@@ -53,6 +53,17 @@ try {
                 region: 'ZH',
                 country: 'NL',
             },
+            products: [
+                {
+                    id: 'P1',
+                    description: 'Product 1',
+                    quantity: 1,
+                    price: {
+                        value: 1000,
+                        currency: 'EUR',
+                    },
+                },
+            ],
         },
         integration: {
             // Enable sandbox mode

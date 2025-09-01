@@ -10,7 +10,7 @@ export type ResponseProduct = {
     description?: string;
     /** https://developer.pay.nl/reference/get_product_types */
     type?: string;
-    price?: CreateAmount;
+    price: CreateAmount;
     quantity?: number;
     vatPercentage?: number;
 };
