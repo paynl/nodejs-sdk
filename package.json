@@ -19,8 +19,9 @@
     "build": "tsc",
     "clean": "rm -rf ./lib",
     "prepack": "npm run clean && npm run build",
-    "lint": "eslint . && tsc --noEmit",
-    "fix": "eslint . --fix && tsc --noEmit",
+    "types": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json",
+    "lint": "eslint . && npm run types",
+    "fix": "eslint . --fix && npm run types",
     "test": "jest; echo 'Coverage report: ./coverage/lcov-report/index.html'"
   },
   "author": "Andy Pieters <andy@pay.nl>",
