@@ -268,7 +268,7 @@ describe('OrderApi', () => {
         },
     );
 
-    it('can cancel an order', async () => {
+    it('can void an order', async () => {
         const clientMock = new ApiClient(mockClientOptions);
 
         FetchMock.mockResponse({
@@ -278,7 +278,7 @@ describe('OrderApi', () => {
 
         const subject = new OrderApi(clientMock);
 
-        const response = await subject.cancel(testOrderId);
+        const response = await subject.void(testOrderId);
 
         expect(response.status).toEqual({ code: -61, action: 'CANCEL' });
     });

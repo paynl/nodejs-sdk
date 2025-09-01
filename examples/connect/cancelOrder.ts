@@ -4,6 +4,6 @@ const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-123
 
 const orderId = '00000000-1111-2222-3333-000000000000';
 
-const order = await payNL.Orders.cancel(orderId);
+const order = await payNL.Orders.void(orderId);
 
 console.log(order.payments);

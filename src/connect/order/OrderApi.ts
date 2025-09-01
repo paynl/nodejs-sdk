@@ -161,7 +161,7 @@ export class OrderApi {
      *
      * @see https://developer.pay.nl/reference/api_void_order-1
      */
-    async cancel(orderId: string): Promise<Order> {
+    async void(orderId: string): Promise<Order> {
         const response = await this.apiClient.request(
             new ConnectApiRequest(`v1/orders/${orderId}/void`, {
                 method: 'PATCH',
