@@ -14,7 +14,7 @@ npm install paynl-sdk --save
 - From the popup use the API token and service location ID, and configure them in the SDK.
 
 ## Examples
-Some of the basic examples are listed here, for the full list of examples, please take a look at the examples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/examples)
+Some of the basic examples are listed here, for the full list of examples, please take a look at the examples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/examples).
 
 All examples start with importing the `paynl-sdk` and creating a client using the API token and service location ID.
 
