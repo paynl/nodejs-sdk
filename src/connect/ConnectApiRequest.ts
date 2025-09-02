@@ -1,11 +1,13 @@
 import { ClientOptions } from './ApiClient';
 
+export type FetchOptions = RequestInit & { json?: unknown };
+
 export class ConnectApiRequest {
     private readonly url: string;
     private readonly host = 'https://connect.pay.nl';
-    private readonly fetchOptions: RequestInit & { json?: unknown };
+    private readonly fetchOptions: FetchOptions;
 
-    constructor(endpoint: string, fetchOptions: RequestInit & { json?: unknown } = {}) {
+    constructor(endpoint: string, fetchOptions: FetchOptions = {}) {
         this.url = `${this.host}/${endpoint}`;
         this.fetchOptions = fetchOptions;
     }
@@ -25,5 +27,9 @@ export class ConnectApiRequest {
 
     getUrl(): string {
         return this.url;
+    }
+
+    getFetchOptions(): FetchOptions {
+        return this.fetchOptions;
     }
 }
