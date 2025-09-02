@@ -70,7 +70,7 @@ const orderStatus = await payNL.Orders.status(orderId);
 
 > [!IMPORTANT]
 > Orders created with the transaction API will not be available in the new transaction gateway unit.
-> In v2.0 the `payNL.Transaction` methods will no longer be available. The transaction status endpoint will be kept for backwards compatibility.
+> In the upcoming v2.0 release the `payNL.Transaction` methods will no longer be available. The transaction status endpoint will be kept for backwards compatibility.
 > We recommend that you start using orders instead of transactions.
 
 ### Getting the available payment methods
