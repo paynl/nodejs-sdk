@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New order API endpoints.
 
 ### Deprecated
-- All transaction endpoints, except for the status endpoint.
+- All transaction endpoints, except for the status endpoint (see UPGRADING.md)
 
 ### Changed
 - Package overhead maintenance (CI, linting, etc.).
