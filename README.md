@@ -8,40 +8,78 @@ npm install paynl-sdk --save
 
 ## Usage
 
-- Require 'paynl-sdk' in your file.
-```javascript
-var Paynl = require('paynl-sdk');
-```
-- Register for a PAY.nl account at: [pay.nl?register](https://pay.nl?register)
+- Import 'paynl-sdk' in your file.
+- [Register](https://signup.pay.nl/welcome) for a PAY.nl account at.
 - In the PAY.nl admin panel, navigate to Manage -> Services and click the SL-code on the left.
-- From the popup use the apitoken and serviceId, and configure them in the SDK.
-```javascript
-Paynl.Config.setTokenCode('AT-####-####');
-Paynl.Config.setApiToken('****************************************');
-Paynl.Config.setServiceId('SL-####-####');
+- From the popup use the API token and service location ID, and configure them in the SDK.
 
-```
 ## Examples
-Some of the basic examples are listed here, for the full list of examples, please take a look at the samples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/samples)
+Some of the basic examples are listed here, for the full list of examples, please take a look at the examples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/examples)
 
-All examples start with requiring paynl-sdk and setting the apitoken and serviceId.
+All examples start with requiring paynl-sdk and setting the API token and service location ID.
 
-```javascript
-var Paynl = require('paynl-sdk');
+```typescript
+import { createPayNLClient } from 'paynl-sdk';
 
-Paynl.Config.setTokenCode('AT-####-####');
-Paynl.Config.setApiToken('****************************************');
-Paynl.Config.setServiceId('SL-####-####');
+const payNL = createPayNLClient({ apiToken: '****************************************', serviceId: 'SL-####-####' });
 ```
+
+## Orders
+
+Orders use the new Transaction Gateway Unit API. View the [examples](https://github.com/paynl/nodejs-sdk/tree/master/src/examples/connect) or [online documentation](https://developer.pay.nl/reference/api_create_order-1) for a complete overview of what is possible.
+
+### Creating an order
+
+The most minimal request to create an order includes the amount:
+
+```typescript
+const order = await payNL.Orders.create({
+    amount: {
+        value: 1000, // in cents
+        currency: 'EUR',
+    },
+});
+```
+
+For testing purposes you may enable the sandbox mode:
+
+```typescript
+const order = await payNL.Orders.create({
+    amount: {
+        value: 1000, // in cents
+        currency: 'EUR',
+    },
+    integration: {
+       test: true,
+    },
+});
+```
+
+### Fetching an order
+
+After an order is created you should store its ID, which you need to fetch or change it later on.
+To fetch an order or just its status:
+
+```typescript
+const orderId = '########-####-####-####-############';
+const order = await payNL.Orders.get(orderId);
+const orderStatus = await payNL.Orders.status(orderId);
+```
+
 ## Basic transactions
+
+> [!IMPORTANT]
+> Orders created with the transaction API will not be available in the new transaction gateway unit.
+> In v2.0 the `payNL.Transaction` methods will no longer be available. The transaction status endpoint will be kept for backwards compatibility.
+> We recommend that you start using orders instead of transactions.
 
 ### Getting the available payment methods
 This example shows how to fetch a list of the available payment methods.
-The method ``` Paynl.Paymentmethods.getList() ``` returns an observable array.
+The method ``` payNL.Paymentmethods.getList() ``` returns an observable array.
 For more information about observables see [reactivex.io](http://reactivex.io/rxjs/)
 
-```javascript
-Paynl.Paymentmethods.getList().forEach(
+```typescript
+payNL.Paymentmethods.getList().forEach(
     function(paymentmethod) {
         console.log(paymentmethod.id + ' ' + paymentmethod.visibleName);
     }
@@ -54,8 +92,8 @@ Paynl.Paymentmethods.getList().forEach(
 This example shows the minimum required attributes to start a transaction.
 The full version with all supported options is located [here](https://github.com/paynl/nodejs-sdk/tree/master/src/samples/transaction/start.ts)
 
-```javascript
-Paynl.Transaction.start({
+```typescript
+payNL.Transaction.start({
     //the amount in euro
     amount: 19.95,
     
@@ -81,8 +119,8 @@ Paynl.Transaction.start({
 
 ### Fetching a transaction
 The following example shows how to fetch a transaction.
-```javascript
-Paynl.Transaction.get('123456789X12345e').subscribe(
+```typescript
+payNL.Transaction.get('123456789X12345e').subscribe(
   function(result){
     // some examples of what you can do with the result
     if (result.isPaid()) {
@@ -114,8 +152,8 @@ Paynl.Transaction.get('123456789X12345e').subscribe(
 
 Before you can send a transaction, you need to know which terminal to send the transaction to.
 
-```javascript
-Paynl.Instore.getTerminals()
+```typescript
+payNL.Instore.getTerminals()
     .forEach(function (terminal) {
     console.log(terminal.id + ' ' + terminal.name);
 })
@@ -126,9 +164,9 @@ Paynl.Instore.getTerminals()
 An instore transaction is started in the same way as a normal transaction with the addition of a terminalId.
 After the transaction has been started, you can use the terminalStatusUrl to get the status of the transaction.
 
-```javascript
+```typescript
 // Start transaction and send to the terminal
-Paynl.Transaction.start({
+payNL.Transaction.start({
     amount: 0.01,
     paymentMethodId: 1927,
     //returnUrl and ipAddres are not used for instore payments, but are mandatory
@@ -142,7 +180,7 @@ Paynl.Transaction.start({
     }
 );
 function getStatus(statusUrl) {
-    Paynl.Instore.getTransactionStatus(statusUrl).subscribe(function (status) {
+    payNL.Instore.getTransactionStatus(statusUrl).subscribe(function (status) {
         console.log("isFinal: ", status.isFinal);
         console.log("status: ", status.status);
         console.log("txId: ", status.txId);
@@ -174,8 +212,8 @@ function getStatus(statusUrl) {
 This SDK can also add direct debit transactions.
 Only amount, bankaccountHolder and bankaccountNumber are mandatory, the rest of the arguments are optional.
 
-```javascript
-Paynl.DirectDebit.add({
+```typescript
+payNL.DirectDebit.add({
     amount: 0.01,
     bankaccountHolder: "N Name",
     bankaccountNumber: "NL00RABO0000012345678",
@@ -206,8 +244,8 @@ Paynl.DirectDebit.add({
 
 Fetch a DirectDebit transaction to fetch the status.
 
-```javascript
-Paynl.DirectDebit.get('IO-####-####-####').subscribe(function (transaction) {
+```typescript
+payNL.DirectDebit.get('IO-####-####-####').subscribe(function (transaction) {
     console.log(transaction);
 });
 ```
