@@ -34,4 +34,12 @@ export class ApiError extends Error {
             return new ApiError(apiResponse.http().status, apiResponse.http().statusText, sdkError);
         }
     }
+
+    static createStatic(
+        statusCode: number,
+        statusText: string,
+        body: GenericResponseBody,
+    ): ApiError {
+        return new ApiError(statusCode, statusText, body);
+    }
 }

@@ -1,4 +1,9 @@
-export class ApiResponse {
+export interface ApiResponseInterface {
+    http: () => Response;
+    body: <T>() => Promise<T>;
+}
+
+export class ApiResponse implements ApiResponseInterface {
     private readonly httpResponse: Response;
 
     constructor(httpResponse: Response) {
