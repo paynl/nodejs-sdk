@@ -10,6 +10,8 @@ import 'rxjs/add/operator/map';
 
 export class Transaction {
     static version = 8;
+
+    /** @deprecated will be replaced by orders in the next release (see UPGRADING.md) **/
     static start(options: TransactionStart): Observable<StartResult> {
         return Observable.create(observable => {
             // Prepare the data
@@ -42,6 +44,8 @@ export class Transaction {
                 );
         });
     }
+
+    /** @deprecated will be replaced by orders in the next release (see UPGRADING.md) **/
     static get(transactionId: string): Observable<TransactionResult> {
         if (!transactionId) {
             return Observable.throw('transactionId is not set');
@@ -53,16 +57,22 @@ export class Transaction {
             },
         );
     }
+
+    /** @deprecated will be replaced by orders in the next release (see UPGRADING.md) **/
     static approve(transactionId): Observable<boolean> {
         return Api.post('Transaction', 'approve', this.version, { orderId: transactionId }).map(
             result => result.request.result == '1',
         );
     }
+
+    /** @deprecated will be replaced by orders in the next release (see UPGRADING.md) **/
     static decline(transactionId): Observable<boolean> {
         return Api.post('Transaction', 'decline', this.version, { orderId: transactionId }).map(
             result => result.request.result == '1',
         );
     }
+
+    /** @deprecated will be replaced by orders in the next release (see UPGRADING.md) **/
     static refund(options: Refund): Observable<string> {
         const data = new RefundClass(options).getForApi();
         if (!options.transactionId) return Observable.throw('transactionId is required');
