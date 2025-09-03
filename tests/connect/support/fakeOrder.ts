@@ -1,7 +1,6 @@
 import { Order } from '../../../src';
 
 export const orderCreateResponse: Order = {
-    id: '019642b8-9d82-78cf-83bd-ed07c40e3bad',
     type: 'sale',
     serviceId: 'SL-####-####',
     description: 'Instore Terminal Order #27',

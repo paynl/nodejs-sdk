@@ -71,7 +71,7 @@ try {
         },
     });
 
-    console.log('Order ID:', order.id);
+    console.log('Order ID:', order.orderId);
     console.log('Redirect:', order.links.redirect);
 } catch (error) {
     if (error instanceof ApiError) {

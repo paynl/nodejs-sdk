@@ -5,7 +5,6 @@ import { NewAddress } from './Address';
 import { Company } from './Customer';
 
 export type Order = {
-    id: string;
     type: string;
     serviceId: string;
     description: string | null;
