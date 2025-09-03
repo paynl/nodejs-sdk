@@ -1,6 +1,6 @@
-import { isOldOrder } from '../../../src/connect/order/isOldOrder';
+import { isNotTguOrder } from '../../../src/connect/order/isNotTguOrder';
 
-describe('isOldOrder', () => {
+describe('isNotTguOrder', () => {
     const orderCases = [
         { given: '01405660087X15f1', expected: false },
         { given: '11405660087X15f1', expected: false },
@@ -17,6 +17,6 @@ describe('isOldOrder', () => {
     ];
 
     test.each(orderCases)('should return %p for given %p', ({ given, expected }) => {
-        expect(isOldOrder(given)).toEqual(expected);
+        expect(isNotTguOrder(given)).toEqual(expected);
     });
 });

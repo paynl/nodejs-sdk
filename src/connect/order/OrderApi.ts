@@ -6,7 +6,7 @@ import { PaymentMethod } from './Payment';
 import { CreateProduct } from './Product';
 import { RestApiRequest } from '../RestApiRequest';
 import { DeprecatedTransaction } from '../transaction/DeprecatedTransaction';
-import { isOldOrder } from './isOldOrder';
+import { isNotTguOrder } from './isNotTguOrder';
 
 export class OrderApi {
     constructor(private readonly apiClient: ApiClientInterface) {}
@@ -38,7 +38,7 @@ export class OrderApi {
      * @see https://developer.pay.nl/reference/get_transactions-transactionid
      */
     async get(orderId: string): Promise<Order | DeprecatedTransaction> {
-        if (isOldOrder(orderId)) {
+        if (isNotTguOrder(orderId)) {
             const response = await this.apiClient.request(
                 new RestApiRequest(`v2/transactions/${orderId}`),
             );
