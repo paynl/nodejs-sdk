@@ -6,7 +6,7 @@ import { RestApiRequest } from './RestApiRequest';
 export type ClientOptions = {
     apiToken: string;
     serviceId: string;
-    ATCode?: string;
+    ATCode?: `AT-${number}-${number}`;
 };
 
 export interface ApiClientInterface {

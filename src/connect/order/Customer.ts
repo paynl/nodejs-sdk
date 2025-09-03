@@ -1,3 +1,5 @@
+import { LocaleCode } from '../Locale';
+
 export type Customer = {
     email?: string | null;
     firstName?: string | null;
@@ -12,7 +14,7 @@ export type Customer = {
     phone?: string | null;
     language?: string | null;
     /** Locale code like "en_US" or "nl_BE" */
-    locale?: `${Lowercase<string>}_${Uppercase<string>}` | null;
+    locale?: LocaleCode | null;
     ipAddress?: string | null;
     trust?: number;
     reference?: string | null;

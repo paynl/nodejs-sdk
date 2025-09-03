@@ -53,4 +53,22 @@ describe('RestApiRequest', () => {
             ),
         );
     });
+
+    it('should add new headers', () => {
+        const subject = new RestApiRequest('v1/header-test', {
+            headers: { 'X-Custom-Header': 'custom-value' },
+        });
+
+        const expectedOptions = {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Basic QVQtMTIzNC01Njc4OjphcGktdG9rZW46',
+                'X-Custom-Header': 'custom-value',
+            },
+        };
+
+        expect(subject.getUrl()).toBe('https://rest.pay.nl/v1/header-test');
+        expect(subject.getRequestInit(mockClientOptions)).toEqual(expectedOptions);
+    });
 });

@@ -13,7 +13,7 @@ export class RestApiRequest {
     }
 
     getRequestInit(options: ClientOptions): RequestInit {
-        const { json, ...fetchOptions } = this.fetchOptions;
+        const { json, headers, ...fetchOptions } = this.fetchOptions;
 
         if (!options.ATCode) {
             throw new Error(
@@ -26,6 +26,7 @@ export class RestApiRequest {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: `Basic ${btoa(`${options.ATCode}:${options.apiToken}`)}`,
+                ...headers,
             },
             body: json ? JSON.stringify(json) : undefined,
             ...fetchOptions,
