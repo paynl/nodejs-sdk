@@ -4,7 +4,7 @@ export type FetchOptions = RequestInit & { json?: unknown };
 
 export class RestApiRequest {
     private readonly url: string;
-    private readonly host = 'https://rest-api.pay.nl';
+    private readonly host = 'https://rest.pay.nl';
     private readonly fetchOptions: FetchOptions;
 
     constructor(endpoint: string, fetchOptions: FetchOptions = {}) {
@@ -15,20 +15,19 @@ export class RestApiRequest {
     getRequestInit(options: ClientOptions): RequestInit {
         const { json, ...fetchOptions } = this.fetchOptions;
 
-        const auth = {
-            token: options.apiToken,
-            serviceId: options.serviceId,
-        };
-
-        const data = json ? { ...auth, ...json } : { ...auth };
+        if (!options.ATCode) {
+            throw new Error(
+                'Initialising the PayNL client with an ATCode is required to access the REST API.',
+            );
+        }
 
         return {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Basic ${btoa(`${options.ATCode}:${options.apiToken}`)}`,
             },
-            method: 'POST',
-            body: JSON.stringify(data),
+            body: json ? JSON.stringify(json) : undefined,
             ...fetchOptions,
         };
     }

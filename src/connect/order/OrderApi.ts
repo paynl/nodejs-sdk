@@ -4,6 +4,9 @@ import { ConnectApiRequest } from '../ConnectApiRequest';
 import { OrderCreateOptions } from './CreateOrderOptions';
 import { PaymentMethod } from './Payment';
 import { CreateProduct } from './Product';
+import { RestApiRequest } from '../RestApiRequest';
+import { DeprecatedTransaction } from '../transaction/DeprecatedTransaction';
+import { isOldOrder } from './isOldOrder';
 
 export class OrderApi {
     constructor(private readonly apiClient: ApiClientInterface) {}
@@ -32,15 +35,28 @@ export class OrderApi {
      * Retrieve the current status of an order along with its corresponding payment attempts.
      *
      * @see https://developer.pay.nl/reference/api_get_status-1
+     * @see https://developer.pay.nl/reference/get_transactions-transactionid
      */
-    async get(orderId: string): Promise<Order> {
+    async get(orderId: string): Promise<Order | DeprecatedTransaction> {
+        if (isOldOrder(orderId)) {
+            const response = await this.apiClient.request(
+                new RestApiRequest(`v2/transactions/${orderId}`),
+            );
+            return await response.body<DeprecatedTransaction>();
+        }
+
         const response = await this.apiClient.request(
             new ConnectApiRequest(`v1/orders/${orderId}/status`),
         );
         return await response.body<Order>();
     }
 
-    async status(orderId: string): Promise<Order['status']> {
+    /**
+     * Retrieve the current status of an order along with its corresponding payment attempts.
+     *
+     * @see https://developer.pay.nl/reference/api_get_status-1
+     */
+    async status(orderId: string): Promise<Order['status'] | DeprecatedTransaction['status']> {
         const order = await this.get(orderId);
         return order.status;
     }

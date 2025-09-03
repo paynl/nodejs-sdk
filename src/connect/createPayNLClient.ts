@@ -15,7 +15,6 @@ export function createPayNLClient(options: ClientOptions): PayNLProvider {
         DirectDebit: Paynl.DirectDebit,
         DynamicUUID: Paynl.DynamicUUID,
         GiftCard: Paynl.GiftCard,
-        Transaction: Paynl.Transaction,
     };
 }
 

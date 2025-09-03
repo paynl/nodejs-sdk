@@ -10,5 +10,4 @@ export type PayNLProvider = {
     DirectDebit: typeof Paynl.DirectDebit;
     DynamicUUID: typeof Paynl.DynamicUUID;
     GiftCard: typeof Paynl.GiftCard;
-    Transaction: typeof Paynl.Transaction;
 };
