@@ -1,9 +1,9 @@
 import { CreateAmount } from './Amount';
 import { PaymentMethod } from './Payment';
 import { Customer } from './Customer';
-import { Stats } from './Stats';
 import { PostalAddress } from './Address';
 import { ResponseProduct } from './Product';
+import { Stats } from '../shared';
 
 export type OrderCreateOptions = {
     description?: string;

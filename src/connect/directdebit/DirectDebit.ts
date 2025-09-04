@@ -1,4 +1,4 @@
-import { Stats } from '../order/Stats';
+import { Stats } from '../shared';
 
 export type CreateDirectDebit = {
     mandateId: string;
@@ -8,7 +8,7 @@ export type CreateDirectDebit = {
         value: number;
         currency?: string;
     };
-    stats?: Stats; // move to generic types folder for orders and this
+    stats?: Stats;
     isLastOrder?: boolean;
 };
 

@@ -1,5 +1,5 @@
 import { CreateAmount } from '../order/Amount';
-import { Stats } from '../order/Stats';
+import { Stats } from '../shared';
 
 export type CreateMandate = {
     description: string;

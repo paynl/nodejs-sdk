@@ -1,8 +1,8 @@
 import { ResponseAmount } from './Amount';
-import { Stats } from './Stats';
 import { Payment } from './Payment';
 import { NewAddress } from './Address';
 import { Company } from './Customer';
+import { Stats } from '../shared';
 
 export type Order = {
     type: string;
