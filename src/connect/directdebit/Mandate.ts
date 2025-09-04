@@ -61,15 +61,7 @@ export type Mandate = {
         status: 'ACTIVE' | 'INACTIVE';
         incorporationCountry: string;
     };
-    stats?: {
-        info?: string;
-        tool?: string;
-        object?: string;
-        extra1?: string;
-        extra2?: string;
-        extra3?: string;
-        domainId?: string | null;
-    };
+    stats?: Stats | null;
     lastDirectDebitDate: string;
     nextDirectDebitDate: string;
     actualDirectDebitDate: string;

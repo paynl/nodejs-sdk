@@ -54,15 +54,7 @@ export type DirectDebit = {
         status: 'ACTIVE' | 'INACTIVE';
         incorporationCountry: string;
     };
-    stats: {
-        info: string;
-        tool: string;
-        object: string;
-        extra1: string;
-        extra2: string;
-        extra3: string;
-        domainId: string | null;
-    };
+    stats: Stats;
     createdAt: string;
     createdBy: string;
     modifiedAt: string;
