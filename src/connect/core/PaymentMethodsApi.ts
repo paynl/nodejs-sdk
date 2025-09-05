@@ -1,7 +1,7 @@
 import { ApiClientInterface } from '../ApiClient';
 import { RestApiRequest } from '../RestApiRequest';
 import { PaymentMethod } from './PaymentMethod';
-import { LocaleCode } from '../Locale';
+import { LocaleCode } from '../shared';
 
 type AllResponse = {
     total: number;

@@ -1,4 +1,4 @@
-import { LocaleCode } from '../Locale';
+import { LocaleCode } from '../shared';
 
 export type PaymentMethod = {
     id: number;
