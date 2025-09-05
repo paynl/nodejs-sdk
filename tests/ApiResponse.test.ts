@@ -1,4 +1,4 @@
-import { ApiResponse } from '../../src/connect/ApiResponse';
+import { ApiResponse } from '../src/ApiResponse';
 
 describe('ApiResponse', () => {
     it('include http response and decode body', async () => {

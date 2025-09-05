@@ -1,4 +1,4 @@
-import { isNotTguOrder } from '../../../src/connect/order/isNotTguOrder';
+import { isNotTguOrder } from '../../src/order/isNotTguOrder';
 
 describe('isNotTguOrder', () => {
     const orderCases = [
