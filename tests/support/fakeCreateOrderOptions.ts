@@ -1,4 +1,4 @@
-import { OrderCreateOptions } from '../../../src/connect/order/CreateOrderOptions';
+import { OrderCreateOptions } from '../../src/order/CreateOrderOptions';
 
 export const fakeCreateOrderOptions: OrderCreateOptions = {
     description: 'Order ABC0123456789',

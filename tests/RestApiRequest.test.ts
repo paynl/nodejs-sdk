@@ -1,4 +1,4 @@
-import { RestApiRequest } from '../../src/connect/RestApiRequest';
+import { RestApiRequest } from '../src/RestApiRequest';
 import { mockClientOptions } from './support/mockClientOptions';
 
 describe('RestApiRequest', () => {

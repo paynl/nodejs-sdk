@@ -1,4 +1,4 @@
-import { ClientOptions } from '../../../src';
+import { ClientOptions } from '../../src';
 
 export const mockClientOptions: ClientOptions = {
     apiToken: ':api-token:',

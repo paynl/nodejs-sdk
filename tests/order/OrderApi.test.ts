@@ -1,8 +1,8 @@
-import { ApiError } from '../../../src';
+import { ApiError } from '../../src';
 import { orderCreateResponse } from '../support/fakeOrder';
-import { OrderApi } from '../../../src/connect/order/OrderApi';
+import { OrderApi } from '../../src/order/OrderApi';
 import { fakeCreateOrderOptions } from '../support/fakeCreateOrderOptions';
-import { PaymentMethod } from '../../../src/connect/order/Payment';
+import { PaymentMethod } from '../../src/order/Payment';
 import { ApiClientMock } from '../support/ApiClientMock';
 
 const testOrderId = '00000000-1111-2222-3333-000000000000';

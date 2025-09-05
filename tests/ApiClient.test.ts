@@ -1,8 +1,8 @@
-import { ApiClient, ApiError } from '../../src';
-import { ConnectApiRequest } from '../../src/connect/ConnectApiRequest';
+import { ApiClient, ApiError } from '../src';
+import { ConnectApiRequest } from '../src/ConnectApiRequest';
 import { FetchMock } from './support/FetchMock';
 import { mockClientOptions } from './support/mockClientOptions';
-import { ApiResponse } from '../../src/connect/ApiResponse';
+import { ApiResponse } from '../src/ApiResponse';
 
 describe('Client', () => {
     it('should be able to do a request', async () => {

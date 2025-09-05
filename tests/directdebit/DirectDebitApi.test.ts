@@ -1,7 +1,7 @@
 import { ApiClientMock } from '../support/ApiClientMock';
-import { DirectDebitApi } from '../../../src/connect/directdebit/DirectDebitApi';
+import { DirectDebitApi } from '../../src/directdebit/DirectDebitApi';
 import { fakeDirectDebit, fakeDirectDebitMandate } from '../support/fakeDirectDebit';
-import { CreateDirectDebit, CreateMandate } from '../../../src';
+import { CreateDirectDebit, CreateMandate } from '../../src';
 
 describe('DirectDebitApi', () => {
     it('can create a mandate', async () => {

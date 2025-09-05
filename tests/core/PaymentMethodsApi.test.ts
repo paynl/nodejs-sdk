@@ -1,5 +1,5 @@
 import { ApiClientMock } from '../support/ApiClientMock';
-import { PaymentMethodsApi } from '../../../src/connect/core/PaymentMethodsApi';
+import { PaymentMethodsApi } from '../../src/core/PaymentMethodsApi';
 import { fakePaymentMethod } from '../support/fakePaymentMethods';
 
 describe('PaymentMethodsApi', () => {

@@ -1,4 +1,4 @@
-import { ConnectApiRequest } from '../../src/connect/ConnectApiRequest';
+import { ConnectApiRequest } from '../src/ConnectApiRequest';
 import { mockClientOptions } from './support/mockClientOptions';
 
 describe('ConnectApiRequest', () => {
