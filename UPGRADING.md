@@ -2,6 +2,26 @@
 
 All notable (breaking) changes to this project will be documented in this file.
 
+## From 1.2.0 to 2.0.0
+
+As of version 2.0.0, the SDK can no longer create or update transactions using the old REST API.
+All orders need to be created using the new [order API](https://developer.pay.nl/reference/api_create_order-1).
+The `payNL.Orders.status()` method still supports fetching the status of a transaction.
+
+To upgrade, all calls to the following methods need to be replaced with new Order API calls or are no longer available:
+* `payNL.Transaction.start()`
+* `payNL.Transaction.getStatus()`
+* `payNL.Transaction.approve()`
+* `payNL.Transaction.decline()`
+* `payNL.Transaction.refund()`
+* `payNL.Transaction.get()`
+* `payNL.Instore.getTerminals()`
+
+The following have different in- and outputs:
+* `payNL.PaymentMethods.all()` (previously called `payNL.Paymentmethods.getList()`)
+* `payNL.DirectDebit.add()`
+* `payNL.DirectDebit.get()` 
+
 ## From 1.1.4 to 1.2.0
 
 Pay.nl is moving from transaction operations to a Transaction Gateway Unit.
