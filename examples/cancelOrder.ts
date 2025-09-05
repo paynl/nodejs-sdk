@@ -1,4 +1,4 @@
-import { createPayNLClient } from '../../src';
+import { createPayNLClient } from '../src';
 
 const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-1234-5678' });
 
