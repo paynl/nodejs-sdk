@@ -8,7 +8,7 @@ const payNL = createPayNLClient({
 
 const mandate = await payNL.DirectDebit.createMandate({
     amount: { value: 1000, currency: 'EUR' },
-    description: 'Jeroens test',
+    description: 'example description',
     type: 'FLEXIBLE',
 });
 
