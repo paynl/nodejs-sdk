@@ -19,13 +19,8 @@ export class OrderApi {
      * @see https://developer.pay.nl/reference/api_create_order-1
      */
     async create(options: OrderCreateOptions): Promise<Order> {
-        const body = {
-            ...options,
-            serviceId: this.apiClient.getOptions().serviceId,
-        };
-
         const response = await this.apiClient.request(
-            new ConnectApiRequest('v1/orders', { method: 'POST', json: body }),
+            new ConnectApiRequest('v1/orders', { method: 'POST', json: options }),
         );
 
         return response.body<Order>();

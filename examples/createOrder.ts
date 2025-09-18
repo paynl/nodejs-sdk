@@ -1,9 +1,10 @@
 import { createPayNLClient, ApiError } from '../src';
 
-const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-1234-5678' });
+const payNL = createPayNLClient({ apiToken: 'your-api-token' });
 
 try {
     const order = await payNL.Orders.create({
+        serviceId: 'SL-1234-5678',
         description: 'Order ABC0123456789',
         reference: 'abc1234',
         returnUrl: 'https://127.0.0.1/return',

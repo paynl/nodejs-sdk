@@ -1,6 +1,6 @@
 import { createPayNLClient } from '../src';
 
-const payNL = createPayNLClient({ apiToken: 'your-api-token', serviceId: 'SL-1234-5678' });
+const payNL = createPayNLClient({ apiToken: 'your-api-token' });
 
 const orderId = '00000000-1111-2222-3333-000000000000';
 

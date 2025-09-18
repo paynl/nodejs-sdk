@@ -1,4 +1,6 @@
-export const fakeDirectDebitMandate = {
+import { Mandate } from '../../src';
+
+export const fakeDirectDebitMandate: Mandate = {
     code: 'IO-####-####-####',
     serviceId: 'SL-####-####',
     reference: 'AX12345-TRA-6789',

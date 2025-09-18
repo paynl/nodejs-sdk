@@ -1,6 +1,7 @@
 import { OrderCreateOptions } from '../../src/order/CreateOrderOptions';
 
 export const fakeCreateOrderOptions: OrderCreateOptions = {
+    serviceId: 'SL-1234-5678',
     description: 'Order ABC0123456789',
     reference: 'abc1234',
     returnUrl: 'https://127.0.0.1/return',
