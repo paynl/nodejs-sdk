@@ -24,6 +24,14 @@ import { createPayNLClient } from 'paynl-sdk';
 const payNL = createPayNLClient({ apiToken: '****************************************', serviceId: 'SL-####-####' });
 ```
 
+## Service Config
+
+To fetch the configuration of a given service location. This can be used to create your own checkout.
+
+```typescript
+const config = await payNL.Service.getConfig('SL-####-####');
+```
+
 ## Orders
 
 Orders use the new Transaction Gateway Unit API. View the [examples](https://github.com/paynl/nodejs-sdk/tree/master/src/examples/connect) or [online documentation](https://developer.pay.nl/reference/api_create_order-1) for a complete overview of what is possible.

@@ -1,7 +1,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Config } from '../index';
+import { ServiceConfig } from '../index';
 import { Observable } from 'rxjs/Observable';
 import * as request from 'request';
 import 'rxjs/add/observable/throw';
