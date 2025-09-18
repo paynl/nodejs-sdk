@@ -5,3 +5,4 @@ export * from './core';
 export * from './createPayNLClient';
 export * from './directdebit';
 export * from './order';
+export * from './service';
