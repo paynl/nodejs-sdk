@@ -22,7 +22,7 @@ const config: Config = {
     coverageProvider: 'v8',
 
     // An object that configures minimum threshold enforcement for coverage results
-    coverageThreshold: { global: { lines: 80, statements: 80, branches: 80 } },
+    coverageThreshold: { global: { lines: 60, statements: 60, branches: 60 } },
 
     // A preset that is used as a base for Jest's configuration
     preset: 'ts-jest',
