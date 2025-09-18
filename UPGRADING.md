@@ -21,7 +21,7 @@ To upgrade, all calls to the following methods need to be replaced with new Orde
 * `payNL.Instore.getTerminals()`
 
 The following have different in- and outputs:
-* `payNL.PaymentMethods.all()` (previously called `payNL.Paymentmethods.getList()`)
+* `payNL.Core.PaymentMethods()` (previously called `payNL.Paymentmethods.getList()`)
 * `payNL.DirectDebit.add()`
 * `payNL.DirectDebit.get()` 
 

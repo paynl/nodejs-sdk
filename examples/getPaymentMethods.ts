@@ -5,6 +5,6 @@ const payNL = createPayNLClient({
     ATCode: 'AT-1234-5678',
 });
 
-const methods = await payNL.PaymentMethods.all('nl_NL');
+const methods = await payNL.Core.PaymentMethods('nl_NL');
 
 console.log(methods.paymentMethods);
