@@ -45,7 +45,6 @@ describe('RestApiRequest', () => {
         await expect(async () =>
             subject.getRequestInit({
                 apiToken: ':api-token:',
-                serviceId: 'SL-1234-5678',
             }),
         ).rejects.toThrow(
             new Error(

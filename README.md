@@ -16,12 +16,12 @@ npm install paynl-sdk --save
 ## Examples
 Some of the basic examples are listed here, for the full list of examples, please take a look at the examples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/examples).
 
-All examples start with importing the `paynl-sdk` and creating a client using the API token and service location ID.
+All examples start with importing the `paynl-sdk` and creating a client using the API token.
 
 ```typescript
 import { createPayNLClient } from 'paynl-sdk';
 
-const payNL = createPayNLClient({ apiToken: '****************************************', serviceId: 'SL-####-####' });
+const payNL = createPayNLClient({ apiToken: '****************************************' });
 ```
 
 ## Orders
@@ -30,10 +30,11 @@ Orders use the new Transaction Gateway Unit API. View the [examples](https://git
 
 ### Creating an order
 
-The most minimal request to create an order includes the amount:
+The most minimal request to create an order includes the service location ID and amount:
 
 ```typescript
 const order = await payNL.Orders.create({
+    serviceId: 'SL-####-####',
     amount: {
         value: 1000, // in cents
         currency: 'EUR',
@@ -45,6 +46,7 @@ For testing purposes you may enable the sandbox mode:
 
 ```typescript
 const order = await payNL.Orders.create({
+    serviceId: 'SL-####-####',
     amount: {
         value: 1000, // in cents
         currency: 'EUR',
@@ -74,6 +76,7 @@ This SDK can also add direct debit transactions. In order to do so, you need to 
 
 ```typescript
 const mandate = await payNL.DirectDebit.createMandate({
+    serviceId: 'SL-####-####',
     amount: { value: 1000, currency: 'EUR' },
     description: 'example description',
     type: 'FLEXIBLE',

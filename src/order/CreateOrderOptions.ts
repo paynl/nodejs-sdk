@@ -6,6 +6,7 @@ import { ResponseProduct } from './Product';
 import { Stats } from '../shared';
 
 export type OrderCreateOptions = {
+    serviceId: string;
     description?: string;
     reference?: string;
     expire?: Date;

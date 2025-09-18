@@ -4,7 +4,10 @@ All notable (breaking) changes to this project will be documented in this file.
 
 ## From 1.2.0 to 2.0.0
 
-As of version 2.0.0, the SDK can no longer create or update transactions using the old REST API.
+As of version 2.0.0, the `serviceId` option has been removed from `createPayNLClient()` and is required to be passed 
+with `payNL.Orders.create({ serviceId: 'SL-####-####' })` and `payNL.DirectDebit.createMandate({ serviceId: 'SL-####-####' })`.
+
+The SDK can no longer create or update transactions using the old REST API.
 All orders need to be created using the new [order API](https://developer.pay.nl/reference/api_create_order-1).
 The `payNL.Orders.status()` method still supports fetching the status of a transaction.
 

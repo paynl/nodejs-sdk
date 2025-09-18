@@ -15,10 +15,7 @@ export class DirectDebitApi {
         const response = await this.apiClient.request(
             new RestApiRequest('v2/directdebits/mandates', {
                 method: 'POST',
-                json: {
-                    serviceId: this.apiClient.getOptions().serviceId,
-                    ...mandate,
-                },
+                json: mandate,
             }),
         );
         return await response.body<Mandate>();

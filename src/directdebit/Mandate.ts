@@ -2,6 +2,7 @@ import { CreateAmount } from '../order/Amount';
 import { Stats } from '../shared';
 
 export type CreateMandate = {
+    serviceId: string;
     description: string;
     type: 'SINGLE' | 'RECURRING' | 'FLEXIBLE';
     amount: CreateAmount;

@@ -8,6 +8,7 @@ describe('DirectDebitApi', () => {
         const clientMock = new ApiClientMock();
         const subject = new DirectDebitApi(clientMock.getMock());
         const createMandate = {
+            serviceId: 'SL-1234-5678',
             description: fakeDirectDebitMandate.description,
             type: fakeDirectDebitMandate.type,
             amount: fakeDirectDebitMandate.amount,
@@ -15,12 +16,12 @@ describe('DirectDebitApi', () => {
 
         clientMock.mockResponse(fakeDirectDebitMandate);
 
-        const response = await subject.createMandate(createMandate as CreateMandate);
+        const response = await subject.createMandate(createMandate satisfies CreateMandate);
 
         expect(response).toEqual(fakeDirectDebitMandate);
         expect(clientMock.getRequest()).toEqual({
             url: 'https://rest.pay.nl/v2/directdebits/mandates',
-            options: { method: 'POST', json: { serviceId: 'SL-1234-5678', ...createMandate } },
+            options: { method: 'POST', json: createMandate },
         });
     });
 
@@ -36,7 +37,7 @@ describe('DirectDebitApi', () => {
 
         clientMock.mockResponse(fakeDirectDebit);
 
-        const response = await subject.add(createDirectDebit as CreateDirectDebit);
+        const response = await subject.add(createDirectDebit satisfies CreateDirectDebit);
 
         expect(response).toEqual(fakeDirectDebit);
         expect(clientMock.getRequest()).toEqual({

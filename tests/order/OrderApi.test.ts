@@ -15,6 +15,7 @@ describe('OrderApi', () => {
         clientMock.mockResponse(orderCreateResponse);
 
         const response = await subject.create({
+            serviceId: 'SL-1234-5678',
             amount: {
                 value: 1000,
                 currency: 'EUR',
@@ -50,10 +51,7 @@ describe('OrderApi', () => {
             url: 'https://connect.pay.nl/v1/orders',
             options: {
                 method: 'POST',
-                json: {
-                    ...fakeCreateOrderOptions,
-                    serviceId: 'SL-1234-5678',
-                },
+                json: fakeCreateOrderOptions,
             },
         });
     });
@@ -76,6 +74,7 @@ describe('OrderApi', () => {
         await expect(
             async () =>
                 await subject.create({
+                    serviceId: 'SL-1234-5678',
                     amount: {
                         value: 1000,
                         currency: 'EUR',
