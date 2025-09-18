@@ -14,15 +14,24 @@ export class ConnectApiRequest {
 
     getRequestInit(options: ClientOptions): RequestInit {
         const { json, ...fetchOptions } = this.fetchOptions;
+
         return {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${options.apiToken}`,
+                Authorization: this.getAuthorization(options),
             },
             body: json ? JSON.stringify(json) : undefined,
             ...fetchOptions,
         };
+    }
+
+    getAuthorization(options: ClientOptions): string {
+        if (!options.username) {
+            return `Bearer ${options.password}`;
+        }
+
+        return `Basic ${btoa(`${options.username}:${options.password}`)}`;
     }
 
     getUrl(): string {

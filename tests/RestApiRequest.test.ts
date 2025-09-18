@@ -44,11 +44,11 @@ describe('RestApiRequest', () => {
 
         await expect(async () =>
             subject.getRequestInit({
-                apiToken: ':api-token:',
+                password: ':api-token:',
             }),
         ).rejects.toThrow(
             new Error(
-                'Initialising the PayNL client with an ATCode is required to access the REST API.',
+                'Initialising the PayNL client with a username is required to access the REST API.',
             ),
         );
     });
