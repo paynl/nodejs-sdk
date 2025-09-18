@@ -1,6 +1,6 @@
 import { createPayNLClient, ApiError } from '../src';
 
-const payNL = createPayNLClient({ apiToken: 'your-api-token' });
+const payNL = createPayNLClient({ password: 'your-api-token' });
 
 try {
     const order = await payNL.Orders.create({

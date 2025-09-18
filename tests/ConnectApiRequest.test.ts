@@ -9,7 +9,7 @@ describe('ConnectApiRequest', () => {
             method: 'PATCH',
             headers: {
                 Accept: 'application/json',
-                Authorization: 'Bearer :api-token:',
+                Authorization: 'Basic QVQtMTIzNC01Njc4OjphcGktdG9rZW46',
                 'Content-Type': 'application/json',
             },
         };
@@ -28,7 +28,7 @@ describe('ConnectApiRequest', () => {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                Authorization: 'Bearer :api-token:',
+                Authorization: 'Basic QVQtMTIzNC01Njc4OjphcGktdG9rZW46',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ foo: 'bar' }),
@@ -36,6 +36,26 @@ describe('ConnectApiRequest', () => {
 
         expect(subject.getUrl()).toBe('https://connect.pay.nl/v1/create-json');
         expect(subject.getRequestInit(mockClientOptions)).toEqual(expectedOptions);
+    });
+
+    it('can send request with only password', () => {
+        const subject = new ConnectApiRequest('v1/create-json', {
+            method: 'POST',
+            json: { foo: 'bar' },
+        });
+
+        const expectedOptions = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer :api-token:',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ foo: 'bar' }),
+        };
+
+        expect(subject.getUrl()).toBe('https://connect.pay.nl/v1/create-json');
+        expect(subject.getRequestInit({ password: ':api-token:' })).toEqual(expectedOptions);
     });
 
     it('can send form data in body', () => {
@@ -48,7 +68,7 @@ describe('ConnectApiRequest', () => {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                Authorization: 'Bearer :api-token:',
+                Authorization: 'Basic QVQtMTIzNC01Njc4OjphcGktdG9rZW46',
                 'Content-Type': 'application/json',
             },
             body: new FormData(),

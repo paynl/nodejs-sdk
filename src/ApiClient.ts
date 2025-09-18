@@ -4,8 +4,11 @@ import { ApiError } from './ApiError';
 import { RestApiRequest } from './RestApiRequest';
 
 export type ClientOptions = {
-    apiToken: string;
-    ATCode?: string;
+    /**
+     * This should be a token code formatted like `AT-1234-5678`
+     */
+    username?: string;
+    password: string;
 };
 
 type ApiRequest = ConnectApiRequest | RestApiRequest;
