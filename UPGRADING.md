@@ -4,8 +4,10 @@ All notable (breaking) changes to this project will be documented in this file.
 
 ## From 1.2.0 to 2.0.0
 
-As of version 2.0.0, the `serviceId` option has been removed from `createPayNLClient()` and is required to be passed 
-with `payNL.Orders.create({ serviceId: 'SL-####-####' })` and `payNL.DirectDebit.createMandate({ serviceId: 'SL-####-####' })`.
+As of version 2.0.0, the options passed to  `createPayNLClient()` have been changed. 
+* The `apiToken` has been renamed to `password`
+* The `serviceId` option has been removed and is required to be passed to
+  `payNL.Orders.create({ serviceId: 'SL-####-####' })` and `payNL.DirectDebit.createMandate({ serviceId: 'SL-####-####' })`.
 
 The SDK can no longer create or update transactions using the old REST API.
 All orders need to be created using the new [order API](https://developer.pay.nl/reference/api_create_order-1).
@@ -21,7 +23,7 @@ To upgrade, all calls to the following methods need to be replaced with new Orde
 * `payNL.Instore.getTerminals()`
 
 The following have different in- and outputs:
-* `payNL.PaymentMethods.all()` (previously called `payNL.Paymentmethods.getList()`)
+* `payNL.Core.PaymentMethods()` (previously called `payNL.Paymentmethods.getList()`)
 * `payNL.DirectDebit.add()`
 * `payNL.DirectDebit.get()` 
 

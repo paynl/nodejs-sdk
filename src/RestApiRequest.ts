@@ -15,9 +15,9 @@ export class RestApiRequest {
     getRequestInit(options: ClientOptions): RequestInit {
         const { json, headers, ...fetchOptions } = this.fetchOptions;
 
-        if (!options.ATCode) {
+        if (!options.username) {
             throw new Error(
-                'Initialising the PayNL client with an ATCode is required to access the REST API.',
+                'Initialising the PayNL client with a username is required to access the REST API.',
             );
         }
 
@@ -25,7 +25,7 @@ export class RestApiRequest {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                Authorization: `Basic ${btoa(`${options.ATCode}:${options.apiToken}`)}`,
+                Authorization: `Basic ${btoa(`${options.username}:${options.password}`)}`,
                 ...headers,
             },
             body: json ? JSON.stringify(json) : undefined,

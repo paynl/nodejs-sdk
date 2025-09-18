@@ -1,15 +1,15 @@
 import { ApiClientMock } from '../support/ApiClientMock';
-import { PaymentMethodsApi } from '../../src/core/PaymentMethodsApi';
+import { CoreApi } from '../../src/core/CoreApi';
 import { fakePaymentMethod } from '../support/fakePaymentMethods';
 
 describe('PaymentMethodsApi', () => {
     it('should return a list of all payment methods', async () => {
         const clientMock = new ApiClientMock();
-        const subject = new PaymentMethodsApi(clientMock.getMock());
+        const subject = new CoreApi(clientMock.getMock());
 
         clientMock.mockResponse({ total: 1, paymentMethods: [fakePaymentMethod] });
 
-        const response = await subject.all('nl_NL');
+        const response = await subject.PaymentMethods('nl_NL');
 
         expect(response.paymentMethods).toEqual([fakePaymentMethod]);
         expect(clientMock.getRequest()).toEqual({

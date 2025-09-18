@@ -2,8 +2,6 @@ import { ApiClientMock } from '../support/ApiClientMock';
 import { fakeConfig } from '../support/fakeConfig';
 import { ServiceApi } from '../../src/service/ServiceApi';
 
-jest.mock('request');
-
 describe('ServiceApi', () => {
     it('can fetch service location config', async () => {
         const clientMock = new ApiClientMock();

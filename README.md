@@ -16,12 +16,12 @@ npm install paynl-sdk --save
 ## Examples
 Some of the basic examples are listed here, for the full list of examples, please take a look at the examples directory [here](https://github.com/paynl/nodejs-sdk/tree/master/src/examples).
 
-All examples start with importing the `paynl-sdk` and creating a client using the API token.
+All examples start with importing the `paynl-sdk` and creating a client using the AT token as username and the API token as password.
 
 ```typescript
 import { createPayNLClient } from 'paynl-sdk';
 
-const payNL = createPayNLClient({ apiToken: '****************************************' });
+const payNL = createPayNLClient({ username: 'AT-####-####', password: '****************************************' });
 ```
 
 ## Service Config
