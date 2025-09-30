@@ -12,7 +12,7 @@ export type Customer = {
     phone?: string | null;
     language?: string | null;
     /** Locale code like "en_US" or "nl_BE" */
-    locale?: `${Lowercase<string>}_${Uppercase<string>}` | null;
+    locale?: string | null;
     ipAddress?: string | null;
     trust?: number;
     reference?: string | null;
