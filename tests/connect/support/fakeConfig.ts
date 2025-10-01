@@ -1,4 +1,6 @@
-export const fakeConfig = {
+import { ServiceConfig } from '../../../src';
+
+export const fakeConfig: ServiceConfig = {
     code: 'SL-1234-5678',
     secret: ':secret:',
     testMode: false,

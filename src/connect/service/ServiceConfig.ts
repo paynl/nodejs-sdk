@@ -1,5 +1,5 @@
 export type ServiceConfig = {
-    mcc: number;
+    mcc: number | null;
     code: string;
     name: string;
     _links: {
@@ -7,7 +7,16 @@ export type ServiceConfig = {
         href: string;
         type: string;
     }[];
-    layout: null;
+    layout: {
+        code: string;
+        name: string;
+        cssUrl: string;
+        icon: string;
+        supportingColor: string;
+        headerTextColor: string;
+        buttonColor: string;
+        buttonTextColor: string;
+    } | null;
     secret: string;
     status: string;
     address: {
@@ -33,21 +42,20 @@ export type ServiceConfig = {
         name: string;
         status: string;
     };
+    publication?: {
+        domainUrl: string;
+    } | null;
     testMode: boolean;
     createdAt: string;
     createdBy: string;
-    deletedAt: null;
-    deletedBy: null;
-    tradeName: null;
+    deletedAt: string | null;
+    deletedBy: string | null;
+    tradeName: { code: string; name: string } | null;
     modifiedAt: string;
     modifiedBy: string;
     contactEmail: string;
     contactPhone: string;
-    translations: {
-        name: {
-            nl_NL: string;
-        };
-    };
+    translations: Translations<'name'>;
     checkoutTexts: never[];
     turnoverGroup: {
         code: string;
@@ -64,12 +72,7 @@ export type ServiceConfig = {
         tag: string;
         name: string;
         image: string;
-        translations: {
-            name: {
-                nl_NL?: string;
-                en_GB?: string;
-            };
-        };
+        translations: Translations<'name'>;
         paymentMethods: {
             id: number;
             name: string;
@@ -79,21 +82,14 @@ export type ServiceConfig = {
                 name: string;
                 image: string;
             }[];
-            settings: null;
+            settings: { key: string; value: string }[] | null;
             maxAmount: number;
             minAmount: number;
             description: string;
-            translations: {
-                name: {
-                    [key: string]: string;
-                };
-                description: {
-                    [key: string]: string;
-                };
-            };
+            translations: Translations<'name' | 'description'>;
             targetCountries: string[];
         }[];
-        requiredFields: null;
+        requiredFields: { fieldName: string; mandatory: 'required' }[] | null;
     }[];
     checkoutSequence: {
         default: {
@@ -102,3 +98,10 @@ export type ServiceConfig = {
         };
     };
 };
+
+export type Translations<T extends string> = Record<T, Record<LanguageCode, string>> | null;
+
+/**
+ * @example nl_NL or en_GB
+ */
+export type LanguageCode = string;

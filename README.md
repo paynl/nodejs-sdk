@@ -103,7 +103,7 @@ The full version with all supported options is located [here](https://github.com
 ```typescript
 payNL.Transaction.start({
     //the amount in euro
-    amount: 19.95,
+    amount: 1995, // in cents
     
     //we redirect the user back to this url after the payment
     returnUrl: "https://my-return-url.com/return",
@@ -135,7 +135,7 @@ payNL.Transaction.get('123456789X12345e').subscribe(
         console.log('The transaction is paid');
         // refund a part of the transaction
         result.refund({
-            amount: 0.5,
+            amount: 50, // in cents
             description: '50 cents refund'
         });
     }
@@ -175,7 +175,7 @@ After the transaction has been started, you can use the terminalStatusUrl to get
 ```typescript
 // Start transaction and send to the terminal
 payNL.Transaction.start({
-    amount: 0.01,
+    amount: 1, // in cents
     paymentMethodId: 1927,
     //returnUrl and ipAddres are not used for instore payments, but are mandatory
     returnUrl: "not_applicable",
@@ -222,7 +222,7 @@ Only amount, bankaccountHolder and bankaccountNumber are mandatory, the rest of 
 
 ```typescript
 payNL.DirectDebit.add({
-    amount: 0.01,
+    amount: 1, // in cents
     bankaccountHolder: "N Name",
     bankaccountNumber: "NL00RABO0000012345678",
     // optional

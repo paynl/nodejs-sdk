@@ -10,7 +10,7 @@ try {
         exchangeUrl: 'https://127.0.0.1/exchange',
         expire: new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
         amount: {
-            value: 1000,
+            value: 1000, // in cents
             currency: 'EUR',
         },
         customer: {
@@ -59,7 +59,7 @@ try {
                     description: 'Product 1',
                     quantity: 1,
                     price: {
-                        value: 1000,
+                        value: 1000, // in cents
                         currency: 'EUR',
                     },
                 },
