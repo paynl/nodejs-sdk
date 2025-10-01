@@ -8,7 +8,7 @@ export type CreateProduct = {
 export type ResponseProduct = {
     id?: string;
     description?: string;
-    /** https://developer.pay.nl/reference/get_product_types */
+    /** https://developer.pay.nl/reference/product_type_product_types_get */
     type?: string;
     price: CreateAmount;
     quantity?: number;
