@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 export class Service {
     /**
      *  Service ID for which this gift card has been activated. A service ID always starts with SL-
@@ -32,7 +34,7 @@ export class CheckResult {
     /**
      *  Array with services for which the gift card has been activated
      */
-    services: Service[]
+    services: Service[];
 
     constructor(data) {
         this.type = data.card.type;

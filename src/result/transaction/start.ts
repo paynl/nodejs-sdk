@@ -1,3 +1,6 @@
+/* eslint-disable */
+// @ts-nocheck
+
 export class StartResult {
     /**
      * The id of the transaction

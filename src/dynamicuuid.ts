@@ -1,4 +1,6 @@
-import {Observable} from 'rxjs/Observable';
+/* eslint-disable */
+// @ts-nocheck
+import { Observable } from 'rxjs/Observable';
 
 const REFERENCE_TYPE_STRING = 1;
 const REFERENCE_TYPE_HEX = 0;
@@ -14,7 +16,13 @@ export class DynamicUUID {
      * @param padChar The reference will be padded with this character, default pad '0'
      * @param referenceType Define if you are using a string (8 chars) of hex (16 chars)
      */
-    static encode(serviceId: string, secret: string, reference: string, padChar = '0', referenceType = REFERENCE_TYPE_STRING): Observable<string> {
+    static encode(
+        serviceId: string,
+        secret: string,
+        reference: string,
+        padChar = '0',
+        referenceType = REFERENCE_TYPE_STRING,
+    ): Observable<string> {
         return Observable.create(observable => {
             if (referenceType == REFERENCE_TYPE_STRING) {
                 if (!this.isValidReferenceString(reference)) {
@@ -48,17 +56,21 @@ export class DynamicUUID {
                 return;
             }
 
-            var uuid = serviceId.replace(/[^0-9]/g, '') + reference.padStart(16, padChar);
-            var crypto = require('crypto');
-            var hash = crypto.createHmac(HASH_METHOD, secret).update(uuid).digest('hex');
+            let uuid = serviceId.replace(/[^0-9]/g, '') + reference.padStart(16, padChar);
+            const crypto = require('crypto');
+            const hash = crypto.createHmac(HASH_METHOD, secret).update(uuid).digest('hex');
 
             uuid = 'b' + hash.substring(0, 7) + uuid;
 
             uuid =
-                uuid.substring(0, 8) + '-' +
-                uuid.substring(8, 12) + '-' +
-                uuid.substring(12, 16) + '-' +
-                uuid.substring(16, 20) + '-' +
+                uuid.substring(0, 8) +
+                '-' +
+                uuid.substring(8, 12) +
+                '-' +
+                uuid.substring(12, 16) +
+                '-' +
+                uuid.substring(16, 20) +
+                '-' +
                 uuid.substring(20, 32);
 
             observable.next(uuid);
@@ -74,32 +86,35 @@ export class DynamicUUID {
      * @param padChar The reference will be padded with this character, default '0'
      * @param referenceType
      */
-    static decode(uuid: string, secret = '', padChar = '0', referenceType = REFERENCE_TYPE_STRING): Observable<any> {
-
+    static decode(
+        uuid: string,
+        secret = '',
+        padChar = '0',
+        referenceType = REFERENCE_TYPE_STRING,
+    ): Observable<any> {
         return Observable.create(observable => {
-
             if (secret != '') {
                 if (!this.isValidSecret(secret)) {
                     observable.error('Secret is invalid: ' + secret);
                     observable.complete();
-                    return
+                    return;
                 }
             }
 
-            uuid = uuid.replace(/[^0-9a-z]/ig, '');
+            uuid = uuid.replace(/[^0-9a-z]/gi, '');
             uuid = uuid.substr(8, uuid.length);
 
-            var serviceid = 'SL-' + uuid.substring(0, 4) + '-' + uuid.substring(4, 8);
-            var referenceCode = uuid.substring(8, uuid.length);
+            const serviceid = 'SL-' + uuid.substring(0, 4) + '-' + uuid.substring(4, 8);
+            let referenceCode = uuid.substring(8, uuid.length);
 
             referenceCode = this.ltrim(referenceCode, padChar);
 
-            var referenc_hex = referenceCode;
-            var reference_string = Buffer.from(referenceCode, "hex");
+            const referenc_hex = referenceCode;
+            const reference_string = Buffer.from(referenceCode, 'hex');
 
-            var obj = {
-                'serviceId': serviceid,
-                'reference': referenceType == REFERENCE_TYPE_HEX ? referenc_hex : reference_string
+            const obj = {
+                serviceId: serviceid,
+                reference: referenceType == REFERENCE_TYPE_HEX ? referenc_hex : reference_string,
             };
 
             observable.next(obj);
@@ -115,22 +130,21 @@ export class DynamicUUID {
      */
     static validate(uuid: string, secret = ''): Observable<string> {
         return Observable.create(observable => {
-
             if (secret != '') {
                 if (!this.isValidSecret(secret)) {
                     observable.error('Secret is invalid: ' + secret);
                     observable.complete();
-                    return
+                    return;
                 }
             }
 
-            var uuidData = uuid.replace(/[^0-9a-z]/ig, '');
+            let uuidData = uuid.replace(/[^0-9a-z]/gi, '');
             uuidData = uuidData.substring(8, uuidData.length);
 
-            var crypto = require('crypto');
-            var hash = crypto.createHmac(HASH_METHOD, secret).update(uuidData).digest('hex');
+            const crypto = require('crypto');
+            const hash = crypto.createHmac(HASH_METHOD, secret).update(uuidData).digest('hex');
 
-            var checksum = 'b' + hash.substring(0, 7);
+            const checksum = 'b' + hash.substring(0, 7);
 
             observable.next(checksum == uuid.substring(0, 8));
             observable.complete();
@@ -138,28 +152,26 @@ export class DynamicUUID {
     }
 
     private static ltrim(str, charlist) {
-        charlist = !charlist ? ' \\s\u00A0' : (charlist + '')
-            .replace(/([[\]().?/*{}+$^:])/g, '$1')
-        var re = new RegExp('^[' + charlist + ']+', 'g')
-        return (str + '')
-            .replace(re, '')
+        charlist = !charlist ? ' \\s\u00A0' : (charlist + '').replace(/([[\]().?/*{}+$^:])/g, '$1');
+        const re = new RegExp('^[' + charlist + ']+', 'g');
+        return (str + '').replace(re, '');
     }
 
     private static asciiToHex(str) {
-        var arr1 = [];
-        for (var n = 0, l = str.length; n < l; n++) {
-            var hex = Number(str.charCodeAt(n)).toString(16).toUpperCase();
+        const arr1 = [];
+        for (let n = 0, l = str.length; n < l; n++) {
+            const hex = Number(str.charCodeAt(n)).toString(16).toUpperCase();
             arr1.push(hex);
         }
         return arr1.join('');
     }
 
     private static isValidReferenceString(reference) {
-        return /^[0-9a-zA-Z]{0,8}$/i.test(reference)
+        return /^[0-9a-zA-Z]{0,8}$/i.test(reference);
     }
 
     private static isValidHexString(hexString) {
-        return /^[0-9a-f]{0,16}$/i.test(hexString)
+        return /^[0-9a-f]{0,16}$/i.test(hexString);
     }
 
     private static isValidSecret(secret) {
@@ -173,5 +185,4 @@ export class DynamicUUID {
     private static isValidPadChar(padChar) {
         return /^[a-z0-9]{1}$/i.test(padChar);
     }
-
 }

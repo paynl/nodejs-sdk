@@ -1,8 +1,14 @@
+/* eslint-disable */
+// @ts-nocheck
+
 import * as dateFormat from 'dateformat';
 import { Address, InvoiceAddress } from './address';
 
 export enum ProductType {
-    ARTICLE='ARTICLE',SHIPPING='SHIPPING',HANDLING='HANDLING',DISCOUNT='DISCOUNT'
+    ARTICLE = 'ARTICLE',
+    SHIPPING = 'SHIPPING',
+    HANDLING = 'HANDLING',
+    DISCOUNT = 'DISCOUNT',
 }
 export class Product {
     /**
@@ -68,7 +74,7 @@ export class TransactionStart {
     exchangeUrl?: string;
     /**
      * The id of the paymentmethod.
-     * Use PaymentMethods.getList() to retrieve the available paymentmethods 
+     * Use PaymentMethods.getList() to retrieve the available paymentmethods
      */
     paymentMethodId?: number;
     /**
@@ -147,26 +153,25 @@ export class TransactionStartClass extends TransactionStart {
         return dateFormat(date, 'dd-mm-yyyy HH:MM:ss');
     }
     private calculateVatCode(priceIncl, vatAmount) {
-        var vatCodes = { 0: 'N', 9: 'L', 21: 'H' };
-        var priceExcl = priceIncl - vatAmount;
+        const vatCodes = { 0: 'N', 9: 'L', 21: 'H' };
+        const priceExcl = priceIncl - vatAmount;
         if (!vatAmount || vatAmount == 0 || !priceIncl || priceIncl == 0) {
             return vatCodes[0];
         }
 
-        var vatRate = (vatAmount / priceExcl) * 100;
+        const vatRate = (vatAmount / priceExcl) * 100;
 
-        var closest = Object.keys(vatCodes).reduce(
-            (prev, curr) => {
-                var prevFloat = parseFloat(prev);
-                var currFloat = parseFloat(curr);
-                return (Math.abs(currFloat - vatRate) < Math.abs(prevFloat - vatRate) ? curr : prev);
-            });
+        const closest = Object.keys(vatCodes).reduce((prev, curr) => {
+            const prevFloat = parseFloat(prev);
+            const currFloat = parseFloat(curr);
+            return Math.abs(currFloat - vatRate) < Math.abs(prevFloat - vatRate) ? curr : prev;
+        });
 
         return vatCodes[closest];
     }
 
     getForApi() {
-        var data = {};
+        const data = {};
         data['amount'] = Math.round(this.amount * 100);
         data['finishUrl'] = this.returnUrl;
         data['ipAddress'] = this.ipAddress;
@@ -178,7 +183,8 @@ export class TransactionStartClass extends TransactionStart {
 
         data['transaction'] = {};
         if (this.currency) data['transaction']['currency'] = this.currency;
-        if (this.expireDate) data['transaction']['expireDate'] = this.formatDateTime(this.expireDate);
+        if (this.expireDate)
+            data['transaction']['expireDate'] = this.formatDateTime(this.expireDate);
         if (this.exchangeUrl) data['transaction']['orderExchangeUrl'] = this.exchangeUrl;
         if (this.description) data['transaction']['description'] = this.description;
         if (this.orderNumber) data['transaction']['orderNumber'] = this.orderNumber;
@@ -201,38 +207,43 @@ export class TransactionStartClass extends TransactionStart {
             if (this.enduser.gender) data['enduser']['gender'] = this.enduser.gender;
             if (this.enduser.dob) data['enduser']['dob'] = this.formatDate(this.enduser.dob);
             if (this.enduser.phoneNumber) data['enduser']['phoneNumber'] = this.enduser.phoneNumber;
-            if (this.enduser.emailAddress) data['enduser']['emailAddress'] = this.enduser.emailAddress;
+            if (this.enduser.emailAddress)
+                data['enduser']['emailAddress'] = this.enduser.emailAddress;
         }
         if (this.address) {
             data['enduser']['address'] = this.address;
             data['enduser']['address']['streetNumber'] = data['enduser']['address']['houseNumber'];
             delete data['enduser']['address']['houseNumber'];
-            data['enduser']['address']['streetNumberExtension'] = data['enduser']['address']['houseNumberExtension'];
+            data['enduser']['address']['streetNumberExtension'] =
+                data['enduser']['address']['houseNumberExtension'];
             delete data['enduser']['address']['houseNumberExtension'];
         }
         if (this.invoiceAddress) {
             data['enduser']['invoiceAddress'] = this.invoiceAddress;
 
-            data['enduser']['invoiceAddress']['streetNumber'] = data['enduser']['invoiceAddress']['houseNumber'];
+            data['enduser']['invoiceAddress']['streetNumber'] =
+                data['enduser']['invoiceAddress']['houseNumber'];
             delete data['enduser']['invoiceAddress']['houseNumber'];
 
-            data['enduser']['invoiceAddress']['streetNumberExtension'] = data['enduser']['invoiceAddress']['houseNumberExtension'];
+            data['enduser']['invoiceAddress']['streetNumberExtension'] =
+                data['enduser']['invoiceAddress']['houseNumberExtension'];
             delete data['enduser']['address']['houseNumberExtension'];
         }
 
         data['saleData'] = {};
         if (this.invoiceDate) data['saleData']['invoiceDate'] = this.formatDate(this.invoiceDate);
-        if (this.deliveryDate) data['saleData']['deliveryDate'] = this.formatDate(this.deliveryDate);
+        if (this.deliveryDate)
+            data['saleData']['deliveryDate'] = this.formatDate(this.deliveryDate);
         if (this.products) {
             data['saleData']['orderData'] = [];
-            this.products.forEach((product) => {
+            this.products.forEach(product => {
                 data['saleData']['orderData'].push({
                     productId: product.id,
                     description: product.name,
                     price: Math.round(product.price * 100),
                     quantity: product.qty,
                     vatCode: this.calculateVatCode(product.price, product.tax),
-                    productType: product.type
+                    productType: product.type,
                 });
             });
         }

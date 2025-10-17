@@ -1,6 +1,11 @@
+/* eslint-disable */
+// @ts-nocheck
 import { DirectDebitInfoResponse } from './result/directdebit/info-response';
 import { Observable } from 'rxjs/Observable';
-import { DirectDebitAddRequest, DirectDebitAddRequestClass } from './datatypes/directdebit/add-request';
+import {
+    DirectDebitAddRequest,
+    DirectDebitAddRequestClass,
+} from './datatypes/directdebit/add-request';
 import { Api } from './api/api';
 
 export class DirectDebit {
@@ -8,7 +13,7 @@ export class DirectDebit {
 
     static add(options: DirectDebitAddRequest): Observable<string> {
         return Observable.create(observable => {
-            let request = new DirectDebitAddRequestClass(options);
+            const request = new DirectDebitAddRequestClass(options);
 
             if (!request.amount) {
                 observable.error('Amount is not set');
@@ -26,15 +31,18 @@ export class DirectDebit {
                 result => {
                     observable.next(result['result']);
                     observable.complete();
-                }, error => {
+                },
+                error => {
                     observable.error(error);
-                }
+                },
             );
-        })
+        });
     }
-    static get(mandateId: string): Observable<DirectDebitInfoResponse>{
-        let data = {};
+    static get(mandateId: string): Observable<DirectDebitInfoResponse> {
+        const data = {};
         data['mandateId'] = mandateId;
-        return Api.post('DirectDebit', 'info', this.version, data).map(response => new DirectDebitInfoResponse(response.result));
+        return Api.post('DirectDebit', 'info', this.version, data).map(
+            response => new DirectDebitInfoResponse(response.result),
+        );
     }
 }

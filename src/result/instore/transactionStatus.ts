@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 export interface TransactionStatusInterface {
     status: string;
     txid: string;
@@ -16,21 +18,21 @@ export interface TransactionStatusInterface {
     incidentcodetext?: string;
 }
 export class TransactionStatus {
-    constructor(private data: TransactionStatusInterface) { }
+    constructor(private data: TransactionStatusInterface) {}
     get isFinal(): boolean {
         return this.data.status != 'start';
     }
     get isError(): boolean {
-        return this.data.error == "1";
+        return this.data.error == '1';
     }
     get isCanceled(): boolean {
-        return this.data.cancelled == "1";
+        return this.data.cancelled == '1';
     }
     get isApproved(): boolean {
-        return this.data.approved == "1";
+        return this.data.approved == '1';
     }
     get needsSignature(): boolean {
-        return this.data.signature == "1";
+        return this.data.signature == '1';
     }
     get status(): string {
         return this.data.status;

@@ -1,0 +1,17 @@
+{
+    "bracketSpacing": true,
+    "bracketSameLine": true,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "printWidth": 100,
+    "overrides": [
+        {
+            "files": ["*.yml", "*.yaml", "*.json"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}

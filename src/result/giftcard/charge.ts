@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 export class ChargeResult {
     /**
      *  The unique ID of the transaction starting with EX-

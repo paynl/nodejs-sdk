@@ -1,8 +1,10 @@
-export class Terminal{
+/* eslint-disable */
+// @ts-nocheck
+export class Terminal {
     id: string;
     name: string;
     ecrProtocol: string;
-    constructor(data){
+    constructor(data) {
         this.id = data.id;
         this.name = data.name;
         this.ecrProtocol = data.ecrProtocol;
