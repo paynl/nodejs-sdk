@@ -4,4 +4,4 @@ build/*
 lib/*
 .idea/
 *.d.ts
-*.js
+coverage/

@@ -1,21 +1,18 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "sourceMap": false,
-        "target": "es5",
+        "module": "ESNext",
+        "strict": true,
+        "sourceMap": true,
+        "target": "ES2022",
         "declaration": true,
         "outDir": "./lib/",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "rootDirs": [
+            "./src"
+        ]
     },
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ],
-    "include":[
-        "./src/samples/*",
-        "./src/samples/**/*"
-    ],
-    "files": [
-        "./src/index.ts"
+    "include": [
+        "./src/**/*"
     ]
 }
