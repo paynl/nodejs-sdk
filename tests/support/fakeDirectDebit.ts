@@ -1,4 +1,4 @@
-import { Mandate } from '../../src';
+import { Mandate } from '../../src/index.ts';
 
 export const fakeDirectDebitMandate: Mandate = {
     code: 'IO-####-####-####',

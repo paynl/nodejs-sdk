@@ -1,4 +1,4 @@
-import { Order } from '../../src';
+import { Order } from '../../src/index.ts';
 
 export const orderCreateResponse: Order = {
     type: 'sale',

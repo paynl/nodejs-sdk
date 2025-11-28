@@ -1,5 +1,5 @@
-import { CreateAmount } from '../order/Amount';
-import { Stats } from '../shared';
+import { CreateAmount } from '../order/Amount.ts';
+import { Stats } from '../shared/index.ts';
 
 export type CreateMandate = {
     serviceId: string;

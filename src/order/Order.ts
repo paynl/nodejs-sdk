@@ -1,8 +1,8 @@
-import { ResponseAmount } from './Amount';
-import { Payment } from './Payment';
-import { NewAddress } from './Address';
-import { Company } from './Customer';
-import { Stats } from '../shared';
+import { ResponseAmount } from './Amount.ts';
+import { Payment } from './Payment.ts';
+import { NewAddress } from './Address.ts';
+import { Company } from './Customer.ts';
+import { Stats } from '../shared/index.ts';
 
 export type Order = {
     type: string;

@@ -1,4 +1,4 @@
-import { isNotTguOrder } from '../../src/order/isNotTguOrder';
+import { isNotTguOrder } from '../../src/order/isNotTguOrder.ts';
 
 describe('isNotTguOrder', () => {
     const orderCases = [

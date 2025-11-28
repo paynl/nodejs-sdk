@@ -1,7 +1,7 @@
-import { ApiClientInterface } from '../ApiClient';
-import { RestApiRequest } from '../RestApiRequest';
-import { PaymentMethod } from './PaymentMethod';
-import { LocaleCode } from '../shared';
+import { ApiClientInterface } from '../ApiClient.ts';
+import { RestApiRequest } from '../RestApiRequest.ts';
+import { PaymentMethod } from './PaymentMethod.ts';
+import { LocaleCode } from '../shared/index.ts';
 
 type AllPaymentMethodsResponse = {
     total: number;

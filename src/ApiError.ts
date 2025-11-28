@@ -1,4 +1,4 @@
-import { ApiResponse } from './ApiResponse';
+import { ApiResponse } from './ApiResponse.ts';
 
 export type GenericResponseBody = {
     type: string;

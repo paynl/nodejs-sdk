@@ -1,4 +1,4 @@
-import { OrderCreateOptions } from '../../src/order/CreateOrderOptions';
+import { OrderCreateOptions } from '../../src/order/CreateOrderOptions.ts';
 
 export const fakeCreateOrderOptions: OrderCreateOptions = {
     serviceId: 'SL-1234-5678',

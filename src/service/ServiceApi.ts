@@ -1,6 +1,6 @@
-import { ApiClientInterface } from '../ApiClient';
-import { ConnectApiRequest } from '../ConnectApiRequest';
-import { ServiceConfig } from './ServiceConfig';
+import { ApiClientInterface } from '../ApiClient.ts';
+import { ConnectApiRequest } from '../ConnectApiRequest.ts';
+import { ServiceConfig } from './ServiceConfig.ts';
 
 export class ServiceApi {
     constructor(private readonly apiClient: ApiClientInterface) {}

@@ -1,9 +1,9 @@
-import { ApiError } from '../../src';
-import { orderCreateResponse } from '../support/fakeOrder';
-import { OrderApi } from '../../src/order/OrderApi';
-import { fakeCreateOrderOptions } from '../support/fakeCreateOrderOptions';
-import { PaymentMethod } from '../../src/order/Payment';
-import { ApiClientMock } from '../support/ApiClientMock';
+import { ApiError } from '../../src/index.ts';
+import { orderCreateResponse } from '../support/fakeOrder.ts';
+import { OrderApi } from '../../src/order/OrderApi.ts';
+import { fakeCreateOrderOptions } from '../support/fakeCreateOrderOptions.ts';
+import { PaymentMethod } from '../../src/order/Payment.ts';
+import { ApiClientMock } from '../support/ApiClientMock.ts';
 
 const testOrderId = '00000000-1111-2222-3333-000000000000';
 

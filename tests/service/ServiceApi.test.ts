@@ -1,6 +1,6 @@
-import { ApiClientMock } from '../support/ApiClientMock';
-import { fakeConfig } from '../support/fakeConfig';
-import { ServiceApi } from '../../src/service/ServiceApi';
+import { ApiClientMock } from '../support/ApiClientMock.ts';
+import { fakeConfig } from '../support/fakeConfig.ts';
+import { ServiceApi } from '../../src/service/ServiceApi.ts';
 
 describe('ServiceApi', () => {
     it('can fetch service location config', async () => {

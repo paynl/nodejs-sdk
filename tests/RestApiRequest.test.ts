@@ -1,5 +1,5 @@
-import { RestApiRequest } from '../src/RestApiRequest';
-import { mockClientOptions } from './support/mockClientOptions';
+import { RestApiRequest } from '../src/RestApiRequest.ts';
+import { mockClientOptions } from './support/mockClientOptions.ts';
 
 describe('RestApiRequest', () => {
     it('should have the right options', () => {

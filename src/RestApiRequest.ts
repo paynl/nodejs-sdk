@@ -1,4 +1,4 @@
-import { ClientOptions } from './ApiClient';
+import { ClientOptions } from './ApiClient.ts';
 
 export type FetchOptions = RequestInit & { json?: unknown };
 

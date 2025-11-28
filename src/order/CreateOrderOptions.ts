@@ -1,9 +1,9 @@
-import { CreateAmount } from './Amount';
-import { PaymentMethod } from './Payment';
-import { Customer } from './Customer';
-import { PostalAddress } from './Address';
-import { ResponseProduct } from './Product';
-import { Stats } from '../shared';
+import { CreateAmount } from './Amount.ts';
+import { PaymentMethod } from './Payment.ts';
+import { Customer } from './Customer.ts';
+import { PostalAddress } from './Address.ts';
+import { ResponseProduct } from './Product.ts';
+import { Stats } from '../shared/index.ts';
 
 export type OrderCreateOptions = {
     serviceId: string;

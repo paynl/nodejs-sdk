@@ -1,4 +1,4 @@
-import { createPayNLClient } from '../src';
+import { createPayNLClient } from '../src/index.ts';
 
 const payNL = createPayNLClient({ password: 'your-api-token' });
 
