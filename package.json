@@ -7,19 +7,30 @@
   },
   "description": "Manage transactions in your Pay.nl account with nodejs",
   "type": "module",
+  "browser": "lib/index",
   "main": "lib/index.cjs",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/"
   ],
+  "exports": {
+    "require": {
+      "types": "./lib/index.d.cts",
+      "default": "./lib/index.cjs"
+    },
+    "import": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
   "engines": {
     "node": ">=18.*"
   },
   "scripts": {
     "build:esm": "BABEL_ENV=esm babel src --source-root src --out-dir lib --extensions .ts --out-file-extension .js",
     "build:cjs": "BABEL_ENV=cjs babel src --source-root src --out-dir lib --extensions .ts --out-file-extension .cjs",
-    "build:tsc": "tsc",
+    "build:tsc": "tsc && cp ./lib/index.d.ts ./lib/index.d.cts",
     "clean": "rm -rf ./lib",
     "prepack": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:tsc",
     "types": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json",
