@@ -1,4 +1,4 @@
-import { CreateAmount } from './Amount';
+import { CreateAmount } from './Amount.ts';
 
 export type CreateProduct = {
     id: string;

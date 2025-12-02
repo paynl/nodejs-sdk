@@ -1,2 +1,2 @@
-export * from './Stats';
-export * from './Locale';
+export * from './Stats.ts';
+export * from './Locale.ts';

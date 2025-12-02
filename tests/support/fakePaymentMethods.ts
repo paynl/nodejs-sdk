@@ -1,4 +1,4 @@
-import { PaymentMethod } from '../../src';
+import { PaymentMethod } from '../../src/index.ts';
 
 export const fakePaymentMethod: PaymentMethod = {
     id: 1,

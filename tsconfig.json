@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
-        "module": "ESNext",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "allowImportingTsExtensions": true,
+        "skipLibCheck": true,
         "strict": true,
-        "sourceMap": true,
-        "target": "ES2022",
+        "target": "esnext",
         "declaration": true,
         "outDir": "./lib/",
-        "moduleResolution": "node",
+        "rewriteRelativeImportExtensions": true,
         "esModuleInterop": true,
         "rootDirs": [
             "./src"

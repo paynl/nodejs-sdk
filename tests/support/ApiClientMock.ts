@@ -1,7 +1,7 @@
-import { ApiClient, ApiClientInterface, ApiError } from '../../src';
-import { mockClientOptions } from './mockClientOptions';
-import { ConnectApiRequest } from '../../src/ConnectApiRequest';
-import { RestApiRequest } from '../../src/RestApiRequest';
+import { ApiClient, ApiClientInterface, ApiError } from '../../src/index.ts';
+import { mockClientOptions } from './mockClientOptions.ts';
+import { ConnectApiRequest } from '../../src/ConnectApiRequest.ts';
+import { RestApiRequest } from '../../src/RestApiRequest.ts';
 
 export class ApiClientMock {
     private readonly clientMock: ApiClient;

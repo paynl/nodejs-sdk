@@ -1,6 +1,6 @@
-import { ApiClientMock } from '../support/ApiClientMock';
-import { CoreApi } from '../../src/core/CoreApi';
-import { fakePaymentMethod } from '../support/fakePaymentMethods';
+import { ApiClientMock } from '../support/ApiClientMock.ts';
+import { CoreApi } from '../../src/core/CoreApi.ts';
+import { fakePaymentMethod } from '../support/fakePaymentMethods.ts';
 
 describe('PaymentMethodsApi', () => {
     it('should return a list of all payment methods', async () => {

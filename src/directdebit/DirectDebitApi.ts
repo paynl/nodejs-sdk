@@ -1,7 +1,7 @@
-import { ApiClientInterface } from '../ApiClient';
-import { RestApiRequest } from '../RestApiRequest';
-import { CreateDirectDebit, DirectDebit } from './DirectDebit';
-import { CreateMandate, Mandate } from './Mandate';
+import { ApiClientInterface } from '../ApiClient.ts';
+import { RestApiRequest } from '../RestApiRequest.ts';
+import { CreateDirectDebit, DirectDebit } from './DirectDebit.ts';
+import { CreateMandate, Mandate } from './Mandate.ts';
 
 export class DirectDebitApi {
     constructor(private readonly apiClient: ApiClientInterface) {}

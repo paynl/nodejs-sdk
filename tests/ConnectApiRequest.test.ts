@@ -1,5 +1,5 @@
-import { ConnectApiRequest } from '../src/ConnectApiRequest';
-import { mockClientOptions } from './support/mockClientOptions';
+import { ConnectApiRequest } from '../src/ConnectApiRequest.ts';
+import { mockClientOptions } from './support/mockClientOptions.ts';
 
 describe('ConnectApiRequest', () => {
     it('should have the right options', () => {

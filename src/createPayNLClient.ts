@@ -1,9 +1,9 @@
-import { ClientOptions, ApiClient } from './ApiClient';
-import { PayNLProvider } from './PayNLProvider';
-import { OrderApi } from './order/OrderApi';
-import { CoreApi } from './core/CoreApi';
-import { DirectDebitApi } from './directdebit/DirectDebitApi';
-import { ServiceApi } from './service/ServiceApi';
+import { ClientOptions, ApiClient } from './ApiClient.ts';
+import { PayNLProvider } from './PayNLProvider.ts';
+import { OrderApi } from './order/OrderApi.ts';
+import { CoreApi } from './core/CoreApi.ts';
+import { DirectDebitApi } from './directdebit/DirectDebitApi.ts';
+import { ServiceApi } from './service/ServiceApi.ts';
 
 export function createPayNLClient(options: ClientOptions): PayNLProvider {
     const apiClient = new ApiClient(options);

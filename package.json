@@ -7,18 +7,32 @@
   },
   "description": "Manage transactions in your Pay.nl account with nodejs",
   "type": "module",
-  "main": "lib/index.js",
+  "browser": "lib/index",
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
     "lib/"
   ],
+  "exports": {
+    "require": {
+      "types": "./lib/index.d.cts",
+      "default": "./lib/index.cjs"
+    },
+    "import": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
   "engines": {
     "node": ">=18.*"
   },
   "scripts": {
-    "build": "tsc",
+    "build:esm": "BABEL_ENV=esm babel src --source-root src --out-dir lib --extensions .ts --out-file-extension .js",
+    "build:cjs": "BABEL_ENV=cjs babel src --source-root src --out-dir lib --extensions .ts --out-file-extension .cjs",
+    "build:tsc": "tsc && cp ./lib/index.d.ts ./lib/index.d.cts",
     "clean": "rm -rf ./lib",
-    "prepack": "npm run clean && npm run build",
+    "prepack": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:tsc",
     "types": "tsc --noEmit && tsc --noEmit -p tsconfig.tests.json",
     "lint": "eslint . && npm run types",
     "fix": "eslint . --fix && npm run types",
@@ -27,9 +41,15 @@
   "author": "Andy Pieters <andy@pay.nl>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.27.1",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@eslint/js": "^9.33.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
+    "babel-plugin-replace-import-extension": "^1.1.5",
     "eslint": "9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.32.0",

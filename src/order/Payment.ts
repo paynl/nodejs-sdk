@@ -1,5 +1,5 @@
-import { ResponseAmount } from './Amount';
-import { PaymentAddress } from './Address';
+import { ResponseAmount } from './Amount.ts';
+import { PaymentAddress } from './Address.ts';
 
 export type Payment = {
     id: string;

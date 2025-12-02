@@ -1,4 +1,4 @@
-import { Stats } from '../shared';
+import { Stats } from '../shared/index.ts';
 
 export type CreateDirectDebit = {
     mandateId: string;

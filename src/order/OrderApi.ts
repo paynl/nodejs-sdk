@@ -1,12 +1,12 @@
-import { ApiClientInterface } from '../ApiClient';
-import { Order } from './Order';
-import { ConnectApiRequest } from '../ConnectApiRequest';
-import { OrderCreateOptions } from './CreateOrderOptions';
-import { PaymentMethod } from './Payment';
-import { CreateProduct } from './Product';
-import { RestApiRequest } from '../RestApiRequest';
-import { DeprecatedTransaction } from '../transaction/DeprecatedTransaction';
-import { isNotTguOrder } from './isNotTguOrder';
+import { ApiClientInterface } from '../ApiClient.ts';
+import { Order } from './Order.ts';
+import { ConnectApiRequest } from '../ConnectApiRequest.ts';
+import { OrderCreateOptions } from './CreateOrderOptions.ts';
+import { PaymentMethod } from './Payment.ts';
+import { CreateProduct } from './Product.ts';
+import { RestApiRequest } from '../RestApiRequest.ts';
+import { DeprecatedTransaction } from '../transaction/DeprecatedTransaction.ts';
+import { isNotTguOrder } from './isNotTguOrder.ts';
 
 export class OrderApi {
     constructor(private readonly apiClient: ApiClientInterface) {}

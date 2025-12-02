@@ -1,5 +1,5 @@
-import { ApiError, GenericResponseBody } from '../src';
-import { ApiResponse } from '../src/ApiResponse';
+import { ApiError, GenericResponseBody } from '../src/index.ts';
+import { ApiResponse } from '../src/ApiResponse.ts';
 
 const BadRequestBody: GenericResponseBody = {
     type: 'https://developer.pay.nl/docs/error-codes',

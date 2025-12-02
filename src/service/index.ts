@@ -1,1 +1,1 @@
-export * from './ServiceConfig';
+export * from './ServiceConfig.ts';

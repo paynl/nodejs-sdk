@@ -1,7 +1,7 @@
-import { ConnectApiRequest } from './ConnectApiRequest';
-import { ApiResponse, ApiResponseInterface } from './ApiResponse';
-import { ApiError } from './ApiError';
-import { RestApiRequest } from './RestApiRequest';
+import { ConnectApiRequest } from './ConnectApiRequest.ts';
+import { ApiResponse, ApiResponseInterface } from './ApiResponse.ts';
+import { ApiError } from './ApiError.ts';
+import { RestApiRequest } from './RestApiRequest.ts';
 
 export type ClientOptions = {
     /**

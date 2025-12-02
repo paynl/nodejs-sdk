@@ -1,4 +1,4 @@
-import { ClientOptions, createPayNLClient } from '../src';
+import { ClientOptions, createPayNLClient } from '../src/index.ts';
 
 describe('createPayNLClient', () => {
     it('should return a client class with the given options', () => {

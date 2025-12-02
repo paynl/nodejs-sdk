@@ -1,1 +1,1 @@
-export * from './PaymentMethod';
+export * from './PaymentMethod.ts';
