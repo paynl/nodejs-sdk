@@ -12,4 +12,3 @@ try {
     console.log(error.body?.detail);
     console.log(error.body?.violations);
 }
-
