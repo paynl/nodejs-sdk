@@ -4,8 +4,12 @@ const payNL = createPayNLClient({ username: 'AT-1234-5678', password: 'your-api-
 
 const orderId = '00000000-1111-2222-3333-000000000000';
 
-const refund = await payNL.Orders.refund(orderId);
-// or
-const refund = await payNL.Orders.refund(orderId, 100);
+try {
+    const refund = await payNL.Orders.refund(orderId, 100);
+    console.log(refund.description);
+} catch (error) {
+    console.log(error.statusCode);
+    console.log(error.body?.detail);
+    console.log(error.body?.violations);
+}
 
-console.log(refund.description);
