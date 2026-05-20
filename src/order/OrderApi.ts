@@ -194,19 +194,19 @@ export class OrderApi {
         );
         return await response.body<Order>();
     }
-       
+
     /**
-     * Refund an order, with amount
+     * Refund an order, with an optional amount. If no amount is specified, the full order amount will be refunded.
      *
      * @see https://developer.pay.nl/reference/patch_transactions-transactionid-refund
      */
-    async refund(orderId: string, amountInCents: number): Promise<Order> {
+    async refund(orderId: string, amountInCents?: number): Promise<Order> {
         const response = await this.apiClient.request(
             new RestApiRequest(`v2/transactions/${orderId}/refund`, {
                 method: 'PATCH',
                 json: { amount: {value: amountInCents ? amountInCents : null} },
             }),
-        );    
+        );
         return await response.body<Order>();
     }
 }
