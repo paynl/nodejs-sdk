@@ -1,7 +1,7 @@
 import { ResponseAmount } from './Amount.ts';
 
 export type SplitPayment = {
-    id: string;    
+    serviceId: string;
     amount: ResponseAmount;
     fee: string;
 };
