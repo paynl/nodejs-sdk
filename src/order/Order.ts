@@ -3,8 +3,10 @@ import { Payment } from './Payment.ts';
 import { NewAddress } from './Address.ts';
 import { Company } from './Customer.ts';
 import { Stats } from '../shared/index.ts';
+import { SplitPayment } from './SplitPayment.ts';
 
 export type Order = {
+    id: string;
     type: string;
     serviceId: string;
     description: string | null;
@@ -22,6 +24,7 @@ export type Order = {
         pointOfInteraction: string | null;
         test: boolean;
     };
+    splitPayments: SplitPayment[];
     stats: Stats;
     transferData: Record<string, unknown>;
     amount: ResponseAmount;
