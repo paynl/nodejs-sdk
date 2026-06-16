@@ -1,6 +1,7 @@
 import { Order } from '../../src/index.ts';
 
 export const orderCreateResponse: Order = {
+    id: 'ord_test',
     type: 'sale',
     serviceId: 'SL-####-####',
     description: 'Instore Terminal Order #27',
@@ -18,6 +19,7 @@ export const orderCreateResponse: Order = {
         pointOfInteraction: null,
         test: false,
     },
+    splitPayments: [],
     stats: {
         extra1: 'extra1',
         extra2: 'extra2',
